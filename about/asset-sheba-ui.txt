@@ -1,0 +1,18 @@
+Febrifest - frontend
+Reference: https://manfarebd.com/
+=======================
+1. home page - heavy - (done) - dynamic
+2. category/sub-category page - (done) - dynamic
+3. trending product/offer product/hot deal/search result - (done, will be copy past product page) - dynamic
+4. product page - heavy - (done) - dynamic
+5. product detail page - heavy - (done) - dynamic
+6. login/register - (done) - dynamic
+7. cart page - (done) - dynamic
+8. checkout - heavy - (done) - dynamic
+9. thank you page - (done) - dynamic
+10. about page - (done) - dynamic
+11. contact page - (done) - dynamic
+12. privacy policy/refund policy/terms & condition - (done) - dynamic
+13. track order - (done) - dynamnic
+14. user account (dashboard, wishlist) - (done) - dynamic
+15. user account (profile, setting) - (done) - dynamic

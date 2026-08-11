@@ -1,0 +1,381 @@
+/* ==========================================================================
+   01. GLOBAL & BASE COMPONENT STYLES
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    cursor: default;
+    font-family: var(--FontPrimary, 'Poppins', 'Noto Sans Bengali', sans-serif);
+    background-color: var(--ColorPrimaryRGB) !important;
+    position: relative;
+}
+
+/* Luxury warm glow blobs behind the content */
+body::before {
+    content: "";
+    position: fixed;
+    top: -10%;
+    left: -15%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(var(--ColorPrimaryRGB), 0.09) 0%, transparent 70%);
+    z-index: -10;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    bottom: -10%;
+    right: -15%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(var(--ColorPrimaryRGB), 0.07) 0%, transparent 70%);
+    z-index: -10;
+    pointer-events: none;
+}
+
+.slider_item {
+    container-type: inline-size;
+    container-name: banner;
+}
+
+.fluid-banner-padding {
+    padding-top: clamp(12px, 3cqw, 48px) !important;
+    padding-bottom: clamp(12px, 3cqw, 48px) !important;
+    padding-right: clamp(12px, 3cqw, 48px) !important;
+    padding-left: clamp(56px, 7.5cqw, 100px) !important;
+}
+
+/* Mobile small screen adjustment (<= 576px) */
+@media (max-width: 576px) {
+    .fluid-banner-padding {
+        padding-left: clamp(16px, 4cqw, 32px) !important;
+    }
+}
+
+.fluid-badge {
+    font-size: clamp(8px, 1.1cqw, 12px) !important;
+    margin-bottom: clamp(2px, 0.6cqw, 8px) !important;
+}
+
+.fluid-h1 {
+    font-size: clamp(14px, 3.8cqw, 54px) !important;
+    line-height: 1 !important;
+}
+
+.fluid-accent {
+    font-size: clamp(18px, 4.8cqw, 68px) !important;
+    margin-top: clamp(-4px, -1cqw, -14px) !important;
+}
+
+.fluid-desc {
+    font-size: clamp(8px, 1.1cqw, 13px) !important;
+    line-height: 1.35 !important;
+    margin-bottom: clamp(6px, 1.4cqw, 20px) !important;
+}
+
+.fluid-btn {
+    font-size: clamp(8px, 1cqw, 12px) !important;
+    padding: clamp(4px, 0.8cqw, 12px) clamp(12px, 2cqw, 28px) !important;
+    border-radius: 9999px !important;
+}
+
+/* ==========================================================================
+   04. DESKTOP NAVIGATION & MEGA MENU COMPONENT
+   ========================================================================== */
+
+/* Mega Menu Container (Clean White Theme matching Goby Fabrifest design) */
+.mega-menu-panel {
+    background-color: #ffffff !important;
+    color: var(--ColorDarkPrimary, #1E1E1E);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--ColorLine, #E2E8F0);
+    max-height: 75vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--ColorPrimaryRGB), 0.5) rgba(0, 0, 0, 0.05);
+}
+
+.mega-menu-panel::-webkit-scrollbar {
+    width: 5px;
+}
+
+.mega-menu-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 99px;
+}
+
+.mega-menu-panel::-webkit-scrollbar-thumb {
+    background: var(--ColorPrimary);
+    border-radius: 99px;
+}
+
+/* Category Headers & Items inside Mega Menu */
+.mega-category-title {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ColorPrimary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.mega-subitem {
+    font-size: 12px;
+    color: #4A5568;
+    padding: 0.25rem 0;
+    display: block;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.mega-subitem:hover {
+    color: var(--ColorPrimary);
+    transform: translateX(3px);
+}
+
+/* Multi-level Flyout Submenus (.dropdown-submenu) */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -0.25rem;
+    margin-left: 0.25rem;
+    display: none;
+    min-width: 190px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    z-index: 60;
+}
+
+.dropdown-submenu:hover>.dropdown-menu,
+.dropdown-submenu.show>.dropdown-menu {
+    display: block !important;
+}
+
+/* ==========================================================================
+   05. SMART OVERFLOW "MORE ▾" DROPDOWN COMPONENT
+   ========================================================================== */
+.more-dropdown {
+    position: relative;
+}
+
+.more-dropdown .dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 190px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.more-dropdown-items .nav-dropdown-panel {
+    position: static !important;
+    margin-top: 0.25rem !important;
+    width: 100% !important;
+    box-shadow: none !important;
+}
+
+.more-dropdown-items .nav-dropdown-panel::before {
+    display: none !important;
+}
+
+.more-dropdown-items .nav-item-link,
+.more-dropdown-items button {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0.5rem 0.70rem !important;
+    border-radius: 0.5rem !important;
+}
+
+/* ==========================================================================
+   06. MOBILE DRAWER & ACCORDION INDENT SYSTEM
+   ========================================================================== */
+.mobile-subaccordion-content,
+#mobile-menu-dropdown .mobile-accordion-content,
+.more-dropdown-items .nav-dropdown-panel {
+    border-left: 2px solid rgba(var(--ColorPrimaryRGB), 0.45) !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    margin-left: 0.70rem !important;
+    padding-left: 0.70rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    background: transparent !important;
+}
+
+/* ==========================================================================
+   07. UNIVERSAL REUSABLE PRODUCT CARD SYSTEM
+   ========================================================================== */
+.product-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid rgb(var(--ColorLightSecondaryRGB));
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.product-card:hover {
+    border-color: rgba(var(--ColorPrimaryRGB), 0.45) !important;
+}
+
+/* Premium Rounded Inner Box for Product Images */
+.product-card .relative.aspect-square {
+    margin: 10px 10px 0 10px !important;
+    border-radius: 14px !important;
+    background-color: #f6f8fb !important;
+    overflow: hidden !important;
+}
+
+.product-card .relative.aspect-square img {
+    border-radius: 14px !important;
+}
+
+/* Category card hover transition enhancement */
+.category-slider .slider_item a {
+    transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.category-slider .slider_item a:hover {
+    border-color: rgba(var(--ColorPrimaryRGB), 0.45) !important;
+}
+
+/* ==========================================================================
+   08. PREMIUM PRELOADER SYSTEM
+   ========================================================================== */
+#preloader {
+    position: fixed;
+    inset: 0;
+    /* dvh = dynamic viewport height: auto-adjusts when iOS Safari browser chrome shows/hides.
+       Prevents the empty gap that appears where the address bar/toolbar was. */
+    width: 100dvw;
+    height: 100dvh;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #161c24 0%, #0d1117 100%);
+    transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#preloader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-glow {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--ColorPrimaryRGB), 0.2) 0%, transparent 70%);
+    animation: preloader-pulse 2s infinite alternate;
+}
+
+@keyframes preloader-pulse {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1.15);
+        opacity: 0.9;
+    }
+}
+
+
+
+/* ==========================================================================
+   09. PREMIUM QUICK VIEW OVERLAY
+   ========================================================================== */
+.product-card .quick-view-btn {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(15, 23, 42, 0.45) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+    z-index: 2 !important;
+    opacity: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    letter-spacing: 0 !important;
+}
+
+.product-card .relative:hover .quick-view-btn,
+.product-card:hover .quick-view-btn {
+    opacity: 1 !important;
+}
+
+/* Icon Centering & Circular Card Styling */
+.product-card .quick-view-btn i,
+.product-card .quick-view-btn svg {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 11px !important;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform: scale(0.8) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.product-card .relative:hover .quick-view-btn i,
+.product-card .relative:hover .quick-view-btn svg,
+.product-card:hover .quick-view-btn i,
+.product-card:hover .quick-view-btn svg {
+    transform: scale(1) !important;
+}
+
+.product-card .quick-view-btn:hover i,
+.product-card .quick-view-btn:hover svg {
+    background-color: var(--ColorPrimary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 25px -5px rgba(var(--ColorPrimaryRGB), 0.45) !important;
+}
+
+/* Ensure wishlist/favourite button and badges with hover-z-index sit on top of the quick view hover layer */
+.hover-z-index {
+    z-index: 10 !important;
+}

@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>Asset Sheba</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Dynamic Theme Group
+                        theme: {
+                            primary: "rgb(var(--ColorThemePrimaryRGB))",
+                            secondary: "rgb(var(--ColorThemeSecondaryRGB))",
+                        },
+
+                        // Light Palette Group
+                        light: {
+                            primary: "rgb(var(--ColorLightPrimaryRGB))",
+                            secondary: "rgb(var(--ColorLightSecondaryRGB))",
+                        },
+
+                        // Dark Palette Group
+                        dark: {
+                            primary: "rgb(var(--ColorDarkPrimaryRGB))",
+                            secondary: "rgb(var(--ColorDarkSecondaryRGB))",
+                        },
+                    },
+                    fontFamily: {
+                        sans: ["var(--FontPrimary)", "sans-serif"],
+                        accent: ["'Great Vibes'", "cursive"],
+                    },
+                    fontSize: {
+                        "ultra-small": "var(--FontSizeUltraSmall)",
+                        "extra-small": "var(--FontSizeExtraSmall)",
+                        "small": "var(--FontSizeSmall)",
+                        "normal": "var(--FontSizeNormal)",
+                        "large": "var(--FontSizeLarge)",
+                        "extra-large": "var(--FontSizeExtraLarge)",
+                        "ultra-large": "var(--FontSizeUltraLarge)",
+                    },
+                    boxShadow: {
+                        card: "var(--BoxShadow)",
+                        "card-hover": "var(--BoxShadowHover)",
+                    },
+                    animation: {
+                        'infinite-dash': 'infinite-dash 1.5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'infinite-dash': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '50%': { transform: 'translateX(120%)' },
+                            '100%': { transform: 'translateX(250%)' }
+                        }
+                    }
+                },
+                container: {
+                    center: true,
+                    padding: "0.75rem",
+                    screens: {
+                        "xs": "480px",
+                        "sm": "576px",
+                        "md": "768px",
+                        "lg": "992px",
+                        "xl": "1200px",
+                        "2xl": "1600px",
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Slick Slider CSS (Local Workspace Paths) -->
+    <link rel="stylesheet" href="Plugins-Framework/slick-slider/slick.css">
+    <link rel="stylesheet" href="Plugins-Framework/slick-slider/slick.customize.css">
+
+    <!-- LightGallery CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
+    <link rel="stylesheet" href="Plugins-Framework/light-gallery/lightgallery-custom.css">
+
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/fonts.css">
+
+    <!-- Common CSS (Variables and Basic settings) -->
+    <link rel="stylesheet" href="frontend/assets/css/common.css">
+
+    <!-- Tailwind Output (For compiled builds) -->
+    <link rel="stylesheet" href="frontend/assets/css/tailwind-built.css">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="Plugins-Framework/aos/aos.css">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+
+</head>
+
+<body class="text-ink antialiased">
+
+    <!-- ============ UNIFIED PRELOADER SYSTEM ============ -->
+    <script>
+        const shebaLoader = {
+            _activeLoaders: new Map(),
+
+            /**
+             * Show the spinner / page loader
+             * @param {string|HTMLElement} target - CSS Selector or DOM Element
+             * @param {string} message - Optional message
+             */
+            show: function (target = 'body', message = '') {
+                const parent = typeof target === 'string' ? document.querySelector(target) : target;
+                if (!parent) return;
+
+                if (this._activeLoaders.has(parent)) return;
+
+                const isFullscreen = target === 'body';
+                if (!isFullscreen) {
+                    parent.style.setProperty('position', 'relative', 'important');
+                }
+
+                const loader = document.createElement('div');
+
+                if (isFullscreen) {
+                    // Sleek Dash Horizon Page Loader (Tailwind-only)
+                    loader.id = 'preloader';
+                    loader.className = 'fixed inset-0 w-screen h-screen z-[99999] flex flex-col items-center justify-center bg-slate-950 transition-all duration-700 ease-out';
+                    loader.innerHTML = `
+            <div class="relative flex flex-col items-center space-y-6">
+              <!-- Center Brand Logo Image -->
+              <div class="w-20 h-20 flex items-center justify-center relative">
+                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba Logo" class="w-16 h-16 object-contain">
+              </div>
+              
+              <!-- Smart Infinite Dash Progress Line -->
+              <div class="w-32 h-[3px] bg-slate-800 rounded-full overflow-hidden relative">
+                <div class="absolute top-0 bottom-0 left-0 bg-theme-primary rounded-full w-14 animate-infinite-dash"></div>
+              </div>
+              
+              <!-- Clean Minimal Typography -->
+              <div class="text-center space-y-1">
+                <h2 class="text-white text-sm font-semibold tracking-[0.25em] uppercase">Asset Sheba</h2>
+                <p class="text-[9px] text-slate-500 tracking-[0.3em] font-medium uppercase">${message || 'All in One Platform'}</p>
+              </div>
+            </div>
+          `;
+                } else {
+                    // Reusable Container Loader (Matching style)
+                    loader.className = 'absolute inset-0 w-full h-full z-50 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-950/95 transition-all duration-300';
+                    loader.innerHTML = `
+            <div class="relative flex flex-col items-center space-y-3-">
+              <!-- Minimal core spinner dot -->
+              <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center">
+                <span class="text-theme-primary font-bold text-xs">A</span>
+              </div>
+              <div class="w-16 h-[2px] bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden relative">
+                <div class="absolute top-0 bottom-0 left-0 bg-theme-primary rounded-full w-8 animate-infinite-dash"></div>
+              </div>
+              ${message ? `<p class="text-[9px] font-semibold text-slate-500 tracking-wider uppercase">${message}</p>` : ''}
+            </div>
+          `;
+                }
+
+                parent.appendChild(loader);
+                this._activeLoaders.set(parent, loader);
+            },
+
+            /**
+             * Hide the loader
+             * @param {string|HTMLElement} target - CSS Selector or DOM Element
+             */
+            hide: function (target = 'body') {
+                const parent = typeof target === 'string' ? document.querySelector(target) : target;
+                if (!parent) return;
+
+                const loader = this._activeLoaders.get(parent);
+                if (loader) {
+                    loader.classList.add('loaded'); // support premium fade transitions
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.remove();
+                        this._activeLoaders.delete(parent);
+                    }, 800);
+                }
+            }
+        };
+    </script>
+
+    <!-- ============ COMMON OFFCANVAS BACKDROP API ============ -->
+    <script>
+        const shebaBackdrop = {
+            _element: null,
+            _activeOffcanvases: new Set(),
+
+            init: function () {
+                if (!this._element) {
+                    this._element = $('#common-offcanvas-backdrop');
+                }
+            },
+
+            show: function (offcanvasSelector, closeCallback) {
+                this.init();
+                this._activeOffcanvases.add(offcanvasSelector);
+
+                const canvas = $(offcanvasSelector);
+                const canvasIndex = canvas.data('canvas-index') || 999;
+                const backdropIndex = canvas.data('backdrop-index') || 99;
+
+                // Set backdrop z-index and show it
+                this._element.css('z-index', backdropIndex);
+                this._element.removeClass('hidden').addClass('block');
+                setTimeout(() => this._element.addClass('opacity-100'), 50);
+                $('body').css('overflow', 'hidden');
+
+                // Dynamically find all parents with active z-indices and clear them
+                canvas.parents().each(function () {
+                    const parent = $(this);
+                    const pos = parent.css('position');
+                    const zIndex = parent.css('z-index');
+                    if (pos !== 'static' && zIndex !== 'auto') {
+                        parent.data('orig-zindex', zIndex);
+                        parent.data('orig-position', pos);
+                        parent.css({
+                            'z-index': 'auto',
+                            'position': 'static'
+                        });
+                    }
+                });
+
+                // Set offcanvas z-index
+                canvas.css('z-index', canvasIndex);
+
+                // Bind click trigger once
+                this._element.off('click').on('click', (e) => {
+                    e.stopPropagation();
+                    if (typeof closeCallback === 'function') {
+                        closeCallback();
+                    }
+                });
+            },
+
+            hide: function (offcanvasSelector) {
+                this.init();
+                this._activeOffcanvases.delete(offcanvasSelector);
+
+                const canvas = $(offcanvasSelector);
+
+                // Restore parent stacking contexts dynamically
+                canvas.parents().each(function () {
+                    const parent = $(this);
+                    const origZIndex = parent.data('orig-zindex');
+                    const origPos = parent.data('orig-position');
+                    if (origZIndex !== undefined) {
+                        parent.css({
+                            'z-index': origZIndex,
+                            'position': origPos
+                        });
+                        parent.removeData('orig-zindex').removeData('orig-position');
+                    }
+                });
+
+                // Reset offcanvas z-index
+                canvas.css('z-index', '');
+
+                // Only fade/hide backdrop if no other active offcanvas needs it
+                if (this._activeOffcanvases.size === 0) {
+                    this._element.removeClass('opacity-100');
+                    setTimeout(() => {
+                        if (this._activeOffcanvases.size === 0) {
+                            this._element.removeClass('block').addClass('hidden');
+                        }
+                    }, 300);
+                    $('body').css('overflow', '');
+                }
+            }
+        };
+    </script>
+
+    <script>
+        // Initialize fullscreen premium preloader immediately
+        shebaLoader.show('body');
+
+        // Auto-hide on load complete
+        window.addEventListener('load', () => {
+            setTimeout(() => shebaLoader.hide('body'), 350);
+        });
+
+        // Fallback maximum load time limit
+        setTimeout(() => shebaLoader.hide('body'), 3000);
+
+        /*
+          ==========================================================================
+          HOW TO USE shebaLoader (USE CASE EXAMPLES)
+          ==========================================================================
+    
+          1. Inside Modal or Offcanvas (Using class or ID):
+             --------------------------------------------------
+             // Show loader
+             shebaLoader.show('#my-modal', 'Loading data...');
+             
+             // Hide loader inside AJAX callback
+             shebaLoader.hide('#my-modal');
+    
+          2. On Forms or Specific Containers:
+             --------------------------------------------------
+             // Show loader on form submission
+             shebaLoader.show('form.checkout-form', 'Processing payment...');
+             
+             // Hide loader on success/error response
+             shebaLoader.hide('form.checkout-form');
+             
+          3. Dynamic DOM Element object reference:
+             --------------------------------------------------
+             const element = document.querySelector('.some-card-element');
+             shebaLoader.show(element);
+             shebaLoader.hide(element);
+        */
+    </script>
+    <!-- ============ PRELOADER END ============ -->
+
+    <!-- ============ COMMON OFFCANVAS BACKDROP (Shared for all offcanvas panels) ============ -->
+    <div id="common-offcanvas-backdrop"
+        class="fixed inset-0 bg-[#0f172a]/50 backdrop-blur-[2px] z-[99] hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
+    </div>
+
+
+
+    <div class="body flex flex-col min-h-screen">
+
+        <header id="main-header" class="sticky top-0 z-[9] bg-transparent transition-all duration-300">
+            <!-- Single Floating Rounded Header Card -->
+            <div id="header-card"
+                class="w-full bg-white py-3.5 border-b border-slate-100/80 shadow-[0_2px_15px_rgba(0,0,0,0.01)] transition-all duration-300 relative z-[9]">
+
+                <div class="container relative z-[9]">
+
+                    <!-- Top Row: Logo + Nav + Utility Icons (Grid matching page content) -->
+                    <div id="header-top-row"
+                        class="flex lg:grid lg:grid-cols-12 items-stretch justify-between gap-3 sm:gap-4 lg:gap-5 h-11">
+                        <!-- Left (col-span-3 to align with sidebar filter) -->
+                        <div class="flex items-center gap-2 shrink-0 lg:col-span-3 h-full lg:justify-start">
+                            <!-- Mobile Hamburger Toggle Button (Left side next to logo) -->
+                            <button id="mobile-menu-btn"
+                                class="lg:hidden w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-600 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer"
+                                aria-label="Toggle Navigation Menu">
+                                <i class="fa-solid fa-bars text-sm"></i>
+                            </button>
+
+                            <!-- Logo -->
+                            <a href="index.html"
+                                class="flex items-center gap-2.5 shrink-0 hover:opacity-90 transition-opacity">
+                                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba"
+                                    class="h-9 w-auto object-contain">
+                                <div class="flex flex-col logo-text max-[576px]:hidden">
+                                    <span
+                                        class="text-base font-black tracking-[0.05em] text-slate-800 leading-tight uppercase">ASSET
+                                        SHEBA</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Center/Nav Placeholder (Desktop only) -->
+                        <div id="desktop-nav-placeholder"
+                            class="lg:col-span-6 lg:flex lg:items-center lg:justify-center lg:h-full lg:overflow-visible">
+                            <div id="unified-nav" data-canvas-index="999" data-backdrop-index="99"
+                                class="fixed top-0 left-0 h-full w-[290px] z-[999] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:visible lg:static lg:h-full lg:w-full lg:translate-x-0 lg:flex-row lg:shadow-none lg:justify-center lg:overflow-visible">
+
+                                <!-- Drawer Header (mobile only — hidden on desktop via CSS) -->
+                                <div
+                                    class="nav-drawer-header flex items-center justify-between px-4 h-[72px] border-b border-gray-100 shrink-0 bg-white lg:hidden">
+                                    <a href="index.html" class="flex items-center gap-2">
+                                        <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba"
+                                            class="h-8 w-auto object-contain">
+                                        <span class="text-sm font-black tracking-wide text-gray-900 uppercase">Asset
+                                            Sheba</span>
+                                    </a>
+                                    <button id="nav-close-btn"
+                                        class="w-8 h-8 rounded-full bg-gray-100 hover:bg-theme-primary hover:text-white text-gray-600 flex items-center justify-center transition-all cursor-pointer"
+                                        aria-label="Close navigation">
+                                        <i class="fa-solid fa-xmark text-sm"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Drawer Body — nav items live here ONCE -->
+                                <nav class="bg-white nav-drawer-body flex-1 overflow-y-auto p-5 lg:p-0 flex flex-col space-y-3- lg:space-y-0 lg:flex lg:flex-row lg:items-center lg:justify-center lg:w-full lg:gap-6 lg:overflow-visible h-full"
+                                    aria-label="Main Navigation">
+
+                                    <a href="index.html"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Home</a>
+                                    <a href="products.html"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Services</a>
+                                    <a href="products.html?deal=Sale"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Assets</a>
+                                    <a href="products.html?deal=New"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Asset
+                                        Sheba Store</a>
+                                    <a href="products.html?deal=New"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Premium
+                                        Ads</a>
+                                    <a href="products.html?deal=New"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Featured
+                                        Ads</a>
+                                    <a href="products.html?deal=New"
+                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Trending
+                                        Ads</a>
+
+                                    <!-- ABOUT US WITH SUBMENU -->
+                                    <div class="nav-item-dropdown relative w-full lg:w-auto">
+                                        <button id="about-dropdown-btn"
+                                            class="nav-link-item w-full lg:w-auto flex items-center justify-between gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap cursor-pointer focus:outline-none">
+                                            <span>About</span>
+                                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                                                id="about-chevron"></i>
+                                        </button>
+                                        <div id="about-dropdown-panel"
+                                            class="hidden w-full bg-transparent lg:absolute lg:left-0 lg:top-full lg:mt-2 lg:w-52 lg:bg-white rounded-2xl lg:shadow-[0_20px_50px_rgba(0,0,0,0.08)] lg:border lg:border-slate-100 z-50 transition-all duration-300 before:content-[''] before:absolute before:-top-6 before:left-0 before:right-0 before:h-6 nav-dropdown-panel">
+                                            <a href="#"
+                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Our
+                                                Story</a>
+                                            <a href="#"
+                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Outlets
+                                                & Stores</a>
+                                            <a href="#"
+                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Careers</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- ── More ▾ Overflow Button (desktop only, inserted by JS) ── -->
+                                    <div id="more-nav-btn-wrapper" class="hidden nav-dropdown-wrapper relative">
+                                        <button id="more-nav-btn"
+                                            class="nav-link-item flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-ink hover:bg-gray-50 hover:text-theme-primary transition-all whitespace-nowrap cursor-pointer">
+                                            More
+                                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                                                id="more-chevron"></i>
+                                        </button>
+                                        <!-- More dropdown panel -->
+                                        <div id="more-nav-panel"
+                                            class="nav-dropdown-panel hidden absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-gray-100 p-2 min-w-[180px] z-50">
+                                        </div>
+                                    </div>
+
+                                </nav><!-- end nav-drawer-body -->
+
+                            </div><!-- end #unified-nav -->
+                        </div><!-- end #desktop-nav-placeholder -->
+
+                        <!-- Right (col-span-3 to align with products view) -->
+                        <div class="flex items-center gap-3 shrink-0 lg:col-span-3 h-full lg:justify-end">
+
+
+                            <!-- Language Switcher button (BN / EN Switch) -->
+                            <button id="lang-switch-btn"
+                                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-xs font-bold text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer">
+                                EN
+                            </button>
+
+                            <!-- Compare Icon Button with Badge -->
+                            <a href="#" aria-label="Compare"
+                                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
+                                <i class="fa-solid fa-code-compare text-[13px]"></i>
+                                <span id="compare-badge"
+                                    class="absolute -top-1.5 -right-1.5 bg-theme-primary text-white text-[9px] leading-none min-w-[15px] h-3.5 rounded-full flex items-center justify-center font-bold px-0.5">2</span>
+                            </a>
+
+                            <!-- Wishlist Icon Button -->
+                            <a href="#" aria-label="Wishlist"
+                                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
+                                <i class="fa-regular fa-heart text-[13px]"></i>
+                            </a>
+
+                            <!-- Cart Toggle Button with Badge -->
+                            <button id="cart-toggle-btn" aria-label="Cart"
+                                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative cursor-pointer">
+                                <i class="fa-solid fa-bag-shopping text-[13px]"></i>
+                                <span id="cart-badge"
+                                    class="absolute -top-1.5 -right-1.5 bg-theme-primary text-white text-[9px] leading-none min-w-[15px] h-3.5 rounded-full flex items-center justify-center font-bold px-0.5">3</span>
+                            </button>
+
+                            <!-- User Account / Profile Icon Button (Hidden on Mobile) -->
+                            <a href="#" aria-label="Account"
+                                class="auth-modal-trigger hidden lg:flex w-10 h-10 rounded-full border border-slate-100 items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 overflow-hidden">
+                                <i class="fa-regular fa-user text-[13px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="py-10 flex items-center justify-center flex-1 h-full">
+            <div class="container max-w-5xl">
+
+                <!-- Auth Page Card -->
+                <div class="relative w-full max-w-4xl lg:max-w-[900px] bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px]"
+                    id="page-auth-card">
+
+                    <!-- ===== LEFT BANNER ===== -->
+                    <div class="relative overflow-hidden flex items-center justify-center bg-[#070624] w-full h-full min-h-0">
+                        <img id="page-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
+                            alt="Asset Sheba Authentication"
+                            class="w-full h-full object-contain object-center transition-all duration-300">
+                    </div>
+
+                    <!-- ===== RIGHT FORM SIDE ===== -->
+                    <div
+                        class="p-6 sm:p-8 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
+
+                        <!-- TABS HEADER -->
+                        <div class="flex border-b border-slate-100 mb-3 shrink-0">
+                            <button id="page-tab-account"
+                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none">Account</button>
+                            <button id="page-tab-login"
+                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
+                                In</button>
+                            <button id="page-tab-register"
+                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
+                                Up</button>
+                        </div>
+
+                        <!-- SCROLLABLE FORM AREA -->
+                        <div class="flex-1 min-h-0 overflow-y-auto pr-2 py-1 scrollbar-thin">
+                            <div class="flex flex-col justify-start">
+
+                                <!-- ── PANEL: Account (Step 1) ── -->
+                                <div id="page-form-account-panel" class="space-y-4 w-full">
+                                    <form id="page-account-form" class="space-y-4">
+                                        <!-- Login Type Segment Toggle -->
+                                        <div>
+                                            <label
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select
+                                                Login Type
+                                            </label>
+                                            <div class="flex p-1 bg-slate-100/80 rounded-2xl"
+                                                id="page-account-type-toggle-group">
+                                                <button type="button" data-value="email"
+                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
+                                                    <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                                </button>
+                                                <button type="button" data-value="username"
+                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                    <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                                </button>
+                                                <button type="button" data-value="phone"
+                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                    <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                                </button>
+                                            </div>
+                                            <input type="hidden" id="page-account-type" value="email">
+                                        </div>
+
+                                        <!-- Email / Username input -->
+                                        <div id="page-account-input-text-wrapper">
+                                            <label id="page-account-input-label" for="page-account-input"
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email
+                                                Address
+                                            </label>
+                                            <input type="text" id="page-account-input"
+                                                placeholder="Enter your email address" required
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                        </div>
+
+                                        <!-- Phone input -->
+                                        <div id="page-account-input-phone-wrapper" class="hidden">
+                                            <label for="page-account-phone"
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
+                                                Number
+                                            </label>
+                                            <div class="flex gap-2">
+                                                <div
+                                                    class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                    +880</div>
+                                                <input type="tel" id="page-account-phone" placeholder="1712345678"
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            <span>Continue</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- ── PANEL: Sign In ── -->
+                                <div id="page-form-login-panel" class="w-full hidden">
+                                    <!-- Preview banner (shown when arriving via Account step) -->
+                                    <div id="page-login-preview-banner"
+                                        class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                        <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-user-check text-theme-primary"></i>
+                                            <span id="page-login-identifier-preview" class="font-semibold"></span>
+                                        </div>
+                                        <button type="button"
+                                            class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                            Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                        </button>
+                                    </div>
+
+                                    <form id="page-login-form" class="space-y-4">
+                                        <!-- Direct type selector (shown when visiting tab directly) -->
+                                        <div id="page-login-direct-type-wrapper" class="hidden space-y-4">
+                                            <div>
+                                                <label
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                    <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i>
+                                                    Select Login Type
+                                                </label>
+                                                <div class="flex p-1 bg-slate-100/80 rounded-2xl"
+                                                    id="page-login-type-toggle-group">
+                                                    <button type="button" data-value="email"
+                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
+                                                        <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                                    </button>
+                                                    <button type="button" data-value="username"
+                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                        <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                                    </button>
+                                                    <button type="button" data-value="phone"
+                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                        <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                                    </button>
+                                                </div>
+                                                <input type="hidden" id="page-login-type" value="email">
+                                            </div>
+
+                                            <!-- Direct Email / Username input -->
+                                            <div id="page-login-input-text-wrapper">
+                                                <label id="page-login-input-label" for="page-login-input"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-regular fa-envelope text-theme-primary text-xs"></i>
+                                                    Email Address
+                                                </label>
+                                                <input type="text" id="page-login-input"
+                                                    placeholder="Enter your email address"
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                            </div>
+
+                                            <!-- Direct Phone input -->
+                                            <div id="page-login-input-phone-wrapper" class="hidden">
+                                                <label for="page-login-phone"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
+                                                    Number
+                                                </label>
+                                                <div class="flex gap-2">
+                                                    <div
+                                                        class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                        +880</div>
+                                                    <input type="tel" id="page-login-phone" placeholder="1712345678"
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div>
+                                            <div class="flex justify-between items-center mb-1.5">
+                                                <label for="page-login-pass"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
+                                                </label>
+                                                <a href="#"
+                                                    class="text-[9px] font-black text-theme-primary hover:underline uppercase tracking-wider">Forgot?</a>
+                                            </div>
+                                            <div class="relative">
+                                                <input type="password" id="page-login-pass"
+                                                    placeholder="Enter your password" required
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                <button type="button" data-target="page-login-pass"
+                                                    class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                    <i class="fa-regular fa-eye text-xs"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- ── PANEL: Sign Up ── -->
+                                <div id="page-form-register-panel" class="w-full hidden">
+                                    <!-- Preview banner -->
+                                    <div id="page-register-preview-banner"
+                                        class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                        <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-user-plus text-theme-primary"></i>
+                                            <span id="page-reg-identifier-preview" class="font-semibold"></span>
+                                        </div>
+                                        <button type="button"
+                                            class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                            Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                        </button>
+                                    </div>
+
+                                    <form id="page-register-form" class="space-y-4">
+                                        <!-- Full Name + Username -->
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label for="page-register-name"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-regular fa-user text-theme-primary text-xs"></i> Full
+                                                    Name
+                                                </label>
+                                                <input type="text" id="page-register-name" placeholder="Full name"
+                                                    required
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                            </div>
+                                            <div>
+                                                <label for="page-register-username"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-regular fa-id-badge text-theme-primary text-xs"></i>
+                                                    Username
+                                                </label>
+                                                <input type="text" id="page-register-username" placeholder="Username"
+                                                    required
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div>
+                                            <label for="page-register-email"
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email
+                                                Address
+                                            </label>
+                                            <input type="email" id="page-register-email" placeholder="Enter your email"
+                                                required
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                        </div>
+
+                                        <!-- Phone -->
+                                        <div>
+                                            <label for="page-register-phone"
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
+                                                Number
+                                            </label>
+                                            <div class="flex gap-2">
+                                                <div
+                                                    class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                    +880</div>
+                                                <input type="tel" id="page-register-phone" placeholder="1712345678"
+                                                    required
+                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                            </div>
+                                        </div>
+
+                                        <!-- Password + Confirm Password -->
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label for="page-register-pass"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
+                                                </label>
+                                                <div class="relative">
+                                                    <input type="password" id="page-register-pass"
+                                                        placeholder="Create password" required
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                    <button type="button" data-target="page-register-pass"
+                                                        class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                        <i class="fa-regular fa-eye text-xs"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="page-register-confirm-pass"
+                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Confirm
+                                                </label>
+                                                <div class="relative">
+                                                    <input type="password" id="page-register-confirm-pass"
+                                                        placeholder="Confirm password" required
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                    <button type="button" data-target="page-register-confirm-pass"
+                                                        class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                        <i class="fa-regular fa-eye text-xs"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Referral Code -->
+                                        <div>
+                                            <label for="page-register-referral"
+                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                <i class="fa-solid fa-gift text-theme-primary text-xs"></i> Referral
+                                                Code (Optional)
+                                            </label>
+                                            <input type="text" id="page-register-referral"
+                                                placeholder="Enter referral code"
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                        </div>
+
+                                        <!-- Terms -->
+                                        <div class="flex items-start gap-2 pt-1">
+                                            <input type="checkbox" id="page-register-terms" required
+                                                class="w-4 h-4 rounded border-slate-200 text-theme-primary focus:ring-theme-primary accent-theme-primary cursor-pointer">
+                                            <label for="page-register-terms"
+                                                class="text-[10px] font-semibold text-slate-500 cursor-pointer select-none">
+                                                I agree to the <a href="#"
+                                                    class="text-theme-primary hover:underline font-bold">Terms of
+                                                    Service</a> &
+                                                <a href="#" class="text-theme-primary hover:underline font-bold">Privacy
+                                                    Policy</a>
+                                            </label>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            <span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- FOOTER: Social Connect -->
+                        <div class="shrink-0 pt-2.5 border-t border-slate-100 mt-2 bg-white">
+                            <p
+                                class="text-center text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2.5">
+                                Or Continue With</p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                                    <i class="fa-brands fa-google text-red-500 text-xs"></i> Google
+                                </button>
+                                <button
+                                    class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                                    <i class="fa-brands fa-facebook text-blue-600 text-xs"></i> Facebook
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const tabAccount = document.getElementById('page-tab-account');
+                const tabLogin = document.getElementById('page-tab-login');
+                const tabRegister = document.getElementById('page-tab-register');
+
+                const accountPanel = document.getElementById('page-form-account-panel');
+                const loginPanel = document.getElementById('page-form-login-panel');
+                const registerPanel = document.getElementById('page-form-register-panel');
+
+                const ACTIVE_TAB = 'flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none';
+                const INACTIVE_TAB = 'flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none';
+
+                let currentIdentifier = '';
+
+                /* ── Tab Switcher ── */
+                function switchTab(tab) {
+                    tabAccount.className = INACTIVE_TAB;
+                    tabLogin.className = INACTIVE_TAB;
+                    tabRegister.className = INACTIVE_TAB;
+                    accountPanel.classList.add('hidden');
+                    loginPanel.classList.add('hidden');
+                    registerPanel.classList.add('hidden');
+
+                    if (tab === 'account') {
+                        currentIdentifier = '';
+                        tabAccount.className = ACTIVE_TAB;
+                        accountPanel.classList.remove('hidden');
+                        window.location.hash = '#account';
+
+                    } else if (tab === 'login') {
+                        tabLogin.className = ACTIVE_TAB;
+                        loginPanel.classList.remove('hidden');
+                        window.location.hash = '#signin';
+
+                        const banner = document.getElementById('page-login-preview-banner');
+                        const directWrap = document.getElementById('page-login-direct-type-wrapper');
+                        const loginInput = document.getElementById('page-login-input');
+                        const loginPhone = document.getElementById('page-login-phone');
+
+                        if (currentIdentifier) {
+                            if (banner) banner.classList.remove('hidden');
+                            if (directWrap) directWrap.classList.add('hidden');
+                            if (loginInput) loginInput.removeAttribute('required');
+                            if (loginPhone) loginPhone.removeAttribute('required');
+                        } else {
+                            if (banner) banner.classList.add('hidden');
+                            if (directWrap) directWrap.classList.remove('hidden');
+                            const activeType = document.getElementById('page-login-type').value;
+                            if (activeType === 'phone') {
+                                if (loginInput) loginInput.removeAttribute('required');
+                                if (loginPhone) loginPhone.setAttribute('required', 'required');
+                            } else {
+                                if (loginPhone) loginPhone.removeAttribute('required');
+                                if (loginInput) loginInput.setAttribute('required', 'required');
+                            }
+                        }
+
+                    } else {
+                        tabRegister.className = ACTIVE_TAB;
+                        registerPanel.classList.remove('hidden');
+                        window.location.hash = '#signup';
+
+                        const regBanner = document.getElementById('page-register-preview-banner');
+                        if (currentIdentifier) {
+                            if (regBanner) regBanner.classList.remove('hidden');
+                        } else {
+                            if (regBanner) regBanner.classList.add('hidden');
+                            document.getElementById('page-register-name').value = '';
+                            document.getElementById('page-register-username').value = '';
+                            document.getElementById('page-register-email').value = '';
+                            document.getElementById('page-register-phone').value = '';
+                        }
+                    }
+                }
+
+                /* ── Initial tab from URL hash ── */
+                const hash = window.location.hash;
+                if (hash === '#signin') switchTab('login');
+                else if (hash === '#signup') switchTab('register');
+                else switchTab('account');
+
+                /* ── Tab click bindings ── */
+                tabAccount.addEventListener('click', () => switchTab('account'));
+                tabLogin.addEventListener('click', () => switchTab('login'));
+                tabRegister.addEventListener('click', () => switchTab('register'));
+
+                /* ── Account type segment buttons ── */
+                const pageAccountTextWrap = document.getElementById('page-account-input-text-wrapper');
+                const pageAccountPhoneWrap = document.getElementById('page-account-input-phone-wrapper');
+                const pageAccountInput = document.getElementById('page-account-input');
+                const pageAccountPhone = document.getElementById('page-account-phone');
+                const pageAccountLabel = document.getElementById('page-account-input-label');
+
+                function updatePageAccountType(val) {
+                    if (val === 'phone') {
+                        pageAccountTextWrap.classList.add('hidden');
+                        if (pageAccountInput) pageAccountInput.removeAttribute('required');
+                        pageAccountPhoneWrap.classList.remove('hidden');
+                        if (pageAccountPhone) pageAccountPhone.setAttribute('required', 'required');
+                    } else {
+                        pageAccountPhoneWrap.classList.add('hidden');
+                        if (pageAccountPhone) pageAccountPhone.removeAttribute('required');
+                        pageAccountTextWrap.classList.remove('hidden');
+                        if (pageAccountInput) pageAccountInput.setAttribute('required', 'required');
+                        if (val === 'email') {
+                            pageAccountLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                            if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your email address');
+                        } else {
+                            pageAccountLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                            if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your username');
+                        }
+                    }
+                }
+
+                $(document).on('click', '.page-account-type-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const val = btn.data('value');
+                    document.getElementById('page-account-type').value = val;
+                    $('.page-account-type-btn').removeClass('bg-white text-theme-primary shadow-sm').addClass('bg-transparent text-slate-500');
+                    btn.removeClass('bg-transparent text-slate-500').addClass('bg-white text-theme-primary shadow-sm');
+                    updatePageAccountType(val);
+                });
+
+                /* ── Login type segment buttons ── */
+                const pageLoginTextWrap = document.getElementById('page-login-input-text-wrapper');
+                const pageLoginPhoneWrap = document.getElementById('page-login-input-phone-wrapper');
+                const pageLoginInput = document.getElementById('page-login-input');
+                const pageLoginPhone = document.getElementById('page-login-phone');
+                const pageLoginLabel = document.getElementById('page-login-input-label');
+
+                function updatePageLoginType(val) {
+                    if (val === 'phone') {
+                        pageLoginTextWrap.classList.add('hidden');
+                        if (pageLoginInput) pageLoginInput.removeAttribute('required');
+                        pageLoginPhoneWrap.classList.remove('hidden');
+                        if (pageLoginPhone) pageLoginPhone.setAttribute('required', 'required');
+                    } else {
+                        pageLoginPhoneWrap.classList.add('hidden');
+                        if (pageLoginPhone) pageLoginPhone.removeAttribute('required');
+                        pageLoginTextWrap.classList.remove('hidden');
+                        if (pageLoginInput) pageLoginInput.setAttribute('required', 'required');
+                        if (val === 'email') {
+                            pageLoginLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                            if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your email address');
+                        } else {
+                            pageLoginLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                            if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your username');
+                        }
+                    }
+                }
+
+                $(document).on('click', '.page-login-type-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const val = btn.data('value');
+                    document.getElementById('page-login-type').value = val;
+                    $('.page-login-type-btn').removeClass('bg-white text-theme-primary shadow-sm').addClass('bg-transparent text-slate-500');
+                    btn.removeClass('bg-transparent text-slate-500').addClass('bg-white text-theme-primary shadow-sm');
+                    updatePageLoginType(val);
+                });
+
+                /* ── Password toggle ── */
+                $(document).on('click', '.page-password-toggle-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const input = $('#' + btn.data('target'));
+                    if (input.attr('type') === 'password') {
+                        input.attr('type', 'text');
+                        btn.html('<i class="fa-regular fa-eye-slash text-xs"></i>');
+                    } else {
+                        input.attr('type', 'password');
+                        btn.html('<i class="fa-regular fa-eye text-xs"></i>');
+                    }
+                });
+
+                /* ── Back to Account buttons ── */
+                $(document).on('click', '.page-back-to-account-btn', function (e) {
+                    e.preventDefault();
+                    switchTab('account');
+                });
+
+                /* ── Account form submit → route to Sign In or Sign Up ── */
+                document.getElementById('page-account-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const type = document.getElementById('page-account-type').value;
+                    let inputVal = '';
+                    if (type === 'phone') {
+                        inputVal = pageAccountPhone.value.trim();
+                        if (inputVal && !inputVal.startsWith('+880')) inputVal = '+880' + inputVal;
+                    } else {
+                        inputVal = pageAccountInput.value.trim();
+                    }
+                    if (!inputVal) return;
+
+                    let isExisting = false;
+                    if (inputVal.toLowerCase() === 'ataurbdx') isExisting = true;
+                    else if (inputVal.toLowerCase() === 'ataurbdc') isExisting = false;
+                    else isExisting = inputVal.includes('@') || ['admin', 'test', 'demo', 'sheba', '+8801712345678', '01712345678'].includes(inputVal.toLowerCase());
+
+                    currentIdentifier = inputVal;
+
+                    if (isExisting) {
+                        document.getElementById('page-login-identifier-preview').textContent = inputVal;
+                        switchTab('login');
+                    } else {
+                        document.getElementById('page-reg-identifier-preview').textContent = inputVal;
+                        const isEmail = inputVal.includes('@');
+                        const isPhone = inputVal.startsWith('+880') || /^\d+$/.test(inputVal);
+                        if (isEmail) {
+                            document.getElementById('page-register-email').value = inputVal;
+                            document.getElementById('page-register-phone').value = '';
+                        } else if (isPhone) {
+                            document.getElementById('page-register-phone').value = inputVal.replace('+880', '');
+                            document.getElementById('page-register-email').value = '';
+                        } else {
+                            document.getElementById('page-register-name').value = inputVal;
+                            document.getElementById('page-register-email').value = '';
+                            document.getElementById('page-register-phone').value = '';
+                        }
+                        switchTab('register');
+                    }
+                });
+
+                /* ── Sign In submit ── */
+                document.getElementById('page-login-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    // TODO: real auth — redirecting to dashboard for now
+                    window.location.href = 'account.html';
+                });
+
+                /* ── Sign Up submit ── */
+                document.getElementById('page-register-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    // TODO: real registration
+                    window.location.href = 'account.html';
+                });
+            });
+        </script>
+
+        <!-- ============ HEADER END ============ -->
+    </div>
+
+
+
+
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-[#0b0e14] text-[#a0aec0] pt-16 relative overflow-hidden">
+        <!-- Subtle glow background details -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand/5 rounded-full blur-[120px] pointer-events-none">
+        </div>
+
+        <div class="container relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-white/[0.06]">
+
+                <!-- Column 1: Brand Info (col-span-3) -->
+                <div class="lg:col-span-3 space-y-5">
+                    <a href="#" class="flex items-center gap-2.5">
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-brand flex items-center justify-center bg-white shadow-md">
+                            <span class="text-brand font-black text-lg tracking-tighter">G</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-lg font-black tracking-wider text-white leading-tight">GO BY
+                                FABRIFEST</span>
+                            <span class="text-[8px] text-brand tracking-widest font-bold uppercase">PREMIUM MEN'S
+                                FASHION</span>
+                        </div>
+                    </a>
+                    <p class="text-xs leading-relaxed text-gray-400">
+                        Go By Fabrifest is the ultimate solution for Fashions & Exclusive collections of Unique Designed
+                        Printed
+                        T-shirts, Men's wear & Lifestyle Products store in online market for the youngsters.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#"
+                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f text-xs"></i>
+                        </a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            aria-label="Instagram">
+                            <i class="fa-brands fa-instagram text-xs"></i>
+                        </a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            aria-label="Youtube">
+                            <i class="fa-brands fa-youtube text-xs"></i>
+                        </a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            aria-label="Twitter">
+                            <i class="fa-brands fa-x-twitter text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Contact Info (col-span-3) -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
+                        Contact Info
+                    </h4>
+                    <ul class="space-y-3.5 text-xs text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-brand mt-0.5 text-sm shrink-0"></i>
+                            <span class="leading-relaxed">128/1/A, Senpara Parbata, Mirpur-10, Dhaka-1218, Dhaka,
+                                Bangladesh</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-brand text-xs shrink-0"></i>
+                            <a href="tel:+8801775810098" class="hover:text-brand transition-colors">+8801775-810098</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-brand text-xs shrink-0"></i>
+                            <a href="mailto:gobyfabrifest@gmail.com"
+                                class="hover:text-brand transition-colors">gobyfabrifest@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: About (col-span-2) -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
+                        About</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>About
+                                Us</a></li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Contact
+                                Us</a></li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Privacy
+                                Policy</a>
+                        </li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Cancellation
+                                &
+                                Refund Policy</a></li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Terms
+                                &
+                                Condition</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Useful Link (col-span-2) -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
+                        Useful Link
+                    </h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="track-order.html"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Track
+                                My Order</a>
+                        </li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Shopping
+                                Cart</a>
+                        </li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Login</a>
+                        </li>
+                        <li><a href="#"
+                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
+                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Register</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 5: Google Map Embed (col-span-2) -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
+                        Our Location
+                    </h4>
+                    <div
+                        class="w-full h-32 rounded-2xl overflow-hidden border border-white/[0.08] shadow-md hover:border-brand/40 transition-all duration-300">
+                        <iframe src="https://maps.google.com/maps?q=23.803406,90.369892&z=15&output=embed"
+                            class="w-full h-full border-0" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Row -->
+            <div
+                class="pt-8 pb-24 md:pb-8 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/[0.06]">
+                <!-- Copyright -->
+                <div class="text-xs text-gray-500 font-medium">
+                    &copy; Go By Fabrifest. All rights reserved | 2026
+                </div>
+                <!-- Credits -->
+                <div class="text-xs text-gray-500 font-medium">
+                    Designed & Developed by <a href="https://imbdagency.com" target="_blank"
+                        class="text-brand font-semibold hover:underline">IMBD Agency Ltd.</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <!-- JQuery (Local Workspace Path) -->
+    <script src="Plugins-Framework/jquery/jquery-3.7.1.min.js"></script>
+
+    <!-- Slick Slider Core (Local Workspace Path) -->
+    <script src="Plugins-Framework/slick-slider/slick.min.js"></script>
+
+    <!-- Slick Slider Customize Script (Local Workspace Path) -->
+    <script src="Plugins-Framework/slick-slider/slick.customize.js"></script>
+
+    <!-- AOS Animation Library -->
+    <script src="Plugins-Framework/aos/aos.js"></script>
+    <script src="Plugins-Framework/aos/aos.customize.js"></script>
+
+    <!-- LightGallery Core JS -->
+    <script src="Plugins-Framework/light-gallery/lightgallery.min.js"></script>
+    <!-- LightGallery Plugins -->
+    <script src="Plugins-Framework/light-gallery/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="Plugins-Framework/light-gallery/plugins/zoom/lg-zoom.min.js"></script>
+    <!-- LightGallery Video Plugin CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/video/lg-video.min.js"></script>
+    <!-- LightGallery Custom Integration -->
+    <script src="Plugins-Framework/light-gallery/lightgallery-custom.js"></script>
+
+    <!-- Custom script.js -->
+    <script src="frontend/assets/js/script.js"></script>
+
+
+
+    <!-- ============ AUTH MODAL (SIGN IN / SIGN UP / QUICK START) ============ -->
+    <div id="auth-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-300 hidden">
+        <div id="auth-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300">
+        </div>
+
+        <div class="relative w-full max-w-4xl lg:max-w-[900px] bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px] scale-95 opacity-0 transition-all duration-300"
+            id="auth-dialog">
+            <!-- Close Button -->
+            <button id="close-auth-modal"
+                class="absolute top-4 right-4 text-slate-500 hover:text-theme-primary transition-colors z-20 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer border-none outline-none">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Left Banner Side -->
+            <div class="relative overflow-hidden flex items-center justify-center bg-[#070624] w-full h-full min-h-0">
+                <img id="modal-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
+                    alt="Asset Sheba Authentication"
+                    class="w-full h-full object-contain object-center transition-all duration-300">
+            </div>
+
+            <!-- Right Form & Tabs Side -->
+            <div class="p-6 sm:p-8 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
+                <!-- FIXED HEADER: Tabs Header -->
+                <div class="flex border-b border-slate-100 mb-3 shrink-0">
+                    <button id="tab-account"
+                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none">Account</button>
+                    <button id="tab-login"
+                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
+                        In</button>
+                    <button id="tab-register"
+                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
+                        Up</button>
+                </div>
+
+                <!-- SCROLLABLE BODY: Forms Wrapper with Safe Scroll Gutter Padding -->
+                <div class="flex-1 min-h-0 overflow-y-auto pr-2 py-1 scrollbar-thin">
+                    <div class="flex flex-col justify-start">
+
+                        <!-- Tab 3: Account (Default/Step 1 Input) -->
+                        <div id="form-account-panel" class="space-y-4 w-full">
+                            <form id="modal-account-form" class="space-y-4">
+                                <div>
+                                    <label
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                        <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select Login Type
+                                    </label>
+                                    <div class="flex p-1 bg-slate-100/80 rounded-2xl" id="account-type-toggle-group">
+                                        <button type="button" data-value="email"
+                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
+                                            <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                        </button>
+                                        <button type="button" data-value="username"
+                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                            <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                        </button>
+                                        <button type="button" data-value="phone"
+                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                            <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                        </button>
+                                    </div>
+                                    <!-- Hidden input to store value for forms -->
+                                    <input type="hidden" id="modal-account-type" value="email">
+                                </div>
+
+                                <!-- Input for Email or Username -->
+                                <div id="account-input-text-wrapper">
+                                    <label id="account-input-label" for="modal-account-input"
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                        <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address
+                                    </label>
+                                    <input type="text" id="modal-account-input" placeholder="Enter your email address"
+                                        required
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                </div>
+
+                                <!-- Input for Phone (hidden by default) -->
+                                <div id="account-input-phone-wrapper" class="hidden">
+                                    <label for="modal-account-phone"
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                        <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone Number
+                                    </label>
+                                    <div class="flex gap-2">
+                                        <div
+                                            class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                            +880
+                                        </div>
+                                        <input type="tel" id="modal-account-phone" placeholder="1712345678"
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    <span>Continue</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Tab 1: Sign In -->
+                        <div id="form-login-panel" class="w-full hidden">
+                            <!-- User Identifier Preview (Welcome back card) -->
+                            <div id="login-preview-banner"
+                                class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-user-check text-theme-primary"></i> <span
+                                        id="login-identifier-preview" class="font-semibold"></span>
+                                </div>
+                                <button type="button"
+                                    class="back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                    Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                </button>
+                            </div>
+
+                            <form id="modal-login-form" class="space-y-4">
+                                <!-- Direct Login Selector & Fields (Shown only if visited directly) -->
+                                <div id="login-direct-type-wrapper" class="hidden space-y-4">
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                            <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select Login
+                                            Type
+                                        </label>
+                                        <div class="flex p-1 bg-slate-100/80 rounded-2xl" id="login-type-toggle-group">
+                                            <button type="button" data-value="email"
+                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
+                                                <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                            </button>
+                                            <button type="button" data-value="username"
+                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                            </button>
+                                            <button type="button" data-value="phone"
+                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
+                                                <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                            </button>
+                                        </div>
+                                        <!-- Hidden input to store value for forms -->
+                                        <input type="hidden" id="modal-login-type" value="email">
+                                    </div>
+
+                                    <!-- Direct Text Input (Email / Username) -->
+                                    <div id="login-input-text-wrapper">
+                                        <label id="login-input-label" for="modal-login-input"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email
+                                            Address
+                                        </label>
+                                        <input type="text" id="modal-login-input" placeholder="Enter your email address"
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                    </div>
+
+                                    <!-- Direct Phone Input -->
+                                    <div id="login-input-phone-wrapper" class="hidden">
+                                        <label for="modal-login-phone"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone Number
+                                        </label>
+                                        <div class="flex gap-2">
+                                            <div
+                                                class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                +880
+                                            </div>
+                                            <input type="tel" id="modal-login-phone" placeholder="1712345678"
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center mb-1.5">
+                                        <label for="modal-login-pass"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
+                                        </label>
+                                        <a href="#"
+                                            class="text-[9px] font-black text-theme-primary hover:underline uppercase tracking-wider">Forgot?</a>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="password" id="modal-login-pass" placeholder="Enter your password"
+                                            required
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                        <button type="button" data-target="modal-login-pass"
+                                            class="password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                            <i class="fa-regular fa-eye text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit"
+                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Tab 2: Sign Up -->
+                        <div id="form-register-panel" class="w-full hidden">
+                            <!-- User Identifier Preview (Create Account banner) -->
+                            <div id="register-preview-banner"
+                                class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-user-plus text-theme-primary"></i> <span
+                                        id="reg-identifier-preview" class="font-semibold"></span>
+                                </div>
+                                <button type="button"
+                                    class="back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                    Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                </button>
+                            </div>
+
+                            <form id="modal-register-form" class="space-y-4">
+                                <!-- Name & Username side-by-side -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label for="modal-register-name"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-regular fa-user text-theme-primary text-xs"></i> Full Name
+                                        </label>
+                                        <input type="text" id="modal-register-name" placeholder="Full name" required
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                    </div>
+                                    <div>
+                                        <label for="modal-register-username"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-regular fa-id-badge text-theme-primary text-xs"></i> Username
+                                        </label>
+                                        <input type="text" id="modal-register-username" placeholder="Username" required
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                    </div>
+                                </div>
+
+                                <!-- Email Address -->
+                                <div>
+                                    <label for="modal-register-email"
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                        <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address
+                                    </label>
+                                    <input type="email" id="modal-register-email" placeholder="Enter your email"
+                                        required
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                </div>
+
+                                <!-- Phone Number with Country Code (Account Tab layout) -->
+                                <div>
+                                    <label for="modal-register-phone"
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                        <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone Number
+                                    </label>
+                                    <div class="flex gap-2">
+                                        <div
+                                            class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                            +880
+                                        </div>
+                                        <input type="tel" id="modal-register-phone" placeholder="1712345678" required
+                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                    </div>
+                                </div>
+
+                                <!-- Password & Confirm Password side-by-side -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label for="modal-register-pass"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
+                                        </label>
+                                        <div class="relative">
+                                            <input type="password" id="modal-register-pass"
+                                                placeholder="Create password" required
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                            <button type="button" data-target="modal-register-pass"
+                                                class="password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                <i class="fa-regular fa-eye text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="modal-register-confirm-pass"
+                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Confirm Password
+                                        </label>
+                                        <div class="relative">
+                                            <input type="password" id="modal-register-confirm-pass"
+                                                placeholder="Confirm password" required
+                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                            <button type="button" data-target="modal-register-confirm-pass"
+                                                class="password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                <i class="fa-regular fa-eye text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Referral Code -->
+                                <div>
+                                    <label for="modal-register-referral"
+                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                        <i class="fa-solid fa-gift text-theme-primary text-xs"></i> Referral Code
+                                    </label>
+                                    <input type="text" id="modal-register-referral" placeholder="Enter referral code"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                </div>
+
+                                <!-- Terms Checkbox -->
+                                <div class="flex items-start gap-2 pt-1">
+                                    <input type="checkbox" id="modal-register-terms" required
+                                        class="w-4 h-4 rounded border-slate-200 text-theme-primary focus:ring-theme-primary accent-theme-primary cursor-pointer">
+                                    <label for="modal-register-terms"
+                                        class="text-[10px] font-semibold text-slate-500 cursor-pointer select-none">
+                                        I agree to the <a href="#"
+                                            class="text-theme-primary hover:underline font-bold">Terms of Service</a>
+                                        &
+                                        <a href="#" class="text-theme-primary hover:underline font-bold">Privacy
+                                            Policy</a>
+                                    </label>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    <span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- FIXED FOOTER: Social Connect -->
+                <div class="shrink-0 pt-2.5 border-t border-slate-100 bg-white">
+                    <!-- Social Buttons (Sleek and Thin) -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button
+                            class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                            <i class="fa-brands fa-google text-red-500 text-xs"></i> Google
+                        </button>
+                        <button
+                            class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                            <i class="fa-brands fa-facebook text-blue-600 text-xs"></i> Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const modal = document.getElementById('auth-modal');
+                const dialog = document.getElementById('auth-dialog');
+                const backdrop = document.getElementById('auth-backdrop');
+                const closeBtn = document.getElementById('close-auth-modal');
+
+                const tabAccount = document.getElementById('tab-account');
+                const tabLogin = document.getElementById('tab-login');
+                const tabRegister = document.getElementById('tab-register');
+
+                const accountPanel = document.getElementById('form-account-panel');
+                const loginPanel = document.getElementById('form-login-panel');
+                const registerPanel = document.getElementById('form-register-panel');
+
+                // Track if we came through Step 1 (Account tab)
+                let currentIdentifier = '';
+
+                function openAuth(targetTab = 'account') {
+                    modal.classList.remove('hidden', 'pointer-events-none');
+                    dialog.classList.remove('scale-95', 'opacity-0');
+                    modal.classList.add('opacity-100', 'pointer-events-auto');
+                    switchTab(targetTab);
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeAuth() {
+                    modal.classList.remove('opacity-100', 'pointer-events-auto');
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    dialog.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => { modal.classList.add('hidden'); }, 300);
+                    document.body.style.overflow = '';
+                }
+
+                function switchTab(tab) {
+                    // Reset tabs style classes
+                    tabAccount.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
+                    tabLogin.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
+                    tabRegister.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
+
+                    // Hide all panels
+                    accountPanel.classList.add('hidden');
+                    loginPanel.classList.add('hidden');
+                    registerPanel.classList.add('hidden');
+
+                    if (tab === 'account') {
+                        currentIdentifier = ''; // Reset when visiting Account page
+                        tabAccount.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        accountPanel.classList.remove('hidden');
+                    } else if (tab === 'login') {
+                        tabLogin.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        loginPanel.classList.remove('hidden');
+
+                        const loginBanner = document.getElementById('login-preview-banner');
+                        const loginDirectWrapper = document.getElementById('login-direct-type-wrapper');
+                        const loginInput = document.getElementById('modal-login-input');
+                        const loginPhone = document.getElementById('modal-login-phone');
+
+                        if (currentIdentifier) {
+                            // Went through Account tab step
+                            if (loginBanner) loginBanner.classList.remove('hidden');
+                            if (loginDirectWrapper) loginDirectWrapper.classList.add('hidden');
+                            if (loginInput) loginInput.removeAttribute('required');
+                            if (loginPhone) loginPhone.removeAttribute('required');
+                        } else {
+                            // Direct Tab click
+                            if (loginBanner) loginBanner.classList.add('hidden');
+                            if (loginDirectWrapper) loginDirectWrapper.classList.remove('hidden');
+
+                            // Apply required flag based on type selection value
+                            const activeType = document.getElementById('modal-login-type').value;
+                            if (activeType === 'phone') {
+                                if (loginInput) loginInput.removeAttribute('required');
+                                if (loginPhone) loginPhone.setAttribute('required', 'required');
+                            } else {
+                                if (loginPhone) loginPhone.removeAttribute('required');
+                                if (loginInput) loginInput.setAttribute('required', 'required');
+                            }
+                        }
+                    } else {
+                        tabRegister.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        registerPanel.classList.remove('hidden');
+
+                        const regBanner = document.getElementById('register-preview-banner');
+                        if (currentIdentifier) {
+                            // Went through Account tab step
+                            if (regBanner) regBanner.classList.remove('hidden');
+                        } else {
+                            // Direct Tab click: Clear prefilled inputs & hide banner
+                            if (regBanner) regBanner.classList.add('hidden');
+                            document.getElementById('modal-register-name').value = '';
+                            document.getElementById('modal-register-username').value = '';
+                            document.getElementById('modal-register-email').value = '';
+                            document.getElementById('modal-register-phone').value = '';
+                        }
+                    }
+                }
+
+                // Reactive type selector changes for Account tab
+                const textWrapper = document.getElementById('account-input-text-wrapper');
+                const phoneWrapper = document.getElementById('account-input-phone-wrapper');
+                const accountInput = document.getElementById('modal-account-input');
+                const accountPhone = document.getElementById('modal-account-phone');
+                const inputLabel = document.getElementById('account-input-label');
+
+                function updateAccountType(val) {
+                    if (val === 'phone') {
+                        textWrapper.classList.add('hidden');
+                        if (accountInput) accountInput.removeAttribute('required');
+                        phoneWrapper.classList.remove('hidden');
+                        if (accountPhone) accountPhone.setAttribute('required', 'required');
+                    } else {
+                        phoneWrapper.classList.add('hidden');
+                        if (accountPhone) accountPhone.removeAttribute('required');
+                        textWrapper.classList.remove('hidden');
+                        if (accountInput) accountInput.setAttribute('required', 'required');
+
+                        if (val === 'email') {
+                            inputLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                            if (accountInput) accountInput.setAttribute('placeholder', 'Enter your email address');
+                        } else {
+                            inputLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                            if (accountInput) accountInput.setAttribute('placeholder', 'Enter your username');
+                        }
+                    }
+                }
+
+                $(document).on('click', '.account-type-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const val = btn.data('value');
+                    document.getElementById('modal-account-type').value = val;
+
+                    // Toggle classes for track layout
+                    $('.account-type-btn').removeClass('bg-white text-theme-primary shadow-sm border-none').addClass('bg-transparent text-slate-500 border-none hover:text-slate-800');
+                    btn.removeClass('bg-transparent text-slate-500 border-none hover:text-slate-800').addClass('bg-white text-theme-primary shadow-sm border-none');
+
+                    updateAccountType(val);
+                });
+
+                // Reactive type selector changes for Sign In tab (Direct login)
+                const loginTextWrapper = document.getElementById('login-input-text-wrapper');
+                const loginPhoneWrapper = document.getElementById('login-input-phone-wrapper');
+                const loginInput = document.getElementById('modal-login-input');
+                const loginPhone = document.getElementById('modal-login-phone');
+                const loginInputLabel = document.getElementById('login-input-label');
+
+                function updateLoginType(val) {
+                    if (val === 'phone') {
+                        loginTextWrapper.classList.add('hidden');
+                        if (loginInput) loginInput.removeAttribute('required');
+                        loginPhoneWrapper.classList.remove('hidden');
+                        if (loginPhone) loginPhone.setAttribute('required', 'required');
+                    } else {
+                        loginPhoneWrapper.classList.add('hidden');
+                        if (loginPhone) loginPhone.removeAttribute('required');
+                        loginTextWrapper.classList.remove('hidden');
+                        if (loginInput) loginInput.setAttribute('required', 'required');
+
+                        if (val === 'email') {
+                            loginInputLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                            if (loginInput) loginInput.setAttribute('placeholder', 'Enter your email address');
+                        } else {
+                            loginInputLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                            if (loginInput) loginInput.setAttribute('placeholder', 'Enter your username');
+                        }
+                    }
+                }
+
+                $(document).on('click', '.login-type-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const val = btn.data('value');
+                    document.getElementById('modal-login-type').value = val;
+
+                    // Toggle classes for track layout
+                    $('.login-type-btn').removeClass('bg-white text-theme-primary shadow-sm border-none').addClass('bg-transparent text-slate-500 border-none hover:text-slate-800');
+                    btn.removeClass('bg-transparent text-slate-500 border-none hover:text-slate-800').addClass('bg-white text-theme-primary shadow-sm border-none');
+
+                    updateLoginType(val);
+                });
+
+                // Step 1: Account submission check
+                const accountForm = document.getElementById('modal-account-form');
+                if (accountForm) {
+                    accountForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const type = accountType.value;
+                        let inputVal = '';
+                        if (type === 'phone') {
+                            inputVal = accountPhone.value.trim();
+                            if (inputVal && !inputVal.startsWith('+880')) {
+                                inputVal = '+880' + inputVal;
+                            }
+                        } else {
+                            inputVal = accountInput.value.trim();
+                        }
+                        if (!inputVal) return;
+
+                        // Route based on user input
+                        let isExisting = false;
+                        if (inputVal.toLowerCase() === 'ataurbdx') {
+                            isExisting = true;
+                        } else if (inputVal.toLowerCase() === 'ataurbdc') {
+                            isExisting = false;
+                        } else {
+                            isExisting = inputVal.includes('@') || ['admin', 'test', 'demo', 'sheba', '+8801712345678', '01712345678'].includes(inputVal.toLowerCase());
+                        }
+
+                        currentIdentifier = inputVal; // Save routing identifier
+
+                        if (isExisting) {
+                            // Setup login step preview
+                            document.getElementById('login-identifier-preview').textContent = inputVal;
+                            switchTab('login');
+                        } else {
+                            // Setup sign up step preview
+                            document.getElementById('reg-identifier-preview').textContent = inputVal;
+
+                            // Prefill register fields based on type
+                            const isEmail = inputVal.includes('@');
+                            const isPhone = inputVal.startsWith('+880') || /^\d+$/.test(inputVal);
+                            if (isEmail) {
+                                document.getElementById('modal-register-email').value = inputVal;
+                                document.getElementById('modal-register-phone').value = '';
+                            } else if (isPhone) {
+                                // Strip +880 for display if needed
+                                const rawPhone = inputVal.startsWith('+880') ? inputVal.replace('+880', '') : inputVal;
+                                document.getElementById('modal-register-phone').value = rawPhone;
+                                document.getElementById('modal-register-email').value = '';
+                            } else {
+                                document.getElementById('modal-register-name').value = inputVal;
+                                document.getElementById('modal-register-email').value = '';
+                                document.getElementById('modal-register-phone').value = '';
+                            }
+                            switchTab('register');
+                        }
+                    });
+                }
+
+                // Bind show/hide password toggle
+                $(document).on('click', '.password-toggle-btn', function (e) {
+                    e.preventDefault();
+                    const btn = $(this);
+                    const targetId = btn.data('target');
+                    const input = $('#' + targetId);
+                    if (input.attr('type') === 'password') {
+                        input.attr('type', 'text');
+                        btn.html('<i class="fa-regular fa-eye-slash text-xs"></i>');
+                    } else {
+                        input.attr('type', 'password');
+                        btn.html('<i class="fa-regular fa-eye text-xs"></i>');
+                    }
+                });
+
+                // Back to Account buttons
+                $(document).on('click', '.back-to-account-btn', function (e) {
+                    e.preventDefault();
+                    switchTab('account');
+                });
+
+                // Trigger on header user icon or mobile account link click
+                $(document).on('click', '.auth-modal-trigger', function (e) {
+                    e.preventDefault();
+                    openAuth('account');
+                });
+
+                tabAccount.addEventListener('click', () => switchTab('account'));
+                tabLogin.addEventListener('click', () => switchTab('login'));
+                tabRegister.addEventListener('click', () => switchTab('register'));
+                closeBtn.addEventListener('click', closeAuth);
+                backdrop.addEventListener('click', closeAuth);
+
+                // Redirect on sign in submit
+                const loginForm = document.getElementById('modal-login-form');
+                if (loginForm) {
+                    loginForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        closeAuth();
+                        window.location.href = 'account.html';
+                    });
+                }
+
+                const registerForm = document.getElementById('modal-register-form');
+                if (registerForm) {
+                    registerForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        closeAuth();
+                        window.location.href = 'account.html';
+                    });
+                }
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') closeAuth();
+                });
+            });
+        </script>
+    </div>
+
+    <!-- ============ SCRIPT BLOCK 1: MOBILE OFFCANVAS DRAWER SYSTEM ============ -->
+    <script>
+        $(document).ready(function () {
+            // Language Switcher Toggle
+            $('#lang-switch-btn').on('click', function () {
+                const btn = $(this);
+                const currentLang = btn.text().trim();
+                btn.text(currentLang === 'EN' ? 'BN' : 'EN');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Offcanvas Drawer toggles
+            const unifiedNav = $('#unified-nav');
+
+            function openMobileNav() {
+                unifiedNav.removeClass('-translate-x-full invisible').addClass('translate-x-0');
+                shebaBackdrop.show('#unified-nav', closeMobileNav);
+            }
+
+            function closeMobileNav() {
+                unifiedNav.addClass('-translate-x-full').removeClass('translate-x-0');
+                setTimeout(() => {
+                    if (unifiedNav.hasClass('-translate-x-full')) {
+                        unifiedNav.addClass('invisible');
+                    }
+                }, 300);
+                shebaBackdrop.hide('#unified-nav');
+            }
+
+            $('#mobile-menu-btn').on('click', function (e) {
+                e.stopPropagation();
+                openMobileNav();
+            });
+
+            $('#nav-close-btn').on('click', function (e) {
+                e.stopPropagation();
+                closeMobileNav();
+            });
+
+            // Revert mobile state on window resize if switching to desktop
+            $(window).on('resize', function () {
+                if ($(window).width() >= 992) {
+                    closeMobileNav();
+                }
+            });
+        });
+    </script>
+
+    <!-- ============ SCRIPT BLOCK 2: DYNAMIC SMART OVERFLOW "MORE" DROPDOWN ============ -->
+    <script>
+        $(document).ready(function () {
+            const navContainer = $('.nav-drawer-body');
+            const moreBtnWrapper = $('#more-nav-btn-wrapper');
+            const moreNavPanel = $('#more-nav-panel');
+            const unifiedNav = $('#unified-nav');
+            const desktopPlaceholder = $('#desktop-nav-placeholder');
+
+            // Clone original list of elements once for dynamic manipulation
+            const originalNavItems = navContainer.children('a, .nav-item-dropdown').not('#more-nav-btn-wrapper').clone(true, true);
+
+            function adjustNavItems() {
+                if ($(window).width() < 992) {
+                    // Mobile drawer layout: restore all links inside drawer
+                    navContainer.empty().append(originalNavItems.clone(true, true));
+                    moreBtnWrapper.addClass('hidden');
+                    return;
+                }
+
+                // Desktop layout: rebuild original links and check available space
+                navContainer.empty().append(originalNavItems.clone(true, true)).append(moreBtnWrapper);
+                moreBtnWrapper.addClass('hidden');
+                moreNavPanel.empty();
+
+                let containerWidth = navContainer.width();
+                let gap = parseInt(navContainer.css('gap')) || 24; // Retrieve dynamic flex gap (default to 24px)
+                let currentWidth = 0;
+                let overflowed = false;
+
+                const items = navContainer.children('a, .nav-item-dropdown').not('#more-nav-btn-wrapper');
+
+                // Show More button to measure its space allocation
+                moreBtnWrapper.removeClass('hidden');
+                let moreWidth = moreBtnWrapper.outerWidth(true);
+                moreBtnWrapper.addClass('hidden');
+
+                items.each(function () {
+                    let itemWidth = $(this).outerWidth(true);
+                    let addedWidth = currentWidth > 0 ? (itemWidth + gap) : itemWidth;
+
+                    if (!overflowed && (currentWidth + addedWidth + (items.length > 1 ? (moreWidth + gap) : 0) > containerWidth)) {
+                        overflowed = true;
+                        moreBtnWrapper.removeClass('hidden');
+                    }
+
+                    if (overflowed) {
+                        const cloned = $(this).clone(true, true);
+
+                        // Re-style link items for dropdown vertical list
+                        cloned.find('.nav-link-item').addBack('.nav-link-item')
+                            .removeClass('px-3 py-2 rounded-xl text-sm font-semibold whitespace-nowrap lg:flex lg:flex-row lg:items-center lg:w-auto')
+                            .addClass('flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-ink hover:text-brand hover:bg-gray-50 rounded-xl transition-all w-full text-left');
+
+                        // Adapt submenus to drop to the side (flyout behavior)
+                        if (cloned.hasClass('nav-item-dropdown')) {
+                            cloned.find('.nav-dropdown-panel')
+                                .removeClass('left-0 top-full mt-[22px] w-52 lg:absolute lg:left-0 lg:top-full lg:mt-2 lg:w-52 before:content-[\'\'] before:absolute before:-top-6 before:left-0 before:right-0 before:h-6')
+                                .addClass('absolute left-full top-0 -mt-3 w-48 hidden bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-line p-2 z-50');
+                            // Ensure chevron ID is unique/removable
+                            cloned.find('#about-chevron').attr('id', 'cloned-about-chevron');
+                            cloned.find('#about-dropdown-btn').attr('id', 'cloned-about-dropdown-btn');
+                            cloned.find('#about-dropdown-panel').attr('id', 'cloned-about-dropdown-panel');
+                        }
+
+                        moreNavPanel.append(cloned);
+                        $(this).remove();
+                    } else {
+                        currentWidth += addedWidth;
+                    }
+                });
+
+                if (!overflowed) {
+                    moreBtnWrapper.addClass('hidden');
+                }
+            }
+
+            // Initialize calculations
+            adjustNavItems();
+            $(window).on('resize', adjustNavItems);
+
+            // Toggle main More button on click
+            $(document).on('click', '#more-nav-btn', function (e) {
+                e.stopPropagation();
+                moreNavPanel.toggleClass('hidden');
+            });
+
+            // Toggle About dropdown inside main navigation menu on click
+            $(document).on('click', '#about-dropdown-btn', function (e) {
+                e.stopPropagation();
+                const btn = $(this);
+                const panel = $('#about-dropdown-panel');
+                const chevron = $('#about-chevron');
+
+                panel.toggleClass('hidden');
+                chevron.toggleClass('rotate-180');
+
+                // Highlight active parent dynamically
+                if (!panel.hasClass('hidden')) {
+                    btn.addClass('bg-white text-brand');
+                } else {
+                    btn.removeClass('bg-white text-brand');
+                }
+            });
+
+            // Toggle Cloned About dropdown inside More panel on click
+            $(document).on('click', '#cloned-about-dropdown-btn', function (e) {
+                e.stopPropagation();
+                const btn = $(this);
+                const panel = $('#cloned-about-dropdown-panel');
+                const chevron = $('#cloned-about-chevron');
+
+                const isOpening = panel.hasClass('hidden');
+
+                if (isOpening) {
+                    btn.addClass('bg-white text-brand');
+
+                    // Temporarily display panel invisibly to measure dynamic size
+                    panel.css({
+                        'visibility': 'hidden',
+                        'display': 'block',
+                        'position': 'absolute'
+                    });
+
+                    // Reset temporary classes to get true layout size
+                    panel.removeClass('left-full right-full left-0 top-full bottom-full -mt-2 mt-2 mb-2 ml-3 mr-3 -mt-3');
+
+                    const panelWidth = panel.outerWidth() || 192;
+                    const panelHeight = panel.outerHeight() || 132;
+
+                    // Clear temporary inline styles
+                    panel.css({
+                        'visibility': '',
+                        'display': '',
+                        'position': ''
+                    });
+
+                    const btnOffset = btn.offset();
+                    const btnWidth = btn.outerWidth();
+                    const btnHeight = btn.outerHeight();
+                    const windowWidth = $(window).width();
+                    const windowHeight = $(window).height();
+                    const scrollTop = $(window).scrollTop();
+
+                    const spaceRight = windowWidth - (btnOffset.left + btnWidth);
+                    const spaceLeft = btnOffset.left;
+                    const spaceBottom = windowHeight - (btnOffset.top - scrollTop + btnHeight);
+                    const spaceTop = btnOffset.top - scrollTop;
+
+                    let targetClass = '';
+                    if (spaceRight >= panelWidth) {
+                        targetClass = 'absolute left-full top-0 -mt-3 w-48 ml-3';
+                    } else if (spaceLeft >= panelWidth) {
+                        targetClass = 'absolute right-full top-0 -mt-3 w-48 mr-3';
+                    } else if (spaceBottom >= panelHeight) {
+                        targetClass = 'absolute left-0 top-full mt-2 w-full';
+                    } else if (spaceTop >= panelHeight) {
+                        targetClass = 'absolute left-0 bottom-full mb-2 w-full';
+                    } else {
+                        targetClass = 'absolute left-full top-0 -mt-3 w-48 ml-3';
+                    }
+
+                    panel.removeClass('left-full right-full left-0 top-full bottom-full -mt-2 mt-2 mb-2 w-full ml-3 mr-3 -mt-3')
+                        .addClass(targetClass)
+                        .removeClass('hidden');
+                    chevron.addClass('rotate-180');
+                } else {
+                    panel.addClass('hidden');
+                    chevron.removeClass('rotate-180');
+                    btn.removeClass('bg-white text-brand');
+                }
+            });
+
+            // Close dropdowns on body click anywhere (desktop only)
+            $(document).on('click', function (e) {
+                if ($(window).width() >= 992) {
+                    if (!$(e.target).closest('#more-nav-btn-wrapper').length) {
+                        moreNavPanel.addClass('hidden');
+                    }
+                    if (!$(e.target).closest('#about-dropdown-btn').length) {
+                        $('#about-dropdown-panel').addClass('hidden');
+                        $('#about-chevron').removeClass('rotate-180');
+                        $('#about-dropdown-btn').removeClass('bg-white text-brand');
+                    }
+                    if (!$(e.target).closest('#cloned-about-dropdown-btn').length) {
+                        $('#cloned-about-dropdown-panel').addClass('hidden');
+                        $('#cloned-about-chevron').removeClass('rotate-180');
+                        $('#cloned-about-dropdown-btn').removeClass('bg-white text-brand');
+                    }
+                }
+            });
+
+
+        });
+    </script>
+
+    <!-- ============ MOBILE BOTTOM NAVIGATION ============ -->
+    <div
+        class="lg:hidden fixed bottom-0 left-0 right-0 z-[99] bg-white/95 backdrop-blur-md border-t border-slate-100/80 shadow-[0_-8px_30px_rgba(0,0,0,0.03)] h-[64px] pb-safe flex items-center">
+        <div class="container mx-auto px-4 h-full flex items-center">
+            <div class="w-full grid grid-cols-5 items-stretch justify-items-center h-full relative">
+
+                <!-- Home -->
+                <a href="index.html"
+                    class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-house text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Home</span>
+                </a>
+
+                <!-- Explore -->
+                <a href="products.html"
+                    class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-compass text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Explore</span>
+                </a>
+
+                <!-- Create (Floating Button on top of flat bar, text aligned) -->
+                <div
+                    class="flex flex-col items-center justify-end h-full pb-2 group cursor-pointer relative w-full text-center">
+                    <!-- Absolute container for the floating button to sit on top -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
+                        <a href="#" aria-label="Create Listing"
+                            class="flex items-center justify-center bg-gradient-to-tr from-theme-primary to-indigo-500 text-white w-12 h-12 rounded-full border-[5px] border-white transition-all duration-300">
+                            <i
+                                class="fa-solid fa-plus text-base transition-transform duration-500 ease-out group-hover:rotate-90"></i>
+                        </a>
+                    </div>
+                    <span
+                        class="text-[9px] font-bold tracking-wide text-slate-500 transition-colors duration-300 group-hover:text-theme-primary">Create</span>
+                </div>
+
+                <!-- Store -->
+                <a href="store.html"
+                    class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-store text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Store</span>
+                </a>
+
+                <!-- Account -->
+                <a href="#"
+                    class="auth-modal-trigger flex flex-col items-center justify-end h-full pb-2 text-slate-500 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-regular fa-user text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Account</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Dynamically calculate mobile bottom nav height and apply as padding-bottom to body
+            function adjustMobileBottomPadding() {
+                const bottomNav = document.querySelector('.lg\\:hidden.fixed.bottom-0');
+                if (bottomNav && window.getComputedStyle(bottomNav).display !== 'none') {
+                    const navHeight = bottomNav.offsetHeight;
+                    document.body.style.paddingBottom = navHeight + 'px';
+                } else {
+                    document.body.style.paddingBottom = '0px';
+                }
+            }
+
+            // Initial execution and bind to events
+            adjustMobileBottomPadding();
+            $(window).on('resize', adjustMobileBottomPadding);
+        });
+    </script>
+
+    <!-- Floating Create Listing Button (Desktop/Tablet Only) -->
+    <a href="#"
+        class="hidden md:flex items-center gap-1.5 px-4 h-10 rounded-full bg-theme-primary text-white text-xs font-bold border border-theme-primary hover:bg-white hover:text-theme-primary transition-all duration-300 fixed bottom-6 left-1/2 -translate-x-1/2 z-40 group cursor-pointer select-none whitespace-nowrap">
+        <i class="fa-solid fa-plus text-[10px] transition-transform duration-500 ease-out group-hover:rotate-90"></i>
+        <span>Create Free Listing</span>
+    </a>
+
+</body>
+
+</html>
