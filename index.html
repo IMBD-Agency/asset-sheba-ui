@@ -602,7 +602,7 @@
 
               <!-- Search pill: grid-cols-1 on mobile (full-width rows), grid-cols-[auto_1fr] on lg -->
               <div
-                class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+                class="bg-white rounded-2xl shadow-[0_10px_35px_-5px_rgba(0,0,0,0.04)] border border-slate-100/90 overflow-hidden grid grid-cols-1 lg:grid-cols-[auto_1fr]">
 
                 <!-- ── GROUP A: Location | Category — always full width when stacked ── -->
                 <div class="flex items-center border-b lg:border-b-0 lg:border-r border-slate-100">
@@ -756,230 +756,211 @@
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
             <!-- ── COLUMN 1: Services ── -->
-            <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
+            <div class="relative bg-gradient-to-br from-blue-50/80 to-indigo-50/50 rounded-2xl border border-blue-100/80 p-4 shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col justify-between">
               <!-- Column Header -->
-              <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-gear text-blue-600 text-xs"></i>
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-blue-500/15 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-gear text-blue-600 text-sm"></i>
                   </div>
                   <div>
-                    <p class="text-[10px] text-slate-400 font-medium">01.</p>
-                    <h3 class="text-sm font-black text-slate-900 leading-none">Services</h3>
+                    <h3 class="text-sm font-black text-slate-900 leading-none">1. Services</h3>
                   </div>
                 </div>
-                <a href="#" class="text-[10px] font-bold text-theme-primary flex items-center gap-1 whitespace-nowrap">
+                <a href="#" class="text-[10px] font-bold text-blue-600 bg-white/90 hover:bg-blue-600 hover:text-white px-2.5 py-1 rounded-full border border-blue-100/80 transition-all flex items-center gap-1 whitespace-nowrap shadow-xs">
                   View all <i class="fa-solid fa-arrow-right text-[8px]"></i>
                 </a>
               </div>
-              <p class="text-[10px] text-slate-400 mb-3" style="font-family:'Noto Sans Bengali',sans-serif;">বিভিন্ন
-                সেবা খুঁজুন এবং পেশাদার সেবা গ্রহণ করুন</p>
-              <!-- Category items -->
-              <div class="grid grid-cols-3 gap-1.5">
+              <p class="text-[11px] text-slate-500 mb-3 font-medium" style="font-family:'Noto Sans Bengali',sans-serif;">বিভিন্ন সেবা খুঁজুন এবং পেয়ে যান সেরা সেবাগুলো</p>
+              
+              <!-- Category items (white card pills) -->
+              <div class="grid grid-cols-3 gap-2">
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-laptop-code text-blue-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-laptop-code text-blue-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">আইটি সেবা</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-chalkboard-teacher text-blue-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-book-open-reader text-blue-600 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">শিক্ষা ও কোচিং</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-briefcase text-blue-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-heart-pulse text-red-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
-                    style="font-family:'Noto Sans Bengali',sans-serif;">চাকরি সেবা</span>
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
+                    style="font-family:'Noto Sans Bengali',sans-serif;">হেলথ সেবা</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-bullhorn text-blue-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-bullhorn text-cyan-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">ডিজিটাল মার্কেটিং</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-calendar-check text-blue-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-calendar-days text-indigo-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">ইভেন্ট ম্যানেজমেন্ট</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-slate-200 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-ellipsis text-slate-400 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-blue-100/50 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-ellipsis text-amber-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-400 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-500 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">আরও দেখুন</span>
                 </a>
               </div>
             </div>
 
             <!-- ── COLUMN 2: Assets ── -->
-            <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-              <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-building text-emerald-600 text-xs"></i>
+            <div class="relative bg-gradient-to-br from-emerald-50/80 to-teal-50/50 rounded-2xl border border-emerald-100/80 p-4 shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-500/15 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-house-chimney text-emerald-600 text-sm"></i>
                   </div>
                   <div>
-                    <p class="text-[10px] text-slate-400 font-medium">02.</p>
-                    <h3 class="text-sm font-black text-slate-900 leading-none">Assets</h3>
+                    <h3 class="text-sm font-black text-slate-900 leading-none">2. Assets</h3>
                   </div>
                 </div>
-                <a href="#" class="text-[10px] font-bold text-theme-primary flex items-center gap-1 whitespace-nowrap">
+                <a href="#" class="text-[10px] font-bold text-emerald-600 bg-white/90 hover:bg-emerald-600 hover:text-white px-2.5 py-1 rounded-full border border-emerald-100/80 transition-all flex items-center gap-1 whitespace-nowrap shadow-xs">
                   View all <i class="fa-solid fa-arrow-right text-[8px]"></i>
                 </a>
               </div>
-              <p class="text-[10px] text-slate-400 mb-3" style="font-family:'Noto Sans Bengali',sans-serif;">সম্পত্তি,
-                যানবাহন, ইলেকট্রনিক্স এবং আরো অনেক কিছু</p>
-              <div class="grid grid-cols-3 gap-1.5">
+              <p class="text-[11px] text-slate-500 mb-3 font-medium" style="font-family:'Noto Sans Bengali',sans-serif;">প্রপার্টি, যানবাহন, ইলেকট্রনিক্স এবং আরও অনেক কিছু</p>
+              
+              <!-- Category items (white card pills) -->
+              <div class="grid grid-cols-3 gap-2">
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-house text-emerald-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-house text-red-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">প্রপার্টি</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-car text-emerald-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-car text-blue-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">যানবাহন</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-laptop text-emerald-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-laptop text-emerald-600 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">ইলেকট্রনিক্স</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-industry text-emerald-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-mobile-screen-button text-blue-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
-                    style="font-family:'Noto Sans Bengali',sans-serif;">রিয়েল এস্টেট মেশিনারী</span>
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
+                    style="font-family:'Noto Sans Bengali',sans-serif;">মোবাইল ফোন</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-tools text-emerald-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-user-gear text-orange-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
-                    style="font-family:'Noto Sans Bengali',sans-serif;">যন্ত্রপাতি</span>
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
+                    style="font-family:'Noto Sans Bengali',sans-serif;">মেশিনারী</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-emerald-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-slate-200 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-ellipsis text-slate-400 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-emerald-100/50 hover:shadow-md hover:border-emerald-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-ellipsis text-amber-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-400 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-500 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">আরও দেখুন</span>
                 </a>
               </div>
             </div>
 
             <!-- ── COLUMN 3: AssetSheba Store ── -->
-            <div class="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-              <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-store text-violet-600 text-xs"></i>
+            <div class="relative bg-gradient-to-br from-purple-50/80 to-fuchsia-50/50 rounded-2xl border border-purple-100/80 p-4 shadow-sm group hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-purple-500/15 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-bag-shopping text-purple-600 text-sm"></i>
                   </div>
                   <div>
-                    <p class="text-[10px] text-slate-400 font-medium">03.</p>
-                    <h3 class="text-sm font-black text-slate-900 leading-none">AssetSheba Store</h3>
+                    <h3 class="text-sm font-black text-slate-900 leading-none">3. AssetSheba Store</h3>
                   </div>
                 </div>
-                <a href="#" class="text-[10px] font-bold text-theme-primary flex items-center gap-1 whitespace-nowrap">
+                <a href="#" class="text-[10px] font-bold text-purple-600 bg-white/90 hover:bg-purple-600 hover:text-white px-2.5 py-1 rounded-full border border-purple-100/80 transition-all flex items-center gap-1 whitespace-nowrap shadow-xs">
                   View all <i class="fa-solid fa-arrow-right text-[8px]"></i>
                 </a>
               </div>
-              <p class="text-[10px] text-slate-400 mb-3" style="font-family:'Noto Sans Bengali',sans-serif;">অফিশিয়াল
-                শপ থেকে বিশ্বস্ততার সাথে কেনাকাটা করুন</p>
-              <div class="grid grid-cols-3 gap-1.5">
+              <p class="text-[11px] text-slate-500 mb-3 font-medium" style="font-family:'Noto Sans Bengali',sans-serif;">অরিজিনাল পণ্য কিনুন আমাদের স্টোর থেকে</p>
+              
+              <!-- Category items (white card pills) -->
+              <div class="grid grid-cols-3 gap-2">
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-violet-50 group-hover:bg-violet-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-tv text-violet-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-tv text-purple-600 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">ইলেকট্রনিক্স</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-violet-50 group-hover:bg-violet-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-shirt text-violet-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-shirt text-fuchsia-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">ফ্যাশন</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-violet-50 group-hover:bg-violet-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-couch text-violet-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-couch text-purple-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">হোম & লিভিং</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-violet-50 group-hover:bg-violet-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-spa text-violet-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-spray-can-sparkles text-purple-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">বিউটি & কেয়ার</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-violet-50 group-hover:bg-violet-100 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-futbol text-violet-500 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-life-ring text-red-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-600 font-medium leading-tight"
-                    style="font-family:'Noto Sans Bengali',sans-serif;">স্পোর্টিং</span>
+                  <span class="text-[10px] text-slate-700 font-bold leading-tight"
+                    style="font-family:'Noto Sans Bengali',sans-serif;">স্পোর্টস</span>
                 </a>
                 <a href="#"
-                  class="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-violet-50 transition-colors group text-center">
-                  <div
-                    class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-slate-200 flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-ellipsis text-slate-400 text-xs"></i>
+                  class="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center gap-1.5 shadow-xs border border-purple-100/50 hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all text-center group/item">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-ellipsis text-purple-500 text-sm"></i>
                   </div>
-                  <span class="text-[10px] text-slate-400 font-medium leading-tight"
+                  <span class="text-[10px] text-slate-500 font-bold leading-tight"
                     style="font-family:'Noto Sans Bengali',sans-serif;">আরও দেখুন</span>
                 </a>
               </div>
