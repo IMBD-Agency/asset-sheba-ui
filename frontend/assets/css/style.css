@@ -241,18 +241,6 @@ body::after {
     border-color: rgba(var(--ColorPrimaryRGB), 0.45) !important;
 }
 
-/* Premium Rounded Inner Box for Product Images */
-.product-card .relative.aspect-square {
-    margin: 10px 10px 0 10px !important;
-    border-radius: 14px !important;
-    background-color: #f6f8fb !important;
-    overflow: hidden !important;
-}
-
-.product-card .relative.aspect-square img {
-    border-radius: 14px !important;
-}
-
 /* Category card hover transition enhancement */
 .category-slider .slider_item a {
     transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;

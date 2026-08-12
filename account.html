@@ -17,6 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -80,6 +81,20 @@
                 }
             }
         }
+    </script>
+
+    <!-- Theme Anti-Flash Initializer Script -->
+    <script id="sheba-theme-initializer">
+            (function () {
+                try {
+                    const savedTheme = localStorage.getItem('sheba_theme');
+                    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                } catch (e) { }
+            })();
     </script>
 
     <!-- Lucide Icons -->
@@ -222,28 +237,13 @@
 
                 const canvas = $(offcanvasSelector);
                 const canvasIndex = canvas.data('canvas-index') || 999;
-                const backdropIndex = canvas.data('backdrop-index') || 99;
+                const backdropIndex = canvas.data('backdrop-index') || 990;
 
                 // Set backdrop z-index and show it
                 this._element.css('z-index', backdropIndex);
                 this._element.removeClass('hidden').addClass('block');
                 setTimeout(() => this._element.addClass('opacity-100'), 50);
                 $('body').css('overflow', 'hidden');
-
-                // Dynamically find all parents with active z-indices and clear them
-                canvas.parents().each(function () {
-                    const parent = $(this);
-                    const pos = parent.css('position');
-                    const zIndex = parent.css('z-index');
-                    if (pos !== 'static' && zIndex !== 'auto') {
-                        parent.data('orig-zindex', zIndex);
-                        parent.data('orig-position', pos);
-                        parent.css({
-                            'z-index': 'auto',
-                            'position': 'static'
-                        });
-                    }
-                });
 
                 // Set offcanvas z-index
                 canvas.css('z-index', canvasIndex);
@@ -263,20 +263,6 @@
 
                 const canvas = $(offcanvasSelector);
 
-                // Restore parent stacking contexts dynamically
-                canvas.parents().each(function () {
-                    const parent = $(this);
-                    const origZIndex = parent.data('orig-zindex');
-                    const origPos = parent.data('orig-position');
-                    if (origZIndex !== undefined) {
-                        parent.css({
-                            'z-index': origZIndex,
-                            'position': origPos
-                        });
-                        parent.removeData('orig-zindex').removeData('orig-position');
-                    }
-                });
-
                 // Reset offcanvas z-index
                 canvas.css('z-index', '');
 
@@ -286,9 +272,9 @@
                     setTimeout(() => {
                         if (this._activeOffcanvases.size === 0) {
                             this._element.removeClass('block').addClass('hidden');
+                            $('body').css('overflow', '');
                         }
                     }, 300);
-                    $('body').css('overflow', '');
                 }
             }
         };
@@ -338,14 +324,167 @@
 
     <!-- ============ COMMON OFFCANVAS BACKDROP (Shared for all offcanvas panels) ============ -->
     <div id="common-offcanvas-backdrop"
-        class="fixed inset-0 bg-[#0f172a]/50 backdrop-blur-[2px] z-[99] hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
+        class="fixed inset-0 bg-[#0f172a]/60 backdrop-blur-[2px] z-[990] hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
+    </div>
+
+    <!-- ============ SETTINGS OFFCANVAS (Theme & Language & Preferences) ============ -->
+    <div id="settings-offcanvas" data-canvas-index="999" data-backdrop-index="990"
+        class="fixed top-0 right-0 h-full w-[310px] sm:w-[350px] z-[999] bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 invisible">
+
+        <!-- Drawer Header (Matches standard 72px offcanvas header height) -->
+        <div class="flex items-center justify-between px-4 h-[72px] border-b border-slate-100/80 shrink-0 bg-white">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 leading-tight">Settings</h3>
+                    <p class="text-[11px] text-slate-400">Preferences & Theme</p>
+                </div>
+            </div>
+            <button id="settings-close-btn"
+                class="w-8 h-8 rounded-full bg-slate-100 hover:bg-theme-primary hover:text-white text-slate-600 flex items-center justify-center transition-all cursor-pointer border-none"
+                aria-label="Close settings">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-6 scrollbar-thin">
+
+            <!-- Section 1: Appearance / Theme Switcher -->
+            <div>
+                <label
+                    class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-palette text-theme-primary text-xs"></i> Appearance Mode
+                </label>
+                <div class="grid grid-cols-2 gap-2 settings-toggle-track" id="theme-mode-toggle-group">
+                    <button type="button" data-theme="light" id="theme-btn-light"
+                        class="theme-toggle-btn settings-pill-btn is-active">
+                        <i class="fa-regular fa-sun text-amber-500 text-sm"></i> Light
+                    </button>
+                    <button type="button" data-theme="dark" id="theme-btn-dark"
+                        class="theme-toggle-btn settings-pill-btn">
+                        <i class="fa-solid fa-moon text-indigo-400 text-sm"></i> Dark
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 2: Language Switcher -->
+            <div>
+                <label
+                    class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-theme-primary text-xs"></i> Display Language
+                </label>
+                <div class="grid grid-cols-2 gap-2 settings-toggle-track" id="lang-toggle-group">
+                    <button type="button" data-lang="EN" id="lang-btn-en"
+                        class="lang-select-btn settings-pill-btn is-active">
+                        <span class="text-xs">🇬🇧</span> English
+                    </button>
+                    <button type="button" data-lang="BN" id="lang-btn-bn" class="lang-select-btn settings-pill-btn">
+                        <span class="text-xs">🇧🇩</span> বাংলা
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 3: Quick Info / Preferences (Styled cleanly to match theme) -->
+            <div class="p-3.5 bg-slate-50 settings-info-card rounded-2xl space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-600">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-regular fa-bell text-theme-primary text-xs"></i> Notifications
+                    </span>
+                    <span
+                        class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">Enabled</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-slate-600">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-bangladeshi-taka-sign text-theme-primary text-xs"></i> Currency
+                    </span>
+                    <span
+                        class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">BDT
+                        (৳)</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-slate-100 bg-slate-50 text-center shrink-0">
+            <p class="text-[11px] text-slate-400">Asset Sheba Platform</p>
+        </div>
+    </div>
+
+    <!-- ============ MOBILE NAV OFFCANVAS (Drawer on mobile) ============ -->
+    <div id="nav-offcanvas" data-canvas-index="999" data-backdrop-index="990"
+        class="fixed top-0 left-0 h-full w-[290px] sm:w-[320px] z-[999] bg-white shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:hidden">
+
+        <!-- Drawer Header -->
+        <div
+            class="nav-drawer-header flex items-center justify-between px-4 h-[72px] border-b border-slate-100/80 shrink-0 bg-white">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba" class="h-8 w-auto object-contain">
+                <span class="text-sm font-black tracking-wide text-gray-900 uppercase">Asset Sheba</span>
+            </a>
+            <button id="nav-close-btn"
+                class="w-8 h-8 rounded-full bg-slate-100 hover:bg-theme-primary hover:text-white text-slate-600 flex items-center justify-center transition-all cursor-pointer border-none"
+                aria-label="Close navigation">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body -->
+        <nav class="nav-drawer-body flex-1 overflow-y-auto p-5 space-y-1" aria-label="Mobile Navigation">
+            <a href="index.html"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Home</a>
+            <a href="products.html"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Services</a>
+            <a href="products.html?deal=Sale"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Assets</a>
+            <a href="products.html?deal=New"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Asset
+                Sheba Store</a>
+            <a href="products.html?deal=New"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Premium
+                Ads</a>
+            <a href="products.html?deal=New"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Featured
+                Ads</a>
+            <a href="products.html?deal=New"
+                class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all">Trending
+                Ads</a>
+
+            <!-- About Submenu for Mobile -->
+            <div class="nav-item-dropdown">
+                <button type="button" id="mobile-about-dropdown-btn"
+                    class="nav-link-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 transition-all cursor-pointer border-none bg-transparent">
+                    <span>About</span>
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                        id="mobile-about-chevron"></i>
+                </button>
+                <div id="mobile-about-dropdown-panel" class="hidden pl-4 space-y-1 pt-1">
+                    <a href="#"
+                        class="block px-3 py-2 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-lg transition-all font-medium">Our
+                        Story</a>
+                    <a href="#"
+                        class="block px-3 py-2 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-lg transition-all font-medium">Outlets
+                        & Stores</a>
+                    <a href="#"
+                        class="block px-3 py-2 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-lg transition-all font-medium">Careers</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-slate-100 bg-slate-50 text-center shrink-0">
+            <p class="text-[11px] text-slate-400">Asset Sheba Platform</p>
+        </div>
     </div>
 
 
 
     <div class="body flex flex-col min-h-screen">
 
-        <header id="main-header" class="sticky top-0 z-[9] bg-transparent transition-all duration-300">
+        <header id="main-header" class="sticky top-0 z-[40] bg-transparent transition-all duration-300">
             <!-- Single Floating Rounded Header Card -->
             <div id="header-card"
                 class="w-full bg-white py-3.5 border-b border-slate-100/80 shadow-[0_2px_15px_rgba(0,0,0,0.01)] transition-all duration-300 relative z-[9]">
@@ -379,98 +518,69 @@
 
                         <!-- Center/Nav Placeholder (Desktop only) -->
                         <div id="desktop-nav-placeholder"
-                            class="lg:col-span-6 lg:flex lg:items-center lg:justify-center lg:h-full lg:overflow-visible">
-                            <div id="unified-nav" data-canvas-index="999" data-backdrop-index="99"
-                                class="fixed top-0 left-0 h-full w-[290px] z-[999] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:visible lg:static lg:h-full lg:w-full lg:translate-x-0 lg:flex-row lg:shadow-none lg:justify-center lg:overflow-visible">
+                            class="hidden lg:col-span-6 lg:flex lg:items-center lg:justify-center lg:h-full lg:overflow-visible">
+                            <nav id="desktop-nav-container" class="flex items-center justify-center gap-6 h-full"
+                                aria-label="Desktop Navigation">
 
-                                <!-- Drawer Header (mobile only — hidden on desktop via CSS) -->
-                                <div
-                                    class="nav-drawer-header flex items-center justify-between px-4 h-[72px] border-b border-gray-100 shrink-0 bg-white lg:hidden">
-                                    <a href="index.html" class="flex items-center gap-2">
-                                        <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba"
-                                            class="h-8 w-auto object-contain">
-                                        <span class="text-sm font-black tracking-wide text-gray-900 uppercase">Asset
-                                            Sheba</span>
-                                    </a>
-                                    <button id="nav-close-btn"
-                                        class="w-8 h-8 rounded-full bg-gray-100 hover:bg-theme-primary hover:text-white text-gray-600 flex items-center justify-center transition-all cursor-pointer"
-                                        aria-label="Close navigation">
-                                        <i class="fa-solid fa-xmark text-sm"></i>
+                                <a href="index.html"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Home</a>
+                                <a href="products.html"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Services</a>
+                                <a href="products.html?deal=Sale"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Assets</a>
+                                <a href="products.html?deal=New"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Asset
+                                    Sheba Store</a>
+                                <a href="products.html?deal=New"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Premium
+                                    Ads</a>
+                                <a href="products.html?deal=New"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Featured
+                                    Ads</a>
+                                <a href="products.html?deal=New"
+                                    class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Trending
+                                    Ads</a>
+
+                                <!-- ABOUT US WITH SUBMENU -->
+                                <div class="nav-item-dropdown relative">
+                                    <button id="about-dropdown-btn" type="button"
+                                        class="nav-link-item flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap cursor-pointer border-none bg-transparent">
+                                        <span>About</span>
+                                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                                            id="about-chevron"></i>
                                     </button>
+                                    <div id="about-dropdown-panel"
+                                        class="hidden absolute left-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-none p-2 z-50 nav-dropdown-panel">
+                                        <a href="#"
+                                            class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Our
+                                            Story</a>
+                                        <a href="#"
+                                            class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Outlets
+                                            & Stores</a>
+                                        <a href="#"
+                                            class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Careers</a>
+                                    </div>
                                 </div>
 
-                                <!-- Drawer Body — nav items live here ONCE -->
-                                <nav class="bg-white nav-drawer-body flex-1 overflow-y-auto p-5 lg:p-0 flex flex-col space-y-3- lg:space-y-0 lg:flex lg:flex-row lg:items-center lg:justify-center lg:w-full lg:gap-6 lg:overflow-visible h-full"
-                                    aria-label="Main Navigation">
-
-                                    <a href="index.html"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Home</a>
-                                    <a href="products.html"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Services</a>
-                                    <a href="products.html?deal=Sale"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Assets</a>
-                                    <a href="products.html?deal=New"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Asset
-                                        Sheba Store</a>
-                                    <a href="products.html?deal=New"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Premium
-                                        Ads</a>
-                                    <a href="products.html?deal=New"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Featured
-                                        Ads</a>
-                                    <a href="products.html?deal=New"
-                                        class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Trending
-                                        Ads</a>
-
-                                    <!-- ABOUT US WITH SUBMENU -->
-                                    <div class="nav-item-dropdown relative w-full lg:w-auto">
-                                        <button id="about-dropdown-btn"
-                                            class="nav-link-item w-full lg:w-auto flex items-center justify-between gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all duration-300 whitespace-nowrap cursor-pointer focus:outline-none">
-                                            <span>About</span>
-                                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
-                                                id="about-chevron"></i>
-                                        </button>
-                                        <div id="about-dropdown-panel"
-                                            class="hidden w-full bg-transparent lg:absolute lg:left-0 lg:top-full lg:mt-2 lg:w-52 lg:bg-white rounded-2xl lg:shadow-[0_20px_50px_rgba(0,0,0,0.08)] lg:border lg:border-slate-100 z-50 transition-all duration-300 before:content-[''] before:absolute before:-top-6 before:left-0 before:right-0 before:h-6 nav-dropdown-panel">
-                                            <a href="#"
-                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Our
-                                                Story</a>
-                                            <a href="#"
-                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Outlets
-                                                & Stores</a>
-                                            <a href="#"
-                                                class="block px-4 py-2.5 text-xs text-slate-600 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all duration-200 font-medium">Careers</a>
-                                        </div>
+                                <!-- ── More ▾ Overflow Button (desktop only, inserted by JS) ── -->
+                                <div id="more-nav-btn-wrapper" class="hidden nav-dropdown-wrapper relative">
+                                    <button id="more-nav-btn" type="button"
+                                        class="nav-link-item flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-theme-primary transition-all whitespace-nowrap cursor-pointer border-none bg-transparent">
+                                        <span>More</span>
+                                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                                            id="more-chevron"></i>
+                                    </button>
+                                    <!-- More dropdown panel -->
+                                    <div id="more-nav-panel"
+                                        class="nav-dropdown-panel hidden absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-none p-2 min-w-[180px] z-50">
                                     </div>
+                                </div>
 
-                                    <!-- ── More ▾ Overflow Button (desktop only, inserted by JS) ── -->
-                                    <div id="more-nav-btn-wrapper" class="hidden nav-dropdown-wrapper relative">
-                                        <button id="more-nav-btn"
-                                            class="nav-link-item flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-ink hover:bg-gray-50 hover:text-theme-primary transition-all whitespace-nowrap cursor-pointer">
-                                            More
-                                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
-                                                id="more-chevron"></i>
-                                        </button>
-                                        <!-- More dropdown panel -->
-                                        <div id="more-nav-panel"
-                                            class="nav-dropdown-panel hidden absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-gray-100 p-2 min-w-[180px] z-50">
-                                        </div>
-                                    </div>
-
-                                </nav><!-- end nav-drawer-body -->
-
-                            </div><!-- end #unified-nav -->
+                            </nav>
                         </div><!-- end #desktop-nav-placeholder -->
 
                         <!-- Right (col-span-3 to align with products view) -->
                         <div class="flex items-center gap-3 shrink-0 lg:col-span-3 h-full lg:justify-end">
-
-
-                            <!-- Language Switcher button (BN / EN Switch) -->
-                            <button id="lang-switch-btn"
-                                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-xs font-bold text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer">
-                                EN
-                            </button>
 
                             <!-- Compare Icon Button with Badge -->
                             <a href="#" aria-label="Compare"
@@ -499,6 +609,13 @@
                                 class="auth-modal-trigger hidden lg:flex w-10 h-10 rounded-full border border-slate-100 items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 overflow-hidden">
                                 <i class="fa-regular fa-user text-[13px]"></i>
                             </a>
+
+                            <!-- Settings Toggle button (Theme & Language & Preferences) -->
+                            <button id="settings-toggle-btn" aria-label="Settings & Theme" title="Settings"
+                                class="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer">
+                                <i class="fa-solid fa-gear text-[14px]"></i>
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -506,22 +623,22 @@
         </header>
 
         <main class="py-10 flex items-center justify-center flex-1 h-full">
-            <div class="container max-w-5xl">
+            <div class="container mx-auto max-w-5xl">
 
                 <!-- Auth Page Card -->
-                <div class="relative w-full max-w-4xl lg:max-w-[900px] bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px]"
+                <div class="relative w-full bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px]"
                     id="page-auth-card">
 
                     <!-- ===== LEFT BANNER ===== -->
-                    <div class="relative overflow-hidden flex items-center justify-center bg-[#070624] w-full h-full min-h-0">
+                    <div
+                        class="hidden lg:flex relative overflow-hidden items-center justify-center bg-[#070624] w-full h-full min-h-0">
                         <img id="page-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
                             alt="Asset Sheba Authentication"
                             class="w-full h-full object-contain object-center transition-all duration-300">
                     </div>
 
                     <!-- ===== RIGHT FORM SIDE ===== -->
-                    <div
-                        class="p-6 sm:p-8 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
+                    <div class="p-4 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
 
                         <!-- TABS HEADER -->
                         <div class="flex border-b border-slate-100 mb-3 shrink-0">
@@ -536,7 +653,7 @@
                         </div>
 
                         <!-- SCROLLABLE FORM AREA -->
-                        <div class="flex-1 min-h-0 overflow-y-auto pr-2 py-1 scrollbar-thin">
+                        <div class="flex-1 min-h-0 overflow-y-auto p-4 scrollbar-thin">
                             <div class="flex flex-col justify-start">
 
                                 <!-- ── PANEL: Account (Step 1) ── -->
@@ -549,19 +666,19 @@
                                                 <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select
                                                 Login Type
                                             </label>
-                                            <div class="flex p-1 bg-slate-100/80 rounded-2xl"
+                                            <div class="grid grid-cols-3 gap-1 settings-toggle-track"
                                                 id="page-account-type-toggle-group">
                                                 <button type="button" data-value="email"
-                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
-                                                    <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                                    class="page-account-type-btn settings-pill-btn is-active">
+                                                    <i class="fa-regular fa-envelope text-[11px]"></i> Email
                                                 </button>
                                                 <button type="button" data-value="username"
-                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                    <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                                    class="page-account-type-btn settings-pill-btn">
+                                                    <i class="fa-regular fa-user text-[11px]"></i> Username
                                                 </button>
                                                 <button type="button" data-value="phone"
-                                                    class="page-account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                    <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                                    class="page-account-type-btn settings-pill-btn">
+                                                    <i class="fa-solid fa-phone text-[11px]"></i> Phone
                                                 </button>
                                             </div>
                                             <input type="hidden" id="page-account-type" value="email">
@@ -596,7 +713,7 @@
                                         </div>
 
                                         <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                             <span>Continue</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                         </button>
                                     </form>
@@ -626,19 +743,19 @@
                                                     <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i>
                                                     Select Login Type
                                                 </label>
-                                                <div class="flex p-1 bg-slate-100/80 rounded-2xl"
+                                                <div class="grid grid-cols-3 gap-1 settings-toggle-track"
                                                     id="page-login-type-toggle-group">
                                                     <button type="button" data-value="email"
-                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
-                                                        <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                                        class="page-login-type-btn settings-pill-btn is-active">
+                                                        <i class="fa-regular fa-envelope text-[11px]"></i> Email
                                                     </button>
                                                     <button type="button" data-value="username"
-                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                        <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                                        class="page-login-type-btn settings-pill-btn">
+                                                        <i class="fa-regular fa-user text-[11px]"></i> Username
                                                     </button>
                                                     <button type="button" data-value="phone"
-                                                        class="page-login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                        <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                                        class="page-login-type-btn settings-pill-btn">
+                                                        <i class="fa-solid fa-phone text-[11px]"></i> Phone
                                                     </button>
                                                 </div>
                                                 <input type="hidden" id="page-login-type" value="email">
@@ -695,7 +812,7 @@
                                         </div>
 
                                         <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                             <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                         </button>
                                     </form>
@@ -831,7 +948,7 @@
                                         </div>
 
                                         <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                             <span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                         </button>
                                     </form>
@@ -983,8 +1100,8 @@
                     const btn = $(this);
                     const val = btn.data('value');
                     document.getElementById('page-account-type').value = val;
-                    $('.page-account-type-btn').removeClass('bg-white text-theme-primary shadow-sm').addClass('bg-transparent text-slate-500');
-                    btn.removeClass('bg-transparent text-slate-500').addClass('bg-white text-theme-primary shadow-sm');
+                    $('.page-account-type-btn').removeClass('is-active');
+                    btn.addClass('is-active');
                     updatePageAccountType(val);
                 });
 
@@ -1021,8 +1138,8 @@
                     const btn = $(this);
                     const val = btn.data('value');
                     document.getElementById('page-login-type').value = val;
-                    $('.page-login-type-btn').removeClass('bg-white text-theme-primary shadow-sm').addClass('bg-transparent text-slate-500');
-                    btn.removeClass('bg-transparent text-slate-500').addClass('bg-white text-theme-primary shadow-sm');
+                    $('.page-login-type-btn').removeClass('is-active');
+                    btn.addClass('is-active');
                     updatePageLoginType(val);
                 });
 
@@ -1315,35 +1432,41 @@
 
         <div class="relative w-full max-w-4xl lg:max-w-[900px] bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px] scale-95 opacity-0 transition-all duration-300"
             id="auth-dialog">
-            <!-- Close Button -->
-            <button id="close-auth-modal"
-                class="absolute top-4 right-4 text-slate-500 hover:text-theme-primary transition-colors z-20 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer border-none outline-none">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
 
             <!-- Left Banner Side -->
-            <div class="relative overflow-hidden flex items-center justify-center bg-[#070624] w-full h-full min-h-0">
+            <div
+                class="hidden lg:flex relative overflow-hidden items-center justify-center bg-[#070624] w-full h-full min-h-0">
                 <img id="modal-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
                     alt="Asset Sheba Authentication"
                     class="w-full h-full object-contain object-center transition-all duration-300">
             </div>
 
             <!-- Right Form & Tabs Side -->
-            <div class="p-6 sm:p-8 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
-                <!-- FIXED HEADER: Tabs Header -->
-                <div class="flex border-b border-slate-100 mb-3 shrink-0">
-                    <button id="tab-account"
-                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none">Account</button>
-                    <button id="tab-login"
-                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
-                        In</button>
-                    <button id="tab-register"
-                        class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
-                        Up</button>
+            <div class="p-4 sm:p-5 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
+                <!-- FIXED HEADER: Tabs Header + Close Button (100% Vertically Centered Flex Row) -->
+                <div class="flex items-center justify-between border-b border-slate-100 mb-3 shrink-0 gap-2">
+                    <div class="flex items-center flex-1">
+                        <button id="tab-account"
+                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Account</button>
+                        <button id="tab-login"
+                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Sign
+                            In</button>
+                        <button id="tab-register"
+                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Sign
+                            Up</button>
+                    </div>
+                    <!-- Close Button inline in header row -->
+                    <div class="pb-3 -mb-[1px] flex items-center justify-center pl-2 shrink-0">
+                        <button id="close-auth-modal"
+                            class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center cursor-pointer border-none outline-none shrink-0"
+                            aria-label="Close modal">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- SCROLLABLE BODY: Forms Wrapper with Safe Scroll Gutter Padding -->
-                <div class="flex-1 min-h-0 overflow-y-auto pr-2 py-1 scrollbar-thin">
+                <div class="flex-1 min-h-0 overflow-y-auto p-4 scrollbar-thin">
                     <div class="flex flex-col justify-start">
 
                         <!-- Tab 3: Account (Default/Step 1 Input) -->
@@ -1354,18 +1477,19 @@
                                         class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
                                         <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select Login Type
                                     </label>
-                                    <div class="flex p-1 bg-slate-100/80 rounded-2xl" id="account-type-toggle-group">
+                                    <div class="grid grid-cols-3 gap-1 settings-toggle-track"
+                                        id="account-type-toggle-group">
                                         <button type="button" data-value="email"
-                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
-                                            <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                            class="account-type-btn settings-pill-btn is-active">
+                                            <i class="fa-regular fa-envelope text-[11px]"></i> Email
                                         </button>
                                         <button type="button" data-value="username"
-                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                            <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                            class="account-type-btn settings-pill-btn">
+                                            <i class="fa-regular fa-user text-[11px]"></i> Username
                                         </button>
                                         <button type="button" data-value="phone"
-                                            class="account-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                            <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                            class="account-type-btn settings-pill-btn">
+                                            <i class="fa-solid fa-phone text-[11px]"></i> Phone
                                         </button>
                                     </div>
                                     <!-- Hidden input to store value for forms -->
@@ -1400,7 +1524,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                     <span>Continue</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                 </button>
                             </form>
@@ -1430,18 +1554,19 @@
                                             <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select Login
                                             Type
                                         </label>
-                                        <div class="flex p-1 bg-slate-100/80 rounded-2xl" id="login-type-toggle-group">
+                                        <div class="grid grid-cols-3 gap-1 settings-toggle-track"
+                                            id="login-type-toggle-group">
                                             <button type="button" data-value="email"
-                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-white text-theme-primary shadow-sm border-none">
-                                                <i class="fa-regular fa-envelope text-[11px] mr-1"></i> Email
+                                                class="login-type-btn settings-pill-btn is-active">
+                                                <i class="fa-regular fa-envelope text-[11px]"></i> Email
                                             </button>
                                             <button type="button" data-value="username"
-                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                <i class="fa-regular fa-user text-[11px] mr-1"></i> Username
+                                                class="login-type-btn settings-pill-btn">
+                                                <i class="fa-regular fa-user text-[11px]"></i> Username
                                             </button>
                                             <button type="button" data-value="phone"
-                                                class="login-type-btn flex-1 py-2 px-3 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer text-center bg-transparent text-slate-500 border-none hover:text-slate-800">
-                                                <i class="fa-solid fa-phone text-[11px] mr-1"></i> Phone
+                                                class="login-type-btn settings-pill-btn">
+                                                <i class="fa-solid fa-phone text-[11px]"></i> Phone
                                             </button>
                                         </div>
                                         <!-- Hidden input to store value for forms -->
@@ -1496,7 +1621,7 @@
                                     </div>
                                 </div>
                                 <button type="submit"
-                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                     <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                 </button>
                             </form>
@@ -1624,7 +1749,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="w-full py-3.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
                                     <span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>
                                 </button>
                             </form>
@@ -1685,9 +1810,9 @@
 
                 function switchTab(tab) {
                     // Reset tabs style classes
-                    tabAccount.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
-                    tabLogin.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
-                    tabRegister.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none";
+                    tabAccount.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
+                    tabLogin.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
+                    tabRegister.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
 
                     // Hide all panels
                     accountPanel.classList.add('hidden');
@@ -1696,10 +1821,10 @@
 
                     if (tab === 'account') {
                         currentIdentifier = ''; // Reset when visiting Account page
-                        tabAccount.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        tabAccount.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
                         accountPanel.classList.remove('hidden');
                     } else if (tab === 'login') {
-                        tabLogin.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        tabLogin.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
                         loginPanel.classList.remove('hidden');
 
                         const loginBanner = document.getElementById('login-preview-banner');
@@ -1729,7 +1854,7 @@
                             }
                         }
                     } else {
-                        tabRegister.className = "flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none";
+                        tabRegister.className = "flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]";
                         registerPanel.classList.remove('hidden');
 
                         const regBanner = document.getElementById('register-preview-banner');
@@ -1782,9 +1907,8 @@
                     const val = btn.data('value');
                     document.getElementById('modal-account-type').value = val;
 
-                    // Toggle classes for track layout
-                    $('.account-type-btn').removeClass('bg-white text-theme-primary shadow-sm border-none').addClass('bg-transparent text-slate-500 border-none hover:text-slate-800');
-                    btn.removeClass('bg-transparent text-slate-500 border-none hover:text-slate-800').addClass('bg-white text-theme-primary shadow-sm border-none');
+                    $('.account-type-btn').removeClass('is-active');
+                    btn.addClass('is-active');
 
                     updateAccountType(val);
                 });
@@ -1824,9 +1948,8 @@
                     const val = btn.data('value');
                     document.getElementById('modal-login-type').value = val;
 
-                    // Toggle classes for track layout
-                    $('.login-type-btn').removeClass('bg-white text-theme-primary shadow-sm border-none').addClass('bg-transparent text-slate-500 border-none hover:text-slate-800');
-                    btn.removeClass('bg-transparent text-slate-500 border-none hover:text-slate-800').addClass('bg-white text-theme-primary shadow-sm border-none');
+                    $('.login-type-btn').removeClass('is-active');
+                    btn.addClass('is-active');
 
                     updateLoginType(val);
                 });
@@ -1949,45 +2072,134 @@
     </div>
 
     <!-- ============ SCRIPT BLOCK 1: MOBILE OFFCANVAS DRAWER SYSTEM ============ -->
-    <script>
+    <!-- ============ DEDICATED SCRIPT: THEME & SETTINGS CONTROLLER (LIGHT/DARK & LANGUAGE) ============ -->
+    <script id="sheba-theme-settings-controller">
         $(document).ready(function () {
-            // Language Switcher Toggle
-            $('#lang-switch-btn').on('click', function () {
-                const btn = $(this);
-                const currentLang = btn.text().trim();
-                btn.text(currentLang === 'EN' ? 'BN' : 'EN');
+            const THEME_KEY = 'sheba_theme';
+            const LANG_KEY = 'sheba_lang';
+
+            // ─── 1. Theme Manager ───────────────────────────────────────
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    $('html').addClass('dark');
+                    $('body').addClass('dark');
+                    $('#theme-btn-dark').addClass('is-active');
+                    $('#theme-btn-light').removeClass('is-active');
+                } else {
+                    $('html').removeClass('dark');
+                    $('body').removeClass('dark');
+                    $('#theme-btn-light').addClass('is-active');
+                    $('#theme-btn-dark').removeClass('is-active');
+                }
+                localStorage.setItem(THEME_KEY, theme);
+            }
+
+            // ─── 2. Language Manager ────────────────────────────────────
+            function applyLanguage(lang) {
+                if (lang === 'BN') {
+                    $('#lang-btn-bn').addClass('is-active');
+                    $('#lang-btn-en').removeClass('is-active');
+                } else {
+                    $('#lang-btn-en').addClass('is-active');
+                    $('#lang-btn-bn').removeClass('is-active');
+                }
+                localStorage.setItem(LANG_KEY, lang);
+            }
+
+            // ─── 3. Initial Synchronization ─────────────────────────────
+            const savedTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            const savedLang = localStorage.getItem(LANG_KEY) || 'EN';
+            applyLanguage(savedLang);
+
+            // ─── 4. Settings Offcanvas Controller ───────────────────────
+            const settingsOffcanvas = $('#settings-offcanvas');
+
+            function openSettingsOffcanvas() {
+                settingsOffcanvas.removeClass('translate-x-full invisible').addClass('translate-x-0');
+                if (typeof shebaBackdrop !== 'undefined') {
+                    shebaBackdrop.show('#settings-offcanvas', closeSettingsOffcanvas);
+                }
+            }
+
+            function closeSettingsOffcanvas() {
+                settingsOffcanvas.addClass('translate-x-full').removeClass('translate-x-0');
+                setTimeout(() => {
+                    if (settingsOffcanvas.hasClass('translate-x-full')) {
+                        settingsOffcanvas.addClass('invisible');
+                    }
+                }, 300);
+                if (typeof shebaBackdrop !== 'undefined') {
+                    shebaBackdrop.hide('#settings-offcanvas');
+                }
+            }
+
+            // ─── 5. Event Handlers ──────────────────────────────────────
+            $(document).on('click', '#settings-toggle-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openSettingsOffcanvas();
+            });
+
+            $(document).on('click', '#settings-close-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeSettingsOffcanvas();
+            });
+
+            $(document).on('click', '.theme-toggle-btn', function (e) {
+                e.preventDefault();
+                const selectedTheme = $(this).data('theme');
+                applyTheme(selectedTheme);
+            });
+
+            $(document).on('click', '.lang-select-btn', function (e) {
+                e.preventDefault();
+                const selectedLang = $(this).data('lang');
+                applyLanguage(selectedLang);
             });
         });
     </script>
 
     <script>
         $(document).ready(function () {
-            // Offcanvas Drawer toggles
-            const unifiedNav = $('#unified-nav');
+            // Mobile Nav Offcanvas Drawer toggles
+            const navOffcanvas = $('#nav-offcanvas');
 
             function openMobileNav() {
-                unifiedNav.removeClass('-translate-x-full invisible').addClass('translate-x-0');
-                shebaBackdrop.show('#unified-nav', closeMobileNav);
+                navOffcanvas.removeClass('-translate-x-full invisible').addClass('translate-x-0');
+                shebaBackdrop.show('#nav-offcanvas', closeMobileNav);
             }
 
             function closeMobileNav() {
-                unifiedNav.addClass('-translate-x-full').removeClass('translate-x-0');
+                navOffcanvas.addClass('-translate-x-full').removeClass('translate-x-0');
                 setTimeout(() => {
-                    if (unifiedNav.hasClass('-translate-x-full')) {
-                        unifiedNav.addClass('invisible');
+                    if (navOffcanvas.hasClass('-translate-x-full')) {
+                        navOffcanvas.addClass('invisible');
                     }
                 }, 300);
-                shebaBackdrop.hide('#unified-nav');
+                shebaBackdrop.hide('#nav-offcanvas');
             }
 
-            $('#mobile-menu-btn').on('click', function (e) {
+            $(document).on('click', '#mobile-menu-btn', function (e) {
+                e.preventDefault();
                 e.stopPropagation();
                 openMobileNav();
             });
 
-            $('#nav-close-btn').on('click', function (e) {
+            $(document).on('click', '#nav-close-btn', function (e) {
+                e.preventDefault();
                 e.stopPropagation();
                 closeMobileNav();
+            });
+
+            // Mobile about dropdown toggle inside offcanvas
+            $(document).on('click', '#mobile-about-dropdown-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#mobile-about-dropdown-panel').toggleClass('hidden');
+                $('#mobile-about-chevron').toggleClass('rotate-180');
             });
 
             // Revert mobile state on window resize if switching to desktop
@@ -2002,45 +2214,60 @@
     <!-- ============ SCRIPT BLOCK 2: DYNAMIC SMART OVERFLOW "MORE" DROPDOWN ============ -->
     <script>
         $(document).ready(function () {
-            const navContainer = $('.nav-drawer-body');
+            const navContainer = $('#desktop-nav-container');
             const moreBtnWrapper = $('#more-nav-btn-wrapper');
             const moreNavPanel = $('#more-nav-panel');
-            const unifiedNav = $('#unified-nav');
-            const desktopPlaceholder = $('#desktop-nav-placeholder');
+
+            if (!navContainer.length) return;
 
             // Clone original list of elements once for dynamic manipulation
             const originalNavItems = navContainer.children('a, .nav-item-dropdown').not('#more-nav-btn-wrapper').clone(true, true);
 
             function adjustNavItems() {
                 if ($(window).width() < 992) {
-                    // Mobile drawer layout: restore all links inside drawer
-                    navContainer.empty().append(originalNavItems.clone(true, true));
-                    moreBtnWrapper.addClass('hidden');
                     return;
                 }
 
-                // Desktop layout: rebuild original links and check available space
+                const placeholder = $('#desktop-nav-placeholder');
+                const headerRow = $('#header-top-row');
+                if (!placeholder.length || !headerRow.length) return;
+
+                // Reset elements into nav container for measuring
                 navContainer.empty().append(originalNavItems.clone(true, true)).append(moreBtnWrapper);
                 moreBtnWrapper.addClass('hidden');
                 moreNavPanel.empty();
 
-                let containerWidth = navContainer.width();
-                let gap = parseInt(navContainer.css('gap')) || 24; // Retrieve dynamic flex gap (default to 24px)
+                // Calculate available space for middle navigation:
+                // In the 12-col grid (col-span-3, col-span-6, col-span-3),
+                // we measure headerRow width, left column width, and right column width accurately
+                const leftCol = headerRow.children().first();
+                const rightCol = headerRow.children().last();
+                let totalWidth = headerRow.width();
+                let leftWidth = leftCol.outerWidth(true) || (totalWidth * 0.25);
+                let rightWidth = rightCol.outerWidth(true) || (totalWidth * 0.25);
+                let gridGap = 20; // 1.25rem (lg:gap-5)
+
+                let maxAvailableWidth = totalWidth - leftWidth - rightWidth - (gridGap * 2);
+                if (maxAvailableWidth <= 150) {
+                    maxAvailableWidth = (totalWidth * 0.5) - (gridGap * 2);
+                }
+
                 let currentWidth = 0;
                 let overflowed = false;
-
-                const items = navContainer.children('a, .nav-item-dropdown').not('#more-nav-btn-wrapper');
+                let navGap = parseInt(navContainer.css('gap')) || 16;
 
                 // Show More button to measure its space allocation
                 moreBtnWrapper.removeClass('hidden');
-                let moreWidth = moreBtnWrapper.outerWidth(true);
+                let moreWidth = moreBtnWrapper.outerWidth(true) || 80;
                 moreBtnWrapper.addClass('hidden');
+
+                const items = navContainer.children('a, .nav-item-dropdown').not('#more-nav-btn-wrapper');
 
                 items.each(function () {
                     let itemWidth = $(this).outerWidth(true);
-                    let addedWidth = currentWidth > 0 ? (itemWidth + gap) : itemWidth;
+                    let addedWidth = currentWidth > 0 ? (itemWidth + navGap) : itemWidth;
 
-                    if (!overflowed && (currentWidth + addedWidth + (items.length > 1 ? (moreWidth + gap) : 0) > containerWidth)) {
+                    if (!overflowed && (currentWidth + addedWidth + moreWidth + navGap > maxAvailableWidth)) {
                         overflowed = true;
                         moreBtnWrapper.removeClass('hidden');
                     }
@@ -2051,14 +2278,13 @@
                         // Re-style link items for dropdown vertical list
                         cloned.find('.nav-link-item').addBack('.nav-link-item')
                             .removeClass('px-3 py-2 rounded-xl text-sm font-semibold whitespace-nowrap lg:flex lg:flex-row lg:items-center lg:w-auto')
-                            .addClass('flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-ink hover:text-brand hover:bg-gray-50 rounded-xl transition-all w-full text-left');
+                            .addClass('flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-slate-700 hover:text-theme-primary hover:bg-slate-50 rounded-xl transition-all w-full text-left');
 
                         // Adapt submenus to drop to the side (flyout behavior)
                         if (cloned.hasClass('nav-item-dropdown')) {
                             cloned.find('.nav-dropdown-panel')
-                                .removeClass('left-0 top-full mt-[22px] w-52 lg:absolute lg:left-0 lg:top-full lg:mt-2 lg:w-52 before:content-[\'\'] before:absolute before:-top-6 before:left-0 before:right-0 before:h-6')
-                                .addClass('absolute left-full top-0 -mt-3 w-48 hidden bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-line p-2 z-50');
-                            // Ensure chevron ID is unique/removable
+                                .removeClass('left-0 top-full mt-2 w-52')
+                                .addClass('absolute left-full top-0 -mt-3 w-48 hidden bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-none p-2 z-50 nav-dropdown-panel');
                             cloned.find('#about-chevron').attr('id', 'cloned-about-chevron');
                             cloned.find('#about-dropdown-btn').attr('id', 'cloned-about-dropdown-btn');
                             cloned.find('#about-dropdown-panel').attr('id', 'cloned-about-dropdown-panel');
@@ -2079,6 +2305,7 @@
             // Initialize calculations
             adjustNavItems();
             $(window).on('resize', adjustNavItems);
+            $(window).on('load', adjustNavItems);
 
             // Toggle main More button on click
             $(document).on('click', '#more-nav-btn', function (e) {

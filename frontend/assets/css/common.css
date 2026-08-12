@@ -567,3 +567,782 @@ body.dark .sheba-loader-overlay {
         transform: rotate(-360deg);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   ENHANCED LIGHT MODE STYLING FOR OFFERINGS & CATEGORIES
+   ========================================================================== */
+/* Our Offerings (Light Mode) */
+body:not(.dark) .our-offerings .from-violet-50 {
+    background-image: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #e0e7ff 100%) !important;
+    border: 1px solid #ddd6fe !important;
+    box-shadow: 0 4px 20px -2px rgba(139, 92, 246, 0.12) !important;
+}
+
+body:not(.dark) .our-offerings .from-emerald-50 {
+    background-image: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #ccfbf1 100%) !important;
+    border: 1px solid #a7f3d0 !important;
+    box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.12) !important;
+}
+
+body:not(.dark) .our-offerings .from-orange-50 {
+    background-image: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #ffedd5 100%) !important;
+    border: 1px solid #fde68a !important;
+    box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.12) !important;
+}
+
+/* Category Section Columns (Light Mode) */
+body:not(.dark) .category-section .from-blue-50\/80 {
+    background-image: linear-gradient(135deg, #eff6ff 0%, #dbeafe 60%, #e0e7ff 100%) !important;
+    border: 1px solid #bfdbfe !important;
+    box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.12) !important;
+}
+
+body:not(.dark) .category-section .from-emerald-50\/80 {
+    background-image: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #dcfce7 100%) !important;
+    border: 1px solid #a7f3d0 !important;
+    box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.12) !important;
+}
+
+body:not(.dark) .category-section .from-purple-50\/80 {
+    background-image: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 60%, #fce7f3 100%) !important;
+    border: 1px solid #e9d5ff !important;
+    box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.12) !important;
+}
+
+/* Category Item Buttons in Light Mode */
+body:not(.dark) .category-section .grid-cols-3 a {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+body:not(.dark) .category-section .grid-cols-3 a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.14) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+/* ==========================================================================
+   DARK THEME GLOBAL STYLING & UTILITIES
+   ========================================================================== */
+html.dark,
+body.dark {
+    --ColorLightPrimaryRGB: 15, 23, 42;
+    --ColorLightSecondaryRGB: 30, 41, 59;
+    --ColorDarkPrimaryRGB: 248, 250, 252;
+    --ColorDarkSecondaryRGB: 148, 163, 184;
+}
+
+body.dark {
+    background-color: #0b1120 !important;
+    color: #f1f5f9 !important;
+}
+
+/* Header & Navigation in Dark Mode */
+body.dark #header-card {
+    background-color: #0f172a !important;
+    border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+body.dark #unified-nav,
+body.dark .nav-drawer-header {
+    background-color: #0f172a !important;
+    border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+body.dark .nav-link-item {
+    color: #cbd5e1 !important;
+}
+
+body.dark .nav-link-item:hover {
+    color: #818cf8 !important;
+}
+
+/* Cards & Containers in Dark Mode (excluding header nav and close buttons) */
+body.dark .bg-white:not(#header-card):not(#unified-nav):not(.nav-drawer-body):not(#desktop-nav-placeholder):not(#settings-close-btn):not(#nav-close-btn):not(#close-auth-modal):not(.offcanvas-close-btn) {
+    background-color: #1e293b !important;
+}
+
+body.dark .bg-slate-50,
+body.dark .bg-gray-50 {
+    background-color: #0f172a !important;
+}
+
+body.dark .border-slate-50,
+body.dark .border-slate-100,
+body.dark .border-slate-200,
+body.dark .border-gray-50,
+body.dark .border-gray-100,
+body.dark .border-gray-200 {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Typography in Dark Mode */
+body.dark .text-slate-900,
+body.dark .text-slate-800,
+body.dark .text-slate-700,
+body.dark .text-gray-900,
+body.dark .text-gray-800 {
+    color: #f1f5f9 !important;
+}
+
+body.dark .text-slate-600,
+body.dark .text-slate-500,
+body.dark .text-gray-600,
+body.dark .text-gray-500 {
+    color: #94a3b8 !important;
+}
+
+body.dark .text-slate-400,
+body.dark .text-gray-400 {
+    color: #64748b !important;
+}
+
+/* Inputs & Form Elements in Dark Mode */
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Banner Section in Dark Mode */
+body.dark .banner-section .from-white\/95 {
+    background-image: linear-gradient(to right, rgba(11, 17, 32, 0.95), rgba(11, 17, 32, 0.75), transparent) !important;
+}
+
+body.dark .banner-section .from-white\/60 {
+    background-image: linear-gradient(to top, rgba(11, 17, 32, 0.9), transparent) !important;
+}
+
+/* Search Bar in Dark Mode */
+body.dark #banner-search-pill,
+body.dark .banner-search-pill {
+    background-color: #1e293b !important;
+    border: none !important;
+    box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark #banner-search-pill div {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark #banner-search-pill .w-px {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark #banner-search-pill button {
+    border-color: transparent !important;
+    color: #cbd5e1 !important;
+}
+
+body.dark #banner-search-pill input {
+    background-color: transparent !important;
+    border: none !important;
+    color: #f8fafc !important;
+}
+
+/* Our Offerings in Dark Mode */
+body.dark .our-offerings .from-violet-50 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
+    border-color: rgba(129, 140, 248, 0.25) !important;
+}
+
+body.dark .our-offerings .from-violet-50 a {
+    color: #c4b5fd !important;
+}
+
+body.dark .our-offerings .from-emerald-50 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #064e3b 100%) !important;
+    border-color: rgba(52, 211, 153, 0.25) !important;
+}
+
+body.dark .our-offerings .from-emerald-50 a {
+    color: #6ee7b7 !important;
+}
+
+body.dark .our-offerings .from-orange-50 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #431407 100%) !important;
+    border-color: rgba(251, 146, 60, 0.25) !important;
+}
+
+body.dark .our-offerings .from-orange-50 a {
+    color: #fdba74 !important;
+}
+
+body.dark .our-offerings h3 {
+    color: #f8fafc !important;
+}
+
+body.dark .our-offerings p {
+    color: #94a3b8 !important;
+}
+
+/* Category Section in Dark Mode ("সবকিছু খুঁজুন সহজে") */
+body.dark .category-section .from-blue-50\/80 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #172554 100%) !important;
+    border-color: rgba(59, 130, 246, 0.25) !important;
+}
+
+body.dark .category-section .from-emerald-50\/80 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #064e3b 100%) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+body.dark .category-section .from-purple-50\/80 {
+    background-image: linear-gradient(135deg, #0f172a 0%, #3b0764 100%) !important;
+    border-color: rgba(168, 85, 247, 0.25) !important;
+}
+
+body.dark .category-section h3 {
+    color: #f8fafc !important;
+}
+
+body.dark .category-section p {
+    color: #94a3b8 !important;
+}
+
+body.dark .category-section .grid-cols-3 a {
+    background-color: #1e293b !important;
+    border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+body.dark .category-section .grid-cols-3 a:hover {
+    background-color: #334155 !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+body.dark .category-section .grid-cols-3 a span {
+    color: #e2e8f0 !important;
+}
+
+body.dark .category-section a.shadow-xs {
+    background-color: #1e293b !important;
+    border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+/* Campaign CTA Section & Buttons */
+.campaign-cta-btn-primary,
+body.dark .campaign-cta-btn-primary {
+    background-color: #ffffff !important;
+    color: var(--ColorThemePrimary) !important;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+}
+
+.campaign-cta-btn-primary:hover,
+body.dark .campaign-cta-btn-primary:hover {
+    background-color: #f8fafc !important;
+    color: var(--ColorThemePrimary) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+.campaign-cta-btn-secondary,
+body.dark .campaign-cta-btn-secondary {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    font-weight: 700 !important;
+}
+
+.campaign-cta-btn-secondary:hover,
+body.dark .campaign-cta-btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+}
+
+body.dark .campaign-cta-section > div > div {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Third Party Advertisements */
+.ad-card-finance {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.ad-card-tech {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+body.dark .ad-card-finance {
+    background: linear-gradient(135deg, #070b14 0%, #0f172a 50%, #1e1b4b 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+body.dark .ad-card-tech {
+    background: linear-gradient(135deg, #070b14 0%, #0f172a 50%, #064e3b 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+/* Settings & Nav Offcanvas Drawer in Dark Mode */
+body.dark #settings-offcanvas,
+body.dark #nav-offcanvas {
+    background-color: #0f172a !important;
+}
+
+body.dark #settings-offcanvas>div:first-child,
+body.dark #settings-offcanvas>div:last-child,
+body.dark #nav-offcanvas>div:first-child,
+body.dark #nav-offcanvas>div:last-child {
+    background-color: #0f172a !important;
+    border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+/* ==========================================================================
+   PREMIUM SETTINGS & AUTH TOGGLE TABS STYLING (LIGHT & DARK MODES)
+   ========================================================================== */
+.settings-toggle-track,
+.auth-toggle-track,
+#account-type-toggle-group,
+#login-type-toggle-group,
+#page-account-type-toggle-group,
+#page-login-type-toggle-group {
+    background-color: #f1f5f9;
+    border: none !important;
+    padding: 4px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+body.dark .settings-toggle-track,
+body.dark .auth-toggle-track,
+body.dark #account-type-toggle-group,
+body.dark #login-type-toggle-group,
+body.dark #page-account-type-toggle-group,
+body.dark #page-login-type-toggle-group {
+    background-color: #070e22 !important;
+    border: none !important;
+}
+
+.settings-pill-btn,
+.auth-pill-btn,
+.account-type-btn,
+.login-type-btn,
+.page-account-type-btn,
+.page-login-type-btn {
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+    color: #64748b !important;
+    background: transparent !important;
+}
+
+.settings-pill-btn:hover,
+.auth-pill-btn:hover,
+.account-type-btn:hover,
+.login-type-btn:hover,
+.page-account-type-btn:hover,
+.page-login-type-btn:hover {
+    color: #0f172a !important;
+}
+
+body.dark .settings-pill-btn,
+body.dark .auth-pill-btn,
+body.dark .account-type-btn,
+body.dark .login-type-btn,
+body.dark .page-account-type-btn,
+body.dark .page-login-type-btn {
+    color: #94a3b8 !important;
+}
+
+body.dark .settings-pill-btn:hover,
+body.dark .auth-pill-btn:hover,
+body.dark .account-type-btn:hover,
+body.dark .login-type-btn:hover,
+body.dark .page-account-type-btn:hover,
+body.dark .page-login-type-btn:hover {
+    color: #f1f5f9 !important;
+}
+
+/* Active State in Light Mode */
+.settings-pill-btn.is-active,
+.auth-pill-btn.is-active,
+.account-type-btn.is-active,
+.login-type-btn.is-active,
+.page-account-type-btn.is-active,
+.page-login-type-btn.is-active {
+    background: #ffffff !important;
+    color: var(--ColorThemePrimary) !important;
+    border: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Active State in Dark Mode (Clean Simple Flat Elevated Pill, No Border) */
+body.dark .settings-pill-btn.is-active,
+body.dark .auth-pill-btn.is-active,
+body.dark .account-type-btn.is-active,
+body.dark .login-type-btn.is-active,
+body.dark .page-account-type-btn.is-active,
+body.dark .page-login-type-btn.is-active {
+    background: #1e293b !important;
+    color: #818cf8 !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Quick Info card in Dark Mode */
+body.dark .settings-info-card {
+    background-color: #070e22 !important;
+    border: none !important;
+}
+
+body.dark .settings-info-badge {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+    color: #818cf8 !important;
+    border: none !important;
+}
+
+/* Auth Modal & Form Elements in Dark Mode */
+body.dark #auth-dialog {
+    background-color: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark #auth-dialog > div:last-child {
+    background-color: #0f172a !important;
+}
+
+body.dark #auth-dialog label,
+body.dark #page-account-form label,
+body.dark #page-login-form label,
+body.dark #page-register-form label {
+    color: #cbd5e1 !important;
+}
+
+body.dark #auth-dialog input,
+body.dark #page-account-form input,
+body.dark #page-login-form input,
+body.dark #page-register-form input {
+    background-color: #1e293b !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: #f8fafc !important;
+}
+
+body.dark #auth-dialog input:focus,
+body.dark #page-account-form input:focus,
+body.dark #page-login-form input:focus,
+body.dark #page-register-form input:focus {
+    border-color: #818cf8 !important;
+    background-color: #1e293b !important;
+}
+
+body.dark #auth-dialog .select-none,
+body.dark #page-account-form .select-none,
+body.dark #page-login-form .select-none,
+body.dark #page-register-form .select-none {
+    background-color: #1e293b !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: #cbd5e1 !important;
+}
+
+body.dark #auth-dialog .border-b,
+body.dark #page-auth-tabs {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark #auth-dialog .text-slate-400,
+body.dark #page-auth-tabs .text-slate-400 {
+    color: #64748b !important;
+}
+
+body.dark #auth-dialog .text-slate-400:hover,
+body.dark #page-auth-tabs .text-slate-400:hover {
+    color: #f1f5f9 !important;
+}
+
+body.dark #auth-dialog .text-theme-primary.border-theme-primary,
+body.dark #page-auth-tabs .text-theme-primary.border-theme-primary,
+body.dark .auth-tab-btn.is-active {
+    color: #818cf8 !important;
+    border-color: #818cf8 !important;
+}
+
+/* Auth Form Submit / Continue Buttons Hover State */
+button[type="submit"].bg-theme-primary {
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+button[type="submit"].bg-theme-primary:hover {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+body.dark button[type="submit"].bg-theme-primary {
+    background-color: var(--ColorThemePrimary) !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+body.dark button[type="submit"].bg-theme-primary:hover {
+    background-color: #070e22 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+/* Close Button Styling (Offcanvas & Auth Modal) */
+#settings-close-btn,
+#nav-close-btn,
+#close-auth-modal {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px !important;
+    background-color: #ffffff !important;
+    color: #475569 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+#settings-close-btn:hover,
+#nav-close-btn:hover,
+#close-auth-modal:hover {
+    background-color: var(--ColorThemePrimary) !important;
+    color: #ffffff !important;
+}
+
+body.dark #settings-close-btn,
+body.dark #nav-close-btn,
+body.dark #close-auth-modal {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark #settings-close-btn:hover,
+body.dark #nav-close-btn:hover,
+body.dark #close-auth-modal:hover {
+    background-color: var(--ColorThemePrimary) !important;
+    color: #ffffff !important;
+}
+
+/* Nav Dropdown Menus - Completely Borderless */
+.nav-dropdown-panel,
+body.dark .nav-dropdown-panel {
+    border: none !important;
+}
+
+/* ==========================================================================
+   PRODUCT CARD OVERLAY ACTION BUTTONS (EYE, WISHLIST, COMPARE)
+   ========================================================================== */
+[title="Quick View"],
+[aria-label="Quick View"] {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #0f172a !important;
+}
+
+[title="Quick View"]:hover,
+[aria-label="Quick View"]:hover {
+    background-color: var(--ColorThemePrimary) !important;
+    color: #ffffff !important;
+}
+
+body.dark [title="Quick View"],
+body.dark [aria-label="Quick View"] {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark [title="Quick View"]:hover,
+body.dark [aria-label="Quick View"]:hover {
+    background-color: var(--ColorThemePrimary) !important;
+    color: #ffffff !important;
+    border-color: var(--ColorThemePrimary) !important;
+}
+
+/* Wishlist & Compare Buttons in Dark Mode */
+body.dark [title="Add to Wishlist"],
+body.dark [aria-label="Add to Wishlist"],
+body.dark [title="Wishlist"],
+body.dark [aria-label="Wishlist"],
+body.dark [title*="Wishlist"],
+body.dark [aria-label*="Wishlist"],
+body.dark [title="Add to Compare"],
+body.dark [aria-label="Add to Compare"],
+body.dark [title="Compare"],
+body.dark [aria-label="Compare"],
+body.dark [title*="Compare"],
+body.dark [aria-label*="Compare"] {
+    background-color: rgba(15, 23, 42, 0.85) !important;
+    color: #cbd5e1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+body.dark [title*="Wishlist"]:hover,
+body.dark [aria-label*="Wishlist"]:hover {
+    background-color: #e11d48 !important;
+    color: #ffffff !important;
+    border-color: #e11d48 !important;
+}
+
+body.dark [title*="Compare"]:hover,
+body.dark [aria-label*="Compare"]:hover {
+    background-color: var(--ColorThemePrimary) !important;
+    color: #ffffff !important;
+    border-color: var(--ColorThemePrimary) !important;
+}
+
+/* Ensure desktop navigation is strictly transparent and properly constrained in all modes */
+@media (min-width: 992px) {
+    #header-top-row {
+        display: grid !important;
+        grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    }
+
+    #desktop-nav-placeholder {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+
+    #desktop-nav-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    #header-card #desktop-nav-placeholder,
+    #header-card #unified-nav,
+    #header-card nav,
+    #header-card .nav-drawer-body,
+    body.dark #header-card #desktop-nav-placeholder,
+    body.dark #header-card #unified-nav,
+    body.dark #header-card nav,
+    body.dark #header-card .nav-drawer-body {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM NAVIGATION & MOBILE DRAWER (DARK THEME)
+   ========================================================================== */
+/* Mobile Bottom Bar in Dark Mode */
+body.dark .lg\:hidden.fixed.bottom-0 {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark .lg\:hidden.fixed.bottom-0 a,
+body.dark .lg\:hidden.fixed.bottom-0 span {
+    color: #94a3b8 !important;
+}
+
+body.dark .lg\:hidden.fixed.bottom-0 a:hover,
+body.dark .lg\:hidden.fixed.bottom-0 a:hover span,
+body.dark .lg\:hidden.fixed.bottom-0 a.active,
+body.dark .lg\:hidden.fixed.bottom-0 a.active span {
+    color: #818cf8 !important;
+}
+
+/* Floating Create button ring in bottom bar */
+body.dark .lg\:hidden.fixed.bottom-0 a[aria-label="Create Listing"] {
+    border-color: #0f172a !important;
+}
+
+/* Mobile Nav Offcanvas Drawer in Dark Mode */
+body.dark #nav-offcanvas {
+    background-color: #0f172a !important;
+}
+
+body.dark .nav-drawer-header {
+    background-color: #0f172a !important;
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark .nav-drawer-header h3,
+body.dark .nav-drawer-header span {
+    color: #f1f5f9 !important;
+}
+
+body.dark .nav-drawer-body {
+    background-color: #0f172a !important;
+}
+
+body.dark .nav-drawer-body a,
+body.dark .nav-drawer-body button {
+    color: #cbd5e1 !important;
+}
+
+body.dark .nav-drawer-body a:hover,
+body.dark .nav-drawer-body button:hover,
+body.dark .nav-drawer-body a:focus,
+body.dark .nav-drawer-body button:focus,
+body.dark .nav-drawer-body a.active,
+body.dark .nav-drawer-body button.active {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #818cf8 !important;
+}
+
+/* Submenu dropdown items inside mobile drawer */
+body.dark #mobile-about-dropdown-panel a {
+    color: #94a3b8 !important;
+}
+
+body.dark #mobile-about-dropdown-panel a:hover,
+body.dark #mobile-about-dropdown-panel a:focus {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #818cf8 !important;
+}
+
+/* Desktop Dropdown Panels in Dark Mode */
+body.dark .nav-dropdown-panel {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark .nav-dropdown-panel a,
+body.dark .nav-dropdown-panel button {
+    color: #cbd5e1 !important;
+}
+
+body.dark .nav-dropdown-panel a:hover,
+body.dark .nav-dropdown-panel button:hover,
+body.dark .nav-dropdown-panel a:focus,
+body.dark .nav-dropdown-panel button:focus {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #818cf8 !important;
+}
