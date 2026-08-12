@@ -669,7 +669,7 @@ body.dark .nav-link-item:hover {
 }
 
 /* Cards & Containers in Dark Mode (excluding header nav and close buttons) */
-body.dark .bg-white:not(#header-card):not(#unified-nav):not(.nav-drawer-body):not(#desktop-nav-placeholder):not(#settings-close-btn):not(#nav-close-btn):not(#close-auth-modal):not(.offcanvas-close-btn) {
+body.dark .bg-white:not(#header-card):not(#unified-nav):not(.nav-drawer-body):not(#desktop-nav-placeholder):not(#settings-close-btn):not(#nav-close-btn):not(#close-auth-modal):not(#page-close-auth):not(.offcanvas-close-btn) {
     background-color: #1e293b !important;
 }
 
@@ -1113,10 +1113,11 @@ body.dark button[type="submit"].bg-theme-primary:hover {
     filter: none !important;
 }
 
-/* Close Button Styling (Offcanvas & Auth Modal) */
+/* Close Button Styling (Offcanvas & Auth Modal & Page) */
 #settings-close-btn,
 #nav-close-btn,
-#close-auth-modal {
+#close-auth-modal,
+#page-close-auth {
     width: 32px;
     height: 32px;
     border-radius: 9999px !important;
@@ -1134,14 +1135,16 @@ body.dark button[type="submit"].bg-theme-primary:hover {
 
 #settings-close-btn:hover,
 #nav-close-btn:hover,
-#close-auth-modal:hover {
+#close-auth-modal:hover,
+#page-close-auth:hover {
     background-color: var(--ColorThemePrimary) !important;
     color: #ffffff !important;
 }
 
 body.dark #settings-close-btn,
 body.dark #nav-close-btn,
-body.dark #close-auth-modal {
+body.dark #close-auth-modal,
+body.dark #page-close-auth {
     background-color: #ffffff !important;
     color: #0f172a !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
@@ -1149,7 +1152,8 @@ body.dark #close-auth-modal {
 
 body.dark #settings-close-btn:hover,
 body.dark #nav-close-btn:hover,
-body.dark #close-auth-modal:hover {
+body.dark #close-auth-modal:hover,
+body.dark #page-close-auth:hover {
     background-color: var(--ColorThemePrimary) !important;
     color: #ffffff !important;
 }

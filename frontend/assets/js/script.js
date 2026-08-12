@@ -1,5 +1,10 @@
+/**
+ * Asset Sheba - Global JavaScript Engine
+ */
 
-// preloader - barloader js start 
+// ==============================================
+// PRELOADER & BARLOADER ENGINE
+// ==============================================
 function showPreloader(type = 'full') {
     if (type === 'full') {
         $('.preloader').removeClass('hidden');
@@ -9,7 +14,6 @@ function showPreloader(type = 'full') {
             display: 'block'
         });
 
-        // Use a timeout to trigger transition smoothly
         setTimeout(() => {
             $('.barloader').css('width', '90%');
         }, 50);
@@ -34,10 +38,9 @@ function hidePreloader(type = 'full') {
 $(window).on('load', function () {
     hidePreloader('full');
 });
-// preloader - barloader js end
 
 // ==============================================
-// AUTHENTICATION PAGES JAVASCRIPT (LOGIN & REGISTER)
+// AUTHENTICATION UTILITIES (PASSWORD & SOCIAL)
 // ==============================================
 
 /**
@@ -65,57 +68,46 @@ function togglePassword(fieldId) {
 
 /**
  * Handle social authentication (login/register)
+ * @param {Event} e - Click event
  * @param {string} provider - The social provider (google, facebook)
  */
-function socialAuth(provider) {
-    const btn = event.target.closest('.social-btn');
+function socialAuth(e, provider) {
+    const btn = (e && e.target) ? e.target.closest('.social-btn') : null;
     if (!btn) return;
     
     const originalText = btn.innerHTML;
     
-    // Show loading state
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
     btn.style.pointerEvents = 'none';
     
-    // Simulate social authentication (replace with actual implementation)
     setTimeout(() => {
         btn.innerHTML = originalText;
         btn.style.pointerEvents = 'auto';
-        
-        // Show success message
-        showAuthMessage('Social authentication feature coming soon!', 'success');
-    }, 2000);
+        showAuthMessage(`Connecting with ${provider}... Feature coming soon!`, 'success');
+    }, 1500);
 }
 
 /**
- * Show authentication messages (error/success)
+ * Show authentication feedback message
  * @param {string} message - The message to display
- * @param {string} type - The message type (error/success)
+ * @param {string} type - 'success' or 'error'
  */
 function showAuthMessage(message, type = 'error') {
     const messageDiv = document.createElement('div');
-    messageDiv.className = type === 'success' ? 'alert alert-success' : 'alert alert-danger';
-    messageDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${message}`;
+    messageDiv.className = type === 'success' 
+        ? 'p-3 mb-4 text-xs font-semibold text-emerald-800 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center gap-2' 
+        : 'p-3 mb-4 text-xs font-semibold text-rose-800 bg-rose-50 rounded-xl border border-rose-200 flex items-center gap-2';
     
-    const container = document.querySelector('.login-container, .register-container');
-    const header = container.querySelector('.login-header, .register-header');
+    messageDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'circle-check text-emerald-600' : 'triangle-exclamation text-rose-600'}"></i> <span>${message}</span>`;
     
-    if (container && header) {
-        container.insertBefore(messageDiv, header.nextSibling);
-        
+    const container = document.querySelector('.login-container, .register-container, #auth-modal-card');
+    if (container) {
+        container.prepend(messageDiv);
         setTimeout(() => {
             messageDiv.remove();
         }, 5000);
     }
 }
-
-// Initialize auth pages when DOM is loaded
-$(document).ready(function() {
-    // Initialize floating labels for auth pages
-    if ($('.login-page, .register-page').length) {
-        initializeAuthFloatingLabels();
-    }
-});
 
 /**
  * Initialize floating labels for form inputs
@@ -124,7 +116,6 @@ function initializeAuthFloatingLabels() {
     $('.form-control').each(function() {
         const input = $(this);
         
-        // Check if input has value on load
         if (input.val()) {
             input.addClass('has-value');
         }
@@ -149,11 +140,43 @@ function initializeAuthFloatingLabels() {
                 $(this).removeClass('has-value');
             }
         });
-        
-        // Handle initial state for pre-filled inputs
-        if (input.val().trim() !== '') {
+
+        if (input.val() && input.val().trim() !== '') {
             input.addClass('has-value');
         }
     });
 }
 
+// ==============================================
+// DYNAMIC MAIN MIN-HEIGHT CALCULATION (100vh - Header Height)
+// ==============================================
+function updateMainMinHeight() {
+    const mainEl = document.querySelector('main');
+    const headerEl = document.getElementById('main-header');
+    if (!mainEl) return;
+    
+    let headerHeight = 0;
+    if (headerEl) {
+        headerHeight = headerEl.offsetHeight || 0;
+    }
+    
+    // Dynamically set min-height taking header height into account
+    mainEl.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+}
+
+// ==============================================
+// GLOBAL DOM READY INITIALIZATIONS
+// ==============================================
+$(document).ready(function() {
+    // Dynamic Main Height
+    updateMainMinHeight();
+    
+    // Floating Labels
+    if ($('.login-page, .register-page, .form-control').length) {
+        initializeAuthFloatingLabels();
+    }
+});
+
+// Window Listeners for Dynamic Main Height
+window.addEventListener('resize', updateMainMinHeight);
+window.addEventListener('load', updateMainMinHeight);

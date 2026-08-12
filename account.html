@@ -482,7 +482,7 @@
 
 
 
-    <div class="body flex flex-col min-h-screen">
+    <div class="body">
 
         <header id="main-header" class="sticky top-0 z-[40] bg-transparent transition-all duration-300">
             <!-- Single Floating Rounded Header Card -->
@@ -622,778 +622,797 @@
             </div>
         </header>
 
-        <main class="py-10 flex items-center justify-center flex-1 h-full">
-            <div class="container mx-auto max-w-5xl">
+        <main class="flex flex-col justify-between">
+            <div class="flex-1 flex flex-col justify-center py-8 sm:py-10">
+                <div class="container mx-auto max-w-5xl">
+                    <div class="flex items-center justify-center w-full">
 
-                <!-- Auth Page Card -->
-                <div class="relative w-full bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px]"
-                    id="page-auth-card">
+                        <!-- Auth Page Card -->
+                        <div class="relative w-full bg-white rounded-[32px] overflow-hidden border border-slate-200/80 grid grid-cols-1 lg:grid-cols-2 max-h-[90vh] h-[600px]"
+                            id="page-auth-card">
 
-                    <!-- ===== LEFT BANNER ===== -->
-                    <div
-                        class="hidden lg:flex relative overflow-hidden items-center justify-center bg-[#070624] w-full h-full min-h-0">
-                        <img id="page-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
-                            alt="Asset Sheba Authentication"
-                            class="w-full h-full object-contain object-center transition-all duration-300">
-                    </div>
+                            <!-- ===== LEFT BANNER ===== -->
+                            <div
+                                class="hidden lg:flex relative overflow-hidden items-center justify-center bg-[#070624] w-full h-full min-h-0">
+                                <img id="page-auth-banner-img" src="frontend/assets/images/auth/sign-in.jpeg"
+                                    alt="Asset Sheba Authentication"
+                                    class="w-full h-full object-contain object-center transition-all duration-300">
+                            </div>
 
-                    <!-- ===== RIGHT FORM SIDE ===== -->
-                    <div class="p-4 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
+                            <!-- ===== RIGHT FORM SIDE ===== -->
+                            <div
+                                class="p-4 sm:p-5 flex flex-col justify-between bg-white relative h-full min-h-0 overflow-hidden">
 
-                        <!-- TABS HEADER -->
-                        <div class="flex border-b border-slate-100 mb-3 shrink-0">
-                            <button id="page-tab-account"
-                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none">Account</button>
-                            <button id="page-tab-login"
-                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
-                                In</button>
-                            <button id="page-tab-register"
-                                class="flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none">Sign
-                                Up</button>
-                        </div>
-
-                        <!-- SCROLLABLE FORM AREA -->
-                        <div class="flex-1 min-h-0 overflow-y-auto p-4 scrollbar-thin">
-                            <div class="flex flex-col justify-start">
-
-                                <!-- ── PANEL: Account (Step 1) ── -->
-                                <div id="page-form-account-panel" class="space-y-4 w-full">
-                                    <form id="page-account-form" class="space-y-4">
-                                        <!-- Login Type Segment Toggle -->
-                                        <div>
-                                            <label
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                                <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i> Select
-                                                Login Type
-                                            </label>
-                                            <div class="grid grid-cols-3 gap-1 settings-toggle-track"
-                                                id="page-account-type-toggle-group">
-                                                <button type="button" data-value="email"
-                                                    class="page-account-type-btn settings-pill-btn is-active">
-                                                    <i class="fa-regular fa-envelope text-[11px]"></i> Email
-                                                </button>
-                                                <button type="button" data-value="username"
-                                                    class="page-account-type-btn settings-pill-btn">
-                                                    <i class="fa-regular fa-user text-[11px]"></i> Username
-                                                </button>
-                                                <button type="button" data-value="phone"
-                                                    class="page-account-type-btn settings-pill-btn">
-                                                    <i class="fa-solid fa-phone text-[11px]"></i> Phone
-                                                </button>
-                                            </div>
-                                            <input type="hidden" id="page-account-type" value="email">
-                                        </div>
-
-                                        <!-- Email / Username input -->
-                                        <div id="page-account-input-text-wrapper">
-                                            <label id="page-account-input-label" for="page-account-input"
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email
-                                                Address
-                                            </label>
-                                            <input type="text" id="page-account-input"
-                                                placeholder="Enter your email address" required
-                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                        </div>
-
-                                        <!-- Phone input -->
-                                        <div id="page-account-input-phone-wrapper" class="hidden">
-                                            <label for="page-account-phone"
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
-                                                Number
-                                            </label>
-                                            <div class="flex gap-2">
-                                                <div
-                                                    class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
-                                                    +880</div>
-                                                <input type="tel" id="page-account-phone" placeholder="1712345678"
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
-                                            </div>
-                                        </div>
-
-                                        <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
-                                            <span>Continue</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                                        </button>
-                                    </form>
+                                <!-- FIXED HEADER: Tabs Header + Close Button (100% Vertically Centered Flex Row) -->
+                                <div
+                                    class="flex items-center justify-between border-b border-slate-100 mb-3 shrink-0 gap-2 modal-tabs-header">
+                                    <div class="flex items-center flex-1">
+                                        <button id="page-tab-account"
+                                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Account</button>
+                                        <button id="page-tab-login"
+                                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Sign
+                                            In</button>
+                                        <button id="page-tab-register"
+                                            class="flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]">Sign
+                                            Up</button>
+                                    </div>
+                                    <!-- Close Button inline in header row -->
+                                    <div class="pb-3 -mb-[1px] flex items-center justify-center pl-2 shrink-0">
+                                        <a href="index.html" id="page-close-auth"
+                                            class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center cursor-pointer border-none outline-none shrink-0"
+                                            aria-label="Back to home">
+                                            <i class="fa-solid fa-xmark text-sm"></i>
+                                        </a>
+                                    </div>
                                 </div>
 
-                                <!-- ── PANEL: Sign In ── -->
-                                <div id="page-form-login-panel" class="w-full hidden">
-                                    <!-- Preview banner (shown when arriving via Account step) -->
-                                    <div id="page-login-preview-banner"
-                                        class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
-                                        <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
-                                            <i class="fa-solid fa-user-check text-theme-primary"></i>
-                                            <span id="page-login-identifier-preview" class="font-semibold"></span>
+                                <!-- SCROLLABLE FORM AREA -->
+                                <div class="flex-1 min-h-0 overflow-y-auto p-4 scrollbar-thin">
+                                    <div class="flex flex-col justify-start">
+
+                                        <!-- ── PANEL: Account (Step 1) ── -->
+                                        <div id="page-form-account-panel" class="space-y-4 w-full">
+                                            <form id="page-account-form" class="space-y-4">
+                                                <!-- Login Type Segment Toggle -->
+                                                <div>
+                                                    <label
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                        <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i>
+                                                        Select
+                                                        Login Type
+                                                    </label>
+                                                    <div class="grid grid-cols-3 gap-1 settings-toggle-track"
+                                                        id="page-account-type-toggle-group">
+                                                        <button type="button" data-value="email"
+                                                            class="page-account-type-btn settings-pill-btn is-active">
+                                                            <i class="fa-regular fa-envelope text-[11px]"></i> Email
+                                                        </button>
+                                                        <button type="button" data-value="username"
+                                                            class="page-account-type-btn settings-pill-btn">
+                                                            <i class="fa-regular fa-user text-[11px]"></i> Username
+                                                        </button>
+                                                        <button type="button" data-value="phone"
+                                                            class="page-account-type-btn settings-pill-btn">
+                                                            <i class="fa-solid fa-phone text-[11px]"></i> Phone
+                                                        </button>
+                                                    </div>
+                                                    <input type="hidden" id="page-account-type" value="email">
+                                                </div>
+
+                                                <!-- Email / Username input -->
+                                                <div id="page-account-input-text-wrapper">
+                                                    <label id="page-account-input-label" for="page-account-input"
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                        <i
+                                                            class="fa-regular fa-envelope text-theme-primary text-xs"></i>
+                                                        Email
+                                                        Address
+                                                    </label>
+                                                    <input type="text" id="page-account-input"
+                                                        placeholder="Enter your email address" required
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                </div>
+
+                                                <!-- Phone input -->
+                                                <div id="page-account-input-phone-wrapper" class="hidden">
+                                                    <label for="page-account-phone"
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                        <i class="fa-solid fa-phone text-theme-primary text-xs"></i>
+                                                        Phone
+                                                        Number
+                                                    </label>
+                                                    <div class="flex gap-2">
+                                                        <div
+                                                            class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                            +880</div>
+                                                        <input type="tel" id="page-account-phone"
+                                                            placeholder="1712345678"
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit"
+                                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                                    <span>Continue</span> <i
+                                                        class="fa-solid fa-arrow-right text-xs"></i>
+                                                </button>
+                                            </form>
                                         </div>
-                                        <button type="button"
-                                            class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
-                                            Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+
+                                        <!-- ── PANEL: Sign In ── -->
+                                        <div id="page-form-login-panel" class="w-full hidden">
+                                            <!-- Preview banner (shown when arriving via Account step) -->
+                                            <div id="page-login-preview-banner"
+                                                class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                                <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                                    <i class="fa-solid fa-user-check text-theme-primary"></i>
+                                                    <span id="page-login-identifier-preview"
+                                                        class="font-semibold"></span>
+                                                </div>
+                                                <button type="button"
+                                                    class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                                    Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                                </button>
+                                            </div>
+
+                                            <form id="page-login-form" class="space-y-4">
+                                                <!-- Direct type selector (shown when visiting tab directly) -->
+                                                <div id="page-login-direct-type-wrapper" class="hidden space-y-4">
+                                                    <div>
+                                                        <label
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                                            <i
+                                                                class="fa-solid fa-list-ul text-theme-primary text-xs"></i>
+                                                            Select Login Type
+                                                        </label>
+                                                        <div class="grid grid-cols-3 gap-1 settings-toggle-track"
+                                                            id="page-login-type-toggle-group">
+                                                            <button type="button" data-value="email"
+                                                                class="page-login-type-btn settings-pill-btn is-active">
+                                                                <i class="fa-regular fa-envelope text-[11px]"></i>
+                                                                Email
+                                                            </button>
+                                                            <button type="button" data-value="username"
+                                                                class="page-login-type-btn settings-pill-btn">
+                                                                <i class="fa-regular fa-user text-[11px]"></i>
+                                                                Username
+                                                            </button>
+                                                            <button type="button" data-value="phone"
+                                                                class="page-login-type-btn settings-pill-btn">
+                                                                <i class="fa-solid fa-phone text-[11px]"></i> Phone
+                                                            </button>
+                                                        </div>
+                                                        <input type="hidden" id="page-login-type" value="email">
+                                                    </div>
+
+                                                    <!-- Direct Email / Username input -->
+                                                    <div id="page-login-input-text-wrapper">
+                                                        <label id="page-login-input-label" for="page-login-input"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i
+                                                                class="fa-regular fa-envelope text-theme-primary text-xs"></i>
+                                                            Email Address
+                                                        </label>
+                                                        <input type="text" id="page-login-input"
+                                                            placeholder="Enter your email address"
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                    </div>
+
+                                                    <!-- Direct Phone input -->
+                                                    <div id="page-login-input-phone-wrapper" class="hidden">
+                                                        <label for="page-login-phone"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i class="fa-solid fa-phone text-theme-primary text-xs"></i>
+                                                            Phone
+                                                            Number
+                                                        </label>
+                                                        <div class="flex gap-2">
+                                                            <div
+                                                                class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                                +880</div>
+                                                            <input type="tel" id="page-login-phone"
+                                                                placeholder="1712345678"
+                                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Password -->
+                                                <div>
+                                                    <div class="flex justify-between items-center mb-1.5">
+                                                        <label for="page-login-pass"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i>
+                                                            Password
+                                                        </label>
+                                                        <a href="#"
+                                                            class="text-[9px] font-black text-theme-primary hover:underline uppercase tracking-wider">Forgot?</a>
+                                                    </div>
+                                                    <div class="relative">
+                                                        <input type="password" id="page-login-pass"
+                                                            placeholder="Enter your password" required
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                        <button type="button" data-target="page-login-pass"
+                                                            class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                            <i class="fa-regular fa-eye text-xs"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit"
+                                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                                    <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <!-- ── PANEL: Sign Up ── -->
+                                        <div id="page-form-register-panel" class="w-full hidden">
+                                            <!-- Preview banner -->
+                                            <div id="page-register-preview-banner"
+                                                class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
+                                                <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
+                                                    <i class="fa-solid fa-user-plus text-theme-primary"></i>
+                                                    <span id="page-reg-identifier-preview" class="font-semibold"></span>
+                                                </div>
+                                                <button type="button"
+                                                    class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
+                                                    Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
+                                                </button>
+                                            </div>
+
+                                            <form id="page-register-form" class="space-y-4">
+                                                <!-- Full Name + Username -->
+                                                <div class="grid grid-cols-2 gap-3">
+                                                    <div>
+                                                        <label for="page-register-name"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i
+                                                                class="fa-regular fa-user text-theme-primary text-xs"></i>
+                                                            Full
+                                                            Name
+                                                        </label>
+                                                        <input type="text" id="page-register-name"
+                                                            placeholder="Full name" required
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                    </div>
+                                                    <div>
+                                                        <label for="page-register-username"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i
+                                                                class="fa-regular fa-id-badge text-theme-primary text-xs"></i>
+                                                            Username
+                                                        </label>
+                                                        <input type="text" id="page-register-username"
+                                                            placeholder="Username" required
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Email -->
+                                                <div>
+                                                    <label for="page-register-email"
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                        <i
+                                                            class="fa-regular fa-envelope text-theme-primary text-xs"></i>
+                                                        Email
+                                                        Address
+                                                    </label>
+                                                    <input type="email" id="page-register-email"
+                                                        placeholder="Enter your email" required
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                </div>
+
+                                                <!-- Phone -->
+                                                <div>
+                                                    <label for="page-register-phone"
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                        <i class="fa-solid fa-phone text-theme-primary text-xs"></i>
+                                                        Phone
+                                                        Number
+                                                    </label>
+                                                    <div class="flex gap-2">
+                                                        <div
+                                                            class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
+                                                            +880</div>
+                                                        <input type="tel" id="page-register-phone"
+                                                            placeholder="1712345678" required
+                                                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Password + Confirm Password -->
+                                                <div class="grid grid-cols-2 gap-3">
+                                                    <div>
+                                                        <label for="page-register-pass"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i>
+                                                            Password
+                                                        </label>
+                                                        <div class="relative">
+                                                            <input type="password" id="page-register-pass"
+                                                                placeholder="Create password" required
+                                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                            <button type="button" data-target="page-register-pass"
+                                                                class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                                <i class="fa-regular fa-eye text-xs"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label for="page-register-confirm-pass"
+                                                            class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                            <i class="fa-solid fa-lock text-theme-primary text-xs"></i>
+                                                            Confirm
+                                                        </label>
+                                                        <div class="relative">
+                                                            <input type="password" id="page-register-confirm-pass"
+                                                                placeholder="Confirm password" required
+                                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
+                                                            <button type="button"
+                                                                data-target="page-register-confirm-pass"
+                                                                class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
+                                                                <i class="fa-regular fa-eye text-xs"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Referral Code -->
+                                                <div>
+                                                    <label for="page-register-referral"
+                                                        class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                                        <i class="fa-solid fa-gift text-theme-primary text-xs"></i>
+                                                        Referral
+                                                        Code (Optional)
+                                                    </label>
+                                                    <input type="text" id="page-register-referral"
+                                                        placeholder="Enter referral code"
+                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
+                                                </div>
+
+                                                <!-- Terms -->
+                                                <div class="flex items-start gap-2 pt-1">
+                                                    <input type="checkbox" id="page-register-terms" required
+                                                        class="w-4 h-4 rounded border-slate-200 text-theme-primary focus:ring-theme-primary accent-theme-primary cursor-pointer">
+                                                    <label for="page-register-terms"
+                                                        class="text-[10px] font-semibold text-slate-500 cursor-pointer select-none">
+                                                        I agree to the <a href="#"
+                                                            class="text-theme-primary hover:underline font-bold">Terms
+                                                            of
+                                                            Service</a> &
+                                                        <a href="#"
+                                                            class="text-theme-primary hover:underline font-bold">Privacy
+                                                            Policy</a>
+                                                    </label>
+                                                </div>
+
+                                                <button type="submit"
+                                                    class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
+                                                    <span>Create Account</span> <i
+                                                        class="fa-solid fa-arrow-right text-xs"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- FOOTER: Social Connect -->
+                                <div class="shrink-0 pt-2.5 border-t border-slate-100 mt-2 bg-white">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button
+                                            class="flex items-center justify-center gap-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                                            <i class="fa-brands fa-google text-red-500 text-xs"></i> Google
+                                        </button>
+                                        <button
+                                            class="flex items-center justify-center gap-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                                            <i class="fa-brands fa-facebook text-blue-600 text-xs"></i> Facebook
                                         </button>
                                     </div>
-
-                                    <form id="page-login-form" class="space-y-4">
-                                        <!-- Direct type selector (shown when visiting tab directly) -->
-                                        <div id="page-login-direct-type-wrapper" class="hidden space-y-4">
-                                            <div>
-                                                <label
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                                    <i class="fa-solid fa-list-ul text-theme-primary text-xs"></i>
-                                                    Select Login Type
-                                                </label>
-                                                <div class="grid grid-cols-3 gap-1 settings-toggle-track"
-                                                    id="page-login-type-toggle-group">
-                                                    <button type="button" data-value="email"
-                                                        class="page-login-type-btn settings-pill-btn is-active">
-                                                        <i class="fa-regular fa-envelope text-[11px]"></i> Email
-                                                    </button>
-                                                    <button type="button" data-value="username"
-                                                        class="page-login-type-btn settings-pill-btn">
-                                                        <i class="fa-regular fa-user text-[11px]"></i> Username
-                                                    </button>
-                                                    <button type="button" data-value="phone"
-                                                        class="page-login-type-btn settings-pill-btn">
-                                                        <i class="fa-solid fa-phone text-[11px]"></i> Phone
-                                                    </button>
-                                                </div>
-                                                <input type="hidden" id="page-login-type" value="email">
-                                            </div>
-
-                                            <!-- Direct Email / Username input -->
-                                            <div id="page-login-input-text-wrapper">
-                                                <label id="page-login-input-label" for="page-login-input"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-regular fa-envelope text-theme-primary text-xs"></i>
-                                                    Email Address
-                                                </label>
-                                                <input type="text" id="page-login-input"
-                                                    placeholder="Enter your email address"
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                            </div>
-
-                                            <!-- Direct Phone input -->
-                                            <div id="page-login-input-phone-wrapper" class="hidden">
-                                                <label for="page-login-phone"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
-                                                    Number
-                                                </label>
-                                                <div class="flex gap-2">
-                                                    <div
-                                                        class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
-                                                        +880</div>
-                                                    <input type="tel" id="page-login-phone" placeholder="1712345678"
-                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Password -->
-                                        <div>
-                                            <div class="flex justify-between items-center mb-1.5">
-                                                <label for="page-login-pass"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
-                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
-                                                </label>
-                                                <a href="#"
-                                                    class="text-[9px] font-black text-theme-primary hover:underline uppercase tracking-wider">Forgot?</a>
-                                            </div>
-                                            <div class="relative">
-                                                <input type="password" id="page-login-pass"
-                                                    placeholder="Enter your password" required
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
-                                                <button type="button" data-target="page-login-pass"
-                                                    class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
-                                                    <i class="fa-regular fa-eye text-xs"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
-                                            <span>Sign In</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                                        </button>
-                                    </form>
                                 </div>
 
-                                <!-- ── PANEL: Sign Up ── -->
-                                <div id="page-form-register-panel" class="w-full hidden">
-                                    <!-- Preview banner -->
-                                    <div id="page-register-preview-banner"
-                                        class="flex items-center justify-between p-2.5 rounded-xl border border-theme-primary/10 bg-theme-primary/5 mb-4">
-                                        <div class="text-[11px] text-slate-600 flex items-center gap-1.5">
-                                            <i class="fa-solid fa-user-plus text-theme-primary"></i>
-                                            <span id="page-reg-identifier-preview" class="font-semibold"></span>
-                                        </div>
-                                        <button type="button"
-                                            class="page-back-to-account-btn text-[10px] font-bold text-theme-primary hover:underline bg-transparent border-none cursor-pointer">
-                                            Change <i class="fa-regular fa-pen-to-square ml-0.5"></i>
-                                        </button>
-                                    </div>
-
-                                    <form id="page-register-form" class="space-y-4">
-                                        <!-- Full Name + Username -->
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div>
-                                                <label for="page-register-name"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-regular fa-user text-theme-primary text-xs"></i> Full
-                                                    Name
-                                                </label>
-                                                <input type="text" id="page-register-name" placeholder="Full name"
-                                                    required
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                            </div>
-                                            <div>
-                                                <label for="page-register-username"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-regular fa-id-badge text-theme-primary text-xs"></i>
-                                                    Username
-                                                </label>
-                                                <input type="text" id="page-register-username" placeholder="Username"
-                                                    required
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                            </div>
-                                        </div>
-
-                                        <!-- Email -->
-                                        <div>
-                                            <label for="page-register-email"
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                <i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email
-                                                Address
-                                            </label>
-                                            <input type="email" id="page-register-email" placeholder="Enter your email"
-                                                required
-                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                        </div>
-
-                                        <!-- Phone -->
-                                        <div>
-                                            <label for="page-register-phone"
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                <i class="fa-solid fa-phone text-theme-primary text-xs"></i> Phone
-                                                Number
-                                            </label>
-                                            <div class="flex gap-2">
-                                                <div
-                                                    class="flex items-center px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 select-none">
-                                                    +880</div>
-                                                <input type="tel" id="page-register-phone" placeholder="1712345678"
-                                                    required
-                                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium flex-grow">
-                                            </div>
-                                        </div>
-
-                                        <!-- Password + Confirm Password -->
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div>
-                                                <label for="page-register-pass"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Password
-                                                </label>
-                                                <div class="relative">
-                                                    <input type="password" id="page-register-pass"
-                                                        placeholder="Create password" required
-                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
-                                                    <button type="button" data-target="page-register-pass"
-                                                        class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
-                                                        <i class="fa-regular fa-eye text-xs"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label for="page-register-confirm-pass"
-                                                    class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                    <i class="fa-solid fa-lock text-theme-primary text-xs"></i> Confirm
-                                                </label>
-                                                <div class="relative">
-                                                    <input type="password" id="page-register-confirm-pass"
-                                                        placeholder="Confirm password" required
-                                                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium pr-10">
-                                                    <button type="button" data-target="page-register-confirm-pass"
-                                                        class="page-password-toggle-btn absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-theme-primary cursor-pointer bg-transparent border-none">
-                                                        <i class="fa-regular fa-eye text-xs"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Referral Code -->
-                                        <div>
-                                            <label for="page-register-referral"
-                                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                <i class="fa-solid fa-gift text-theme-primary text-xs"></i> Referral
-                                                Code (Optional)
-                                            </label>
-                                            <input type="text" id="page-register-referral"
-                                                placeholder="Enter referral code"
-                                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none focus:border-theme-primary focus:bg-white transition-all font-medium">
-                                        </div>
-
-                                        <!-- Terms -->
-                                        <div class="flex items-start gap-2 pt-1">
-                                            <input type="checkbox" id="page-register-terms" required
-                                                class="w-4 h-4 rounded border-slate-200 text-theme-primary focus:ring-theme-primary accent-theme-primary cursor-pointer">
-                                            <label for="page-register-terms"
-                                                class="text-[10px] font-semibold text-slate-500 cursor-pointer select-none">
-                                                I agree to the <a href="#"
-                                                    class="text-theme-primary hover:underline font-bold">Terms of
-                                                    Service</a> &
-                                                <a href="#" class="text-theme-primary hover:underline font-bold">Privacy
-                                                    Policy</a>
-                                            </label>
-                                        </div>
-
-                                        <button type="submit"
-                                            class="w-full py-3.5 bg-theme-primary hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 shadow-sm flex items-center justify-center gap-2 border-none cursor-pointer">
-                                            <span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                                        </button>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- FOOTER: Social Connect -->
-                        <div class="shrink-0 pt-2.5 border-t border-slate-100 mt-2 bg-white">
-                            <p
-                                class="text-center text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2.5">
-                                Or Continue With</p>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button
-                                    class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
-                                    <i class="fa-brands fa-google text-red-500 text-xs"></i> Google
-                                </button>
-                                <button
-                                    class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
-                                    <i class="fa-brands fa-facebook text-blue-600 text-xs"></i> Facebook
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const tabAccount = document.getElementById('page-tab-account');
-                const tabLogin = document.getElementById('page-tab-login');
-                const tabRegister = document.getElementById('page-tab-register');
-
-                const accountPanel = document.getElementById('page-form-account-panel');
-                const loginPanel = document.getElementById('page-form-login-panel');
-                const registerPanel = document.getElementById('page-form-register-panel');
-
-                const ACTIVE_TAB = 'flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none';
-                const INACTIVE_TAB = 'flex-grow pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none';
-
-                let currentIdentifier = '';
-
-                /* ── Tab Switcher ── */
-                function switchTab(tab) {
-                    tabAccount.className = INACTIVE_TAB;
-                    tabLogin.className = INACTIVE_TAB;
-                    tabRegister.className = INACTIVE_TAB;
-                    accountPanel.classList.add('hidden');
-                    loginPanel.classList.add('hidden');
-                    registerPanel.classList.add('hidden');
-
-                    if (tab === 'account') {
-                        currentIdentifier = '';
-                        tabAccount.className = ACTIVE_TAB;
-                        accountPanel.classList.remove('hidden');
-                        window.location.hash = '#account';
-
-                    } else if (tab === 'login') {
-                        tabLogin.className = ACTIVE_TAB;
-                        loginPanel.classList.remove('hidden');
-                        window.location.hash = '#signin';
-
-                        const banner = document.getElementById('page-login-preview-banner');
-                        const directWrap = document.getElementById('page-login-direct-type-wrapper');
-                        const loginInput = document.getElementById('page-login-input');
-                        const loginPhone = document.getElementById('page-login-phone');
-
-                        if (currentIdentifier) {
-                            if (banner) banner.classList.remove('hidden');
-                            if (directWrap) directWrap.classList.add('hidden');
-                            if (loginInput) loginInput.removeAttribute('required');
-                            if (loginPhone) loginPhone.removeAttribute('required');
-                        } else {
-                            if (banner) banner.classList.add('hidden');
-                            if (directWrap) directWrap.classList.remove('hidden');
-                            const activeType = document.getElementById('page-login-type').value;
-                            if (activeType === 'phone') {
-                                if (loginInput) loginInput.removeAttribute('required');
-                                if (loginPhone) loginPhone.setAttribute('required', 'required');
-                            } else {
-                                if (loginPhone) loginPhone.removeAttribute('required');
-                                if (loginInput) loginInput.setAttribute('required', 'required');
-                            }
-                        }
-
-                    } else {
-                        tabRegister.className = ACTIVE_TAB;
-                        registerPanel.classList.remove('hidden');
-                        window.location.hash = '#signup';
-
-                        const regBanner = document.getElementById('page-register-preview-banner');
-                        if (currentIdentifier) {
-                            if (regBanner) regBanner.classList.remove('hidden');
-                        } else {
-                            if (regBanner) regBanner.classList.add('hidden');
-                            document.getElementById('page-register-name').value = '';
-                            document.getElementById('page-register-username').value = '';
-                            document.getElementById('page-register-email').value = '';
-                            document.getElementById('page-register-phone').value = '';
-                        }
-                    }
-                }
-
-                /* ── Initial tab from URL hash ── */
-                const hash = window.location.hash;
-                if (hash === '#signin') switchTab('login');
-                else if (hash === '#signup') switchTab('register');
-                else switchTab('account');
-
-                /* ── Tab click bindings ── */
-                tabAccount.addEventListener('click', () => switchTab('account'));
-                tabLogin.addEventListener('click', () => switchTab('login'));
-                tabRegister.addEventListener('click', () => switchTab('register'));
-
-                /* ── Account type segment buttons ── */
-                const pageAccountTextWrap = document.getElementById('page-account-input-text-wrapper');
-                const pageAccountPhoneWrap = document.getElementById('page-account-input-phone-wrapper');
-                const pageAccountInput = document.getElementById('page-account-input');
-                const pageAccountPhone = document.getElementById('page-account-phone');
-                const pageAccountLabel = document.getElementById('page-account-input-label');
-
-                function updatePageAccountType(val) {
-                    if (val === 'phone') {
-                        pageAccountTextWrap.classList.add('hidden');
-                        if (pageAccountInput) pageAccountInput.removeAttribute('required');
-                        pageAccountPhoneWrap.classList.remove('hidden');
-                        if (pageAccountPhone) pageAccountPhone.setAttribute('required', 'required');
-                    } else {
-                        pageAccountPhoneWrap.classList.add('hidden');
-                        if (pageAccountPhone) pageAccountPhone.removeAttribute('required');
-                        pageAccountTextWrap.classList.remove('hidden');
-                        if (pageAccountInput) pageAccountInput.setAttribute('required', 'required');
-                        if (val === 'email') {
-                            pageAccountLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
-                            if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your email address');
-                        } else {
-                            pageAccountLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
-                            if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your username');
-                        }
-                    }
-                }
-
-                $(document).on('click', '.page-account-type-btn', function (e) {
-                    e.preventDefault();
-                    const btn = $(this);
-                    const val = btn.data('value');
-                    document.getElementById('page-account-type').value = val;
-                    $('.page-account-type-btn').removeClass('is-active');
-                    btn.addClass('is-active');
-                    updatePageAccountType(val);
-                });
-
-                /* ── Login type segment buttons ── */
-                const pageLoginTextWrap = document.getElementById('page-login-input-text-wrapper');
-                const pageLoginPhoneWrap = document.getElementById('page-login-input-phone-wrapper');
-                const pageLoginInput = document.getElementById('page-login-input');
-                const pageLoginPhone = document.getElementById('page-login-phone');
-                const pageLoginLabel = document.getElementById('page-login-input-label');
-
-                function updatePageLoginType(val) {
-                    if (val === 'phone') {
-                        pageLoginTextWrap.classList.add('hidden');
-                        if (pageLoginInput) pageLoginInput.removeAttribute('required');
-                        pageLoginPhoneWrap.classList.remove('hidden');
-                        if (pageLoginPhone) pageLoginPhone.setAttribute('required', 'required');
-                    } else {
-                        pageLoginPhoneWrap.classList.add('hidden');
-                        if (pageLoginPhone) pageLoginPhone.removeAttribute('required');
-                        pageLoginTextWrap.classList.remove('hidden');
-                        if (pageLoginInput) pageLoginInput.setAttribute('required', 'required');
-                        if (val === 'email') {
-                            pageLoginLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
-                            if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your email address');
-                        } else {
-                            pageLoginLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
-                            if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your username');
-                        }
-                    }
-                }
-
-                $(document).on('click', '.page-login-type-btn', function (e) {
-                    e.preventDefault();
-                    const btn = $(this);
-                    const val = btn.data('value');
-                    document.getElementById('page-login-type').value = val;
-                    $('.page-login-type-btn').removeClass('is-active');
-                    btn.addClass('is-active');
-                    updatePageLoginType(val);
-                });
-
-                /* ── Password toggle ── */
-                $(document).on('click', '.page-password-toggle-btn', function (e) {
-                    e.preventDefault();
-                    const btn = $(this);
-                    const input = $('#' + btn.data('target'));
-                    if (input.attr('type') === 'password') {
-                        input.attr('type', 'text');
-                        btn.html('<i class="fa-regular fa-eye-slash text-xs"></i>');
-                    } else {
-                        input.attr('type', 'password');
-                        btn.html('<i class="fa-regular fa-eye text-xs"></i>');
-                    }
-                });
-
-                /* ── Back to Account buttons ── */
-                $(document).on('click', '.page-back-to-account-btn', function (e) {
-                    e.preventDefault();
-                    switchTab('account');
-                });
-
-                /* ── Account form submit → route to Sign In or Sign Up ── */
-                document.getElementById('page-account-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const type = document.getElementById('page-account-type').value;
-                    let inputVal = '';
-                    if (type === 'phone') {
-                        inputVal = pageAccountPhone.value.trim();
-                        if (inputVal && !inputVal.startsWith('+880')) inputVal = '+880' + inputVal;
-                    } else {
-                        inputVal = pageAccountInput.value.trim();
-                    }
-                    if (!inputVal) return;
-
-                    let isExisting = false;
-                    if (inputVal.toLowerCase() === 'ataurbdx') isExisting = true;
-                    else if (inputVal.toLowerCase() === 'ataurbdc') isExisting = false;
-                    else isExisting = inputVal.includes('@') || ['admin', 'test', 'demo', 'sheba', '+8801712345678', '01712345678'].includes(inputVal.toLowerCase());
-
-                    currentIdentifier = inputVal;
-
-                    if (isExisting) {
-                        document.getElementById('page-login-identifier-preview').textContent = inputVal;
-                        switchTab('login');
-                    } else {
-                        document.getElementById('page-reg-identifier-preview').textContent = inputVal;
-                        const isEmail = inputVal.includes('@');
-                        const isPhone = inputVal.startsWith('+880') || /^\d+$/.test(inputVal);
-                        if (isEmail) {
-                            document.getElementById('page-register-email').value = inputVal;
-                            document.getElementById('page-register-phone').value = '';
-                        } else if (isPhone) {
-                            document.getElementById('page-register-phone').value = inputVal.replace('+880', '');
-                            document.getElementById('page-register-email').value = '';
-                        } else {
-                            document.getElementById('page-register-name').value = inputVal;
-                            document.getElementById('page-register-email').value = '';
-                            document.getElementById('page-register-phone').value = '';
-                        }
-                        switchTab('register');
-                    }
-                });
-
-                /* ── Sign In submit ── */
-                document.getElementById('page-login-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    // TODO: real auth — redirecting to dashboard for now
-                    window.location.href = 'account.html';
-                });
-
-                /* ── Sign Up submit ── */
-                document.getElementById('page-register-form').addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    // TODO: real registration
-                    window.location.href = 'account.html';
-                });
-            });
-        </script>
-
-        <!-- ============ HEADER END ============ -->
+                            </div><!-- /.right form side -->
+                        </div><!-- /#page-auth-card -->
+                    </div><!-- /.flex -->
+                </div><!-- /.container -->
+            </div><!-- /.flex-1 -->
     </div>
+    </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabAccount = document.getElementById('page-tab-account');
+            const tabLogin = document.getElementById('page-tab-login');
+            const tabRegister = document.getElementById('page-tab-register');
 
+            const accountPanel = document.getElementById('page-form-account-panel');
+            const loginPanel = document.getElementById('page-form-login-panel');
+            const registerPanel = document.getElementById('page-form-register-panel');
 
+            const ACTIVE_TAB = 'flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-theme-primary border-b-2 border-theme-primary transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]';
+            const INACTIVE_TAB = 'flex-1 pb-3 text-xs sm:text-sm font-black uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-slate-800 transition-colors cursor-pointer text-center bg-transparent border-none -mb-[1px]';
 
+            let currentIdentifier = '';
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="bg-[#0b0e14] text-[#a0aec0] pt-16 relative overflow-hidden">
+            /* ── Tab Switcher ── */
+            function switchTab(tab) {
+                tabAccount.className = INACTIVE_TAB;
+                tabLogin.className = INACTIVE_TAB;
+                tabRegister.className = INACTIVE_TAB;
+                accountPanel.classList.add('hidden');
+                loginPanel.classList.add('hidden');
+                registerPanel.classList.add('hidden');
+
+                if (tab === 'account') {
+                    currentIdentifier = '';
+                    tabAccount.className = ACTIVE_TAB;
+                    accountPanel.classList.remove('hidden');
+                    window.location.hash = '#account';
+
+                } else if (tab === 'login') {
+                    tabLogin.className = ACTIVE_TAB;
+                    loginPanel.classList.remove('hidden');
+                    window.location.hash = '#signin';
+
+                    const banner = document.getElementById('page-login-preview-banner');
+                    const directWrap = document.getElementById('page-login-direct-type-wrapper');
+                    const loginInput = document.getElementById('page-login-input');
+                    const loginPhone = document.getElementById('page-login-phone');
+
+                    if (currentIdentifier) {
+                        if (banner) banner.classList.remove('hidden');
+                        if (directWrap) directWrap.classList.add('hidden');
+                        if (loginInput) loginInput.removeAttribute('required');
+                        if (loginPhone) loginPhone.removeAttribute('required');
+                    } else {
+                        if (banner) banner.classList.add('hidden');
+                        if (directWrap) directWrap.classList.remove('hidden');
+                        const activeType = document.getElementById('page-login-type').value;
+                        if (activeType === 'phone') {
+                            if (loginInput) loginInput.removeAttribute('required');
+                            if (loginPhone) loginPhone.setAttribute('required', 'required');
+                        } else {
+                            if (loginPhone) loginPhone.removeAttribute('required');
+                            if (loginInput) loginInput.setAttribute('required', 'required');
+                        }
+                    }
+
+                } else {
+                    tabRegister.className = ACTIVE_TAB;
+                    registerPanel.classList.remove('hidden');
+                    window.location.hash = '#signup';
+
+                    const regBanner = document.getElementById('page-register-preview-banner');
+                    if (currentIdentifier) {
+                        if (regBanner) regBanner.classList.remove('hidden');
+                    } else {
+                        if (regBanner) regBanner.classList.add('hidden');
+                        document.getElementById('page-register-name').value = '';
+                        document.getElementById('page-register-username').value = '';
+                        document.getElementById('page-register-email').value = '';
+                        document.getElementById('page-register-phone').value = '';
+                    }
+                }
+            }
+
+            /* ── Initial tab from URL hash ── */
+            const hash = window.location.hash;
+            if (hash === '#signin') switchTab('login');
+            else if (hash === '#signup') switchTab('register');
+            else switchTab('account');
+
+            /* ── Tab click bindings ── */
+            tabAccount.addEventListener('click', () => switchTab('account'));
+            tabLogin.addEventListener('click', () => switchTab('login'));
+            tabRegister.addEventListener('click', () => switchTab('register'));
+
+            /* ── Account type segment buttons ── */
+            const pageAccountTextWrap = document.getElementById('page-account-input-text-wrapper');
+            const pageAccountPhoneWrap = document.getElementById('page-account-input-phone-wrapper');
+            const pageAccountInput = document.getElementById('page-account-input');
+            const pageAccountPhone = document.getElementById('page-account-phone');
+            const pageAccountLabel = document.getElementById('page-account-input-label');
+
+            function updatePageAccountType(val) {
+                if (val === 'phone') {
+                    pageAccountTextWrap.classList.add('hidden');
+                    if (pageAccountInput) pageAccountInput.removeAttribute('required');
+                    pageAccountPhoneWrap.classList.remove('hidden');
+                    if (pageAccountPhone) pageAccountPhone.setAttribute('required', 'required');
+                } else {
+                    pageAccountPhoneWrap.classList.add('hidden');
+                    if (pageAccountPhone) pageAccountPhone.removeAttribute('required');
+                    pageAccountTextWrap.classList.remove('hidden');
+                    if (pageAccountInput) pageAccountInput.setAttribute('required', 'required');
+                    if (val === 'email') {
+                        pageAccountLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                        if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your email address');
+                    } else {
+                        pageAccountLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                        if (pageAccountInput) pageAccountInput.setAttribute('placeholder', 'Enter your username');
+                    }
+                }
+            }
+
+            $(document).on('click', '.page-account-type-btn', function (e) {
+                e.preventDefault();
+                const btn = $(this);
+                const val = btn.data('value');
+                document.getElementById('page-account-type').value = val;
+                $('.page-account-type-btn').removeClass('is-active');
+                btn.addClass('is-active');
+                updatePageAccountType(val);
+            });
+
+            /* ── Login type segment buttons ── */
+            const pageLoginTextWrap = document.getElementById('page-login-input-text-wrapper');
+            const pageLoginPhoneWrap = document.getElementById('page-login-input-phone-wrapper');
+            const pageLoginInput = document.getElementById('page-login-input');
+            const pageLoginPhone = document.getElementById('page-login-phone');
+            const pageLoginLabel = document.getElementById('page-login-input-label');
+
+            function updatePageLoginType(val) {
+                if (val === 'phone') {
+                    pageLoginTextWrap.classList.add('hidden');
+                    if (pageLoginInput) pageLoginInput.removeAttribute('required');
+                    pageLoginPhoneWrap.classList.remove('hidden');
+                    if (pageLoginPhone) pageLoginPhone.setAttribute('required', 'required');
+                } else {
+                    pageLoginPhoneWrap.classList.add('hidden');
+                    if (pageLoginPhone) pageLoginPhone.removeAttribute('required');
+                    pageLoginTextWrap.classList.remove('hidden');
+                    if (pageLoginInput) pageLoginInput.setAttribute('required', 'required');
+                    if (val === 'email') {
+                        pageLoginLabel.innerHTML = '<i class="fa-regular fa-envelope text-theme-primary text-xs"></i> Email Address';
+                        if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your email address');
+                    } else {
+                        pageLoginLabel.innerHTML = '<i class="fa-regular fa-user text-theme-primary text-xs"></i> Username';
+                        if (pageLoginInput) pageLoginInput.setAttribute('placeholder', 'Enter your username');
+                    }
+                }
+            }
+
+            $(document).on('click', '.page-login-type-btn', function (e) {
+                e.preventDefault();
+                const btn = $(this);
+                const val = btn.data('value');
+                document.getElementById('page-login-type').value = val;
+                $('.page-login-type-btn').removeClass('is-active');
+                btn.addClass('is-active');
+                updatePageLoginType(val);
+            });
+
+            /* ── Password toggle ── */
+            $(document).on('click', '.page-password-toggle-btn', function (e) {
+                e.preventDefault();
+                const btn = $(this);
+                const input = $('#' + btn.data('target'));
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                    btn.html('<i class="fa-regular fa-eye-slash text-xs"></i>');
+                } else {
+                    input.attr('type', 'password');
+                    btn.html('<i class="fa-regular fa-eye text-xs"></i>');
+                }
+            });
+
+            /* ── Back to Account buttons ── */
+            $(document).on('click', '.page-back-to-account-btn', function (e) {
+                e.preventDefault();
+                switchTab('account');
+            });
+
+            /* ── Account form submit → route to Sign In or Sign Up ── */
+            document.getElementById('page-account-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const type = document.getElementById('page-account-type').value;
+                let inputVal = '';
+                if (type === 'phone') {
+                    inputVal = pageAccountPhone.value.trim();
+                    if (inputVal && !inputVal.startsWith('+880')) inputVal = '+880' + inputVal;
+                } else {
+                    inputVal = pageAccountInput.value.trim();
+                }
+                if (!inputVal) return;
+
+                let isExisting = false;
+                if (inputVal.toLowerCase() === 'ataurbdx') isExisting = true;
+                else if (inputVal.toLowerCase() === 'ataurbdc') isExisting = false;
+                else isExisting = inputVal.includes('@') || ['admin', 'test', 'demo', 'sheba', '+8801712345678', '01712345678'].includes(inputVal.toLowerCase());
+
+                currentIdentifier = inputVal;
+
+                if (isExisting) {
+                    document.getElementById('page-login-identifier-preview').textContent = inputVal;
+                    switchTab('login');
+                } else {
+                    document.getElementById('page-reg-identifier-preview').textContent = inputVal;
+                    const isEmail = inputVal.includes('@');
+                    const isPhone = inputVal.startsWith('+880') || /^\d+$/.test(inputVal);
+                    if (isEmail) {
+                        document.getElementById('page-register-email').value = inputVal;
+                        document.getElementById('page-register-phone').value = '';
+                    } else if (isPhone) {
+                        document.getElementById('page-register-phone').value = inputVal.replace('+880', '');
+                        document.getElementById('page-register-email').value = '';
+                    } else {
+                        document.getElementById('page-register-name').value = inputVal;
+                        document.getElementById('page-register-email').value = '';
+                        document.getElementById('page-register-phone').value = '';
+                    }
+                    switchTab('register');
+                }
+            });
+
+            /* ── Sign In submit ── */
+            document.getElementById('page-login-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                // TODO: real auth — redirecting to dashboard for now
+                window.location.href = 'account.html';
+            });
+
+            /* ── Sign Up submit ── */
+            document.getElementById('page-register-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                // TODO: real registration
+                window.location.href = 'account.html';
+            });
+        });
+    </script>
+
+    <!-- ============ ASSET SHEBA FOOTER ============ -->
+    <footer class="bg-[#0f172a] text-[#94a3b8] pt-14 pb-4 relative overflow-hidden">
         <!-- Subtle glow background details -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand/5 rounded-full blur-[120px] pointer-events-none">
+        <div
+            class="absolute top-0 left-1/4 w-96 h-96 bg-theme-primary/10 rounded-full blur-[120px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 right-1/4 w-96 h-96 bg-theme-primary/10 rounded-full blur-[120px] pointer-events-none">
         </div>
 
         <div class="container relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-white/[0.06]">
+            <div class="grid grid-cols-12 gap-6 sm:gap-8 pb-12 border-b border-white/[0.08]">
 
-                <!-- Column 1: Brand Info (col-span-3) -->
-                <div class="lg:col-span-3 space-y-5">
-                    <a href="#" class="flex items-center gap-2.5">
-                        <div
-                            class="w-10 h-10 rounded-full border-2 border-brand flex items-center justify-center bg-white shadow-md">
-                            <span class="text-brand font-black text-lg tracking-tighter">G</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-lg font-black tracking-wider text-white leading-tight">GO BY
-                                FABRIFEST</span>
-                            <span class="text-[8px] text-brand tracking-widest font-bold uppercase">PREMIUM MEN'S
-                                FASHION</span>
-                        </div>
+                <!-- Column 1: Brand Info (col-span-12 on mobile, col-span-4 on lg) -->
+                <div class="col-span-12 lg:col-span-4 space-y-4">
+                    <a href="index.html" class="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+                        <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba"
+                            class="h-9 w-auto object-contain brightness-0 invert">
+                        <span class="text-lg font-black tracking-wider text-white leading-tight uppercase">ASSET
+                            SHEBA</span>
                     </a>
-                    <p class="text-xs leading-relaxed text-gray-400">
-                        Go By Fabrifest is the ultimate solution for Fashions & Exclusive collections of Unique Designed
-                        Printed
-                        T-shirts, Men's wear & Lifestyle Products store in online market for the youngsters.
+                    <p class="text-xs leading-relaxed text-slate-400 max-w-sm"
+                        style="font-family: 'Noto Sans Bengali', sans-serif;">
+                        শিক্ষা, কোর্স, কোচিং, সেবা, প্রপার্টি, চাকরি ও পণ্য—আপনার প্রয়োজনীয় সবকিছু খুঁজুন এবং
+                        উপভোগ
+                        করুন এক প্ল্যাটফর্মে।
                     </p>
                     <!-- Social Icons -->
-                    <div class="flex items-center gap-3 pt-2">
+                    <div class="flex items-center gap-2.5 pt-1">
                         <a href="#"
-                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-theme-primary hover:text-white border border-white/[0.08] hover:border-theme-primary flex items-center justify-center text-slate-300 transition-all duration-300 transform hover:-translate-y-0.5"
                             aria-label="Facebook">
                             <i class="fa-brands fa-facebook-f text-xs"></i>
                         </a>
                         <a href="#"
-                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-theme-primary hover:text-white border border-white/[0.08] hover:border-theme-primary flex items-center justify-center text-slate-300 transition-all duration-300 transform hover:-translate-y-0.5"
                             aria-label="Instagram">
                             <i class="fa-brands fa-instagram text-xs"></i>
                         </a>
                         <a href="#"
-                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
+                            class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-theme-primary hover:text-white border border-white/[0.08] hover:border-theme-primary flex items-center justify-center text-slate-300 transition-all duration-300 transform hover:-translate-y-0.5"
                             aria-label="Youtube">
                             <i class="fa-brands fa-youtube text-xs"></i>
                         </a>
                         <a href="#"
-                            class="w-8 h-8 rounded-xl bg-white/[0.03] hover:bg-brand hover:text-white border border-white/[0.08] hover:border-brand flex items-center justify-center text-white transition-all duration-300 transform hover:-translate-y-1"
-                            aria-label="Twitter">
-                            <i class="fa-brands fa-x-twitter text-xs"></i>
+                            class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-theme-primary hover:text-white border border-white/[0.08] hover:border-theme-primary flex items-center justify-center text-slate-300 transition-all duration-300 transform hover:-translate-y-0.5"
+                            aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in text-xs"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Column 2: Contact Info (col-span-3) -->
-                <div class="lg:col-span-3 space-y-4">
-                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
-                        Contact Info
+                <!-- Column 2: Quick Links (col-span-6 on mobile, col-span-2 on lg) -->
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                    <h4
+                        class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">
+                        Quick Links
                     </h4>
-                    <ul class="space-y-3.5 text-xs text-gray-400">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-location-dot text-brand mt-0.5 text-sm shrink-0"></i>
-                            <span class="leading-relaxed">128/1/A, Senpara Parbata, Mirpur-10, Dhaka-1218, Dhaka,
-                                Bangladesh</span>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="products.html?deal=Sale" class="hover:text-white transition-colors">Assets</a>
                         </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-phone text-brand text-xs shrink-0"></i>
-                            <a href="tel:+8801775810098" class="hover:text-brand transition-colors">+8801775-810098</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-envelope text-brand text-xs shrink-0"></i>
-                            <a href="mailto:gobyfabrifest@gmail.com"
-                                class="hover:text-brand transition-colors">gobyfabrifest@gmail.com</a>
-                        </li>
+                        <li><a href="products.html?deal=New" class="hover:text-white transition-colors">Asset Sheba
+                                Store</a></li>
+                        <li><a href="products.html?deal=New" class="hover:text-white transition-colors">Premium
+                                Ads</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Latest Blogs</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 3: About (col-span-2) -->
-                <div class="lg:col-span-2 space-y-4">
-                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
-                        About</h4>
-                    <ul class="space-y-2.5 text-xs">
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>About
-                                Us</a></li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Contact
-                                Us</a></li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Privacy
-                                Policy</a>
-                        </li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Cancellation
-                                &
-                                Refund Policy</a></li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Terms
-                                &
-                                Condition</a></li>
+                <!-- Column 3: For Users (col-span-6 on mobile, col-span-2 on lg) -->
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                    <h4
+                        class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">
+                        For Users
+                    </h4>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Post an Ad</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">My Ads</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Saved Ads</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Membership Plans</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Safety Tips</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms & Conditions</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 4: Useful Link (col-span-2) -->
-                <div class="lg:col-span-2 space-y-4">
-                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
-                        Useful Link
+                <!-- Column 4: Support (col-span-6 on mobile, col-span-2 on lg) -->
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                    <h4
+                        class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">
+                        Support
                     </h4>
-                    <ul class="space-y-2.5 text-xs">
-                        <li><a href="track-order.html"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Track
-                                My Order</a>
-                        </li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Shopping
-                                Cart</a>
-                        </li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Login</a>
-                        </li>
-                        <li><a href="#"
-                                class="hover:text-brand transition-all duration-200 flex items-center gap-1 group"><span
-                                    class="w-0 group-hover:w-1.5 h-[2px] bg-brand transition-all duration-200"></span>Register</a>
-                        </li>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ & Help</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Refund Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sitemap</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 5: Google Map Embed (col-span-2) -->
-                <div class="lg:col-span-2 space-y-4">
-                    <h4 class="text-xs font-black text-white uppercase tracking-[0.2em] border-l-2 border-brand pl-3">
-                        Our Location
+                <!-- Column 5: Contact Us (col-span-6 on mobile, col-span-2 on lg) -->
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                    <h4
+                        class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">
+                        Contact Us
                     </h4>
-                    <div
-                        class="w-full h-32 rounded-2xl overflow-hidden border border-white/[0.08] shadow-md hover:border-brand/40 transition-all duration-300">
-                        <iframe src="https://maps.google.com/maps?q=23.803406,90.369892&z=15&output=embed"
-                            class="w-full h-full border-0" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
+                    <ul class="space-y-3 text-xs text-slate-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-theme-primary text-xs shrink-0"></i>
+                            <a href="tel:+8801234567890" class="hover:text-white transition-colors">+880
+                                1234-567890</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-theme-primary text-xs shrink-0"></i>
+                            <a href="mailto:info@assetsheba.com"
+                                class="hover:text-white transition-colors">info@assetsheba.com</a>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-theme-primary text-xs shrink-0 mt-0.5"></i>
+                            <span>ঢাকা, বাংলাদেশ</span>
+                        </li>
+                        <li class="flex items-center gap-2 pt-1">
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> ২৪/৭
+                                সাপোর্ট একটিভ
+                            </span>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
 
             <!-- Footer Bottom Row -->
-            <div
-                class="pt-8 pb-24 md:pb-8 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/[0.06]">
+            <div class="pt-6 pb-2 flex flex-col md:flex-row items-center justify-between gap-4">
                 <!-- Copyright -->
-                <div class="text-xs text-gray-500 font-medium">
-                    &copy; Go By Fabrifest. All rights reserved | 2026
+                <div class="text-xs text-slate-500 font-medium">
+                    &copy; 2026 Asset Sheba. All rights reserved.
                 </div>
                 <!-- Credits -->
-                <div class="text-xs text-gray-500 font-medium">
+                <div class="text-xs text-slate-500 font-medium">
                     Designed & Developed by <a href="https://imbdagency.com" target="_blank"
-                        class="text-brand font-semibold hover:underline">IMBD Agency Ltd.</a>
+                        class="text-theme-primary font-semibold hover:underline">IMBD Agency Ltd.</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- ============ MAIN CONTAINER END ============ -->
+    </div>
 
     <!-- ============ SCRIPTS ============ -->
     <!-- JQuery (Local Workspace Path) -->
@@ -1763,11 +1782,11 @@
                     <!-- Social Buttons (Sleek and Thin) -->
                     <div class="grid grid-cols-2 gap-3">
                         <button
-                            class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                            class="flex items-center justify-center gap-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
                             <i class="fa-brands fa-google text-red-500 text-xs"></i> Google
                         </button>
                         <button
-                            class="flex items-center justify-center gap-2 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
+                            class="flex items-center justify-center gap-2 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition-colors cursor-pointer">
                             <i class="fa-brands fa-facebook text-blue-600 text-xs"></i> Facebook
                         </button>
                     </div>
