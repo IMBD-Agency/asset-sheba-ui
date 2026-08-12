@@ -227,11 +227,7 @@ html {
    Forcing 16px on mobile prevents the zoom without disabling user scaling.
    ─────────────────────────────────────────────────────────────────────── */
 
-/* Prevent horizontal AOS animations (fade-left, fade-right etc.) from
-   causing a temporary horizontal scrollbar on any section */
-section {
-    overflow-x: hidden;
-}
+
 
 body {
     font-family: var(--FontPrimary);

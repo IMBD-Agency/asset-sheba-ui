@@ -131,6 +131,72 @@
   <!-- AOS Animation Library -->
   <link rel="stylesheet" href="Plugins-Framework/aos/aos.css">
 
+  <!-- Select2 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="Plugins-Framework/select2/customize.css">
+
+  <style>
+    /* Dark Mode Select2 Styles */
+    .dark .select2-container--bootstrap-5 .select2-selection {
+      background-color: #0f172a !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+      color: #f8fafc !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+      color: #f8fafc !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-selection--single .select2-selection__placeholder {
+      color: #94a3b8 !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-dropdown {
+      background-color: #0f172a !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+      color: #f8fafc !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
+      background-color: #1e293b !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+      color: #f8fafc !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-results__option {
+      color: #cbd5e1 !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-results__option--highlighted {
+      background-color: #6366f1 !important;
+      color: #ffffff !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-results__option[aria-selected="true"] {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      color: #ffffff !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-selection__clear {
+      color: #94a3b8 !important;
+    }
+
+    /* Force visibility of selected/active option items in the dropdown list */
+    .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected,
+    .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
+      background-color: #6366f1 !important;
+      color: #ffffff !important;
+    }
+
+    .dark .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected,
+    .dark .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
+      background-color: #6366f1 !important;
+      color: #ffffff !important;
+    }
+  </style>
+
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="frontend/assets/css/style.css">
 
@@ -420,7 +486,7 @@
 
   <!-- ============ MOBILE NAV OFFCANVAS (Drawer on mobile) ============ -->
   <div id="nav-offcanvas" data-canvas-index="999" data-backdrop-index="990"
-    class="fixed top-0 left-0 h-full w-[290px] sm:w-[320px] z-[999] bg-white shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:hidden">
+    class="fixed top-0 left-0 h-full w-[310px] sm:w-[350px] z-[999] bg-white shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:hidden">
 
     <!-- Drawer Header -->
     <div
@@ -627,21 +693,23 @@
       <div>
 
         <!-- ============ PROMO HERO BANNER ============ -->
-        <section class="promo-banner-section pt-6 pb-2">
+        <section class="promo-banner-section pt-6 pb-0">
           <div class="container">
             <div
-              class="relative w-full rounded-3xl bg-gradient-to-r from-[#f8faff] via-[#f1f5fd] to-[#eef2fc] dark:from-[#131d35] dark:via-[#18233f] dark:to-[#0f172a] border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 lg:px-12 lg:py-8 overflow-hidden shadow-sm flex flex-col lg:flex-row items-center justify-between gap-6 min-h-[220px]">
+              class="relative w-full rounded-3xl overflow-hidden border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 lg:px-12 lg:py-10 shadow-sm flex items-center min-h-[220px]">
 
-              <!-- Decorative background accents -->
+              <!-- Background Image -->
+              <img src="frontend/assets/images/banner/banner.png" alt="Asset Sheba Promotion"
+                class="absolute inset-0 w-full h-full object-cover object-right select-none pointer-events-none"
+                draggable="false">
+
+              <!-- Left to right gradient overlay so text remains perfectly readable -->
               <div
-                class="absolute -top-12 -left-12 w-48 h-48 bg-theme-primary/10 rounded-full blur-2xl pointer-events-none">
-              </div>
-              <div
-                class="absolute -bottom-12 right-1/3 w-64 h-64 bg-theme-primary/10 rounded-full blur-3xl pointer-events-none">
+                class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent dark:from-[#0f172a]/95 dark:via-[#0f172a]/80 dark:to-transparent pointer-events-none">
               </div>
 
               <!-- Left: Headline & Text Content -->
-              <div class="flex-1 max-w-xl z-10 space-y-3 text-left">
+              <div class="relative z-10 max-w-xl space-y-3 text-left">
                 <div
                   class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-theme-primary/10 text-theme-primary text-[10px] font-extrabold uppercase tracking-wider border border-theme-primary/20">
                   <i class="fa-solid fa-bullhorn text-[9px]"></i> Featured Promotion
@@ -650,7 +718,7 @@
                   Promote Your Brand to <br class="hidden sm:inline"><span class="text-theme-primary">Thousands of
                     Customers</span>
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-md">
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-md">
                   Advertise your business here and grow your reach with Asset Sheba marketplace.
                 </p>
                 <div class="pt-2">
@@ -662,68 +730,301 @@
                 </div>
               </div>
 
-              <!-- Right: Machinery Cutout Visual -->
-              <div
-                class="relative shrink-0 w-full lg:w-[480px] h-48 sm:h-56 lg:h-60 flex items-center justify-center lg:justify-end z-10">
-                <img src="frontend/assets/images/banner/banner.png" alt="Asset Sheba Commercial Equipment"
-                  class="w-full h-full object-contain object-center lg:object-right select-none pointer-events-none"
-                  draggable="false">
-              </div>
-
             </div>
           </div>
         </section>
 
-        <!-- ============ SEARCH BAR (Floating below banner) ============ -->
-        <section class="relative z-20 -mt-5 pb-6">
+        <!-- ============ SEARCH BAR — Floating below banner ============ -->
+        <section class="relative z-20 mt-4 pb-4 lg:mt-0 lg:pb-0 lg:-translate-y-1/2 lg:-mb-7">
           <div class="container">
             <div class="grid grid-cols-12">
-              <div class="col-span-12">
+              <div class="col-span-12 lg:col-span-8 lg:col-start-3">
 
-                <!-- Search pill: grid-cols-1 on mobile, grid-cols-[auto_1fr] on lg -->
+                <!-- Search pill: grid-cols-1 on mobile (full-width rows), grid-cols-[auto_1fr] on lg -->
                 <div id="banner-search-pill"
-                  class="bg-white dark:bg-[#1e293b] rounded-2xl shadow-[0_10px_35px_-5px_rgba(0,0,0,0.06)] border border-slate-200/80 dark:border-white/10 overflow-hidden grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+                  class="bg-white rounded-2xl shadow-[0_10px_35px_-5px_rgba(0,0,0,0.06)] border-none overflow-hidden grid grid-cols-1 lg:grid-cols-[auto_1fr]">
 
-                  <!-- ── GROUP A: Location | Category ── -->
+                  <!-- ── GROUP A: Location | Category — always full width when stacked ── -->
                   <div
-                    class="flex items-center border-b lg:border-b-0 lg:border-r border-slate-200/50 dark:border-white/10">
+                    class="flex items-center border-b lg:border-b-0 lg:border-r border-slate-200/40 dark:border-slate-700/30">
                     <!-- Location -->
                     <button id="banner-location-btn" type="button"
-                      class="flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-1.5 px-4 py-3.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-theme-primary transition-colors cursor-pointer bg-transparent border-none whitespace-nowrap">
+                      class="flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-1.5 px-4 py-3.5 text-xs font-semibold text-slate-600 hover:text-theme-primary transition-colors cursor-pointer bg-transparent border-none whitespace-nowrap">
                       <i class="fa-solid fa-location-dot text-theme-primary text-xs"></i>
                       <span id="banner-location-label">All Locations</span>
                       <i class="fa-solid fa-chevron-down text-slate-400 text-[9px]"></i>
                     </button>
-                    <!-- Divider -->
-                    <div class="w-px h-5 bg-slate-200/60 dark:bg-white/10 shrink-0"></div>
+                    <!-- Divider (Soft height & subtle color) -->
+                    <div class="w-px h-5 bg-slate-200/50 dark:bg-slate-700/40 shrink-0"></div>
                     <!-- Category -->
                     <button id="banner-category-btn" type="button"
-                      class="flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-1.5 px-4 py-3.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-theme-primary transition-colors cursor-pointer bg-transparent border-none whitespace-nowrap">
-                      <i class="fa-solid fa-layer-group text-theme-primary text-xs"></i>
+                      class="flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-1.5 px-4 py-3.5 text-xs font-semibold text-slate-600 hover:text-theme-primary transition-colors cursor-pointer bg-transparent border-none whitespace-nowrap">
+                      <i class="fa-solid fa-grid-2 text-theme-primary text-xs"></i>
                       <span id="banner-category-label">All Categories</span>
                       <i class="fa-solid fa-chevron-down text-slate-400 text-[9px]"></i>
                     </button>
                   </div>
 
-                  <!-- ── GROUP B: Input + Button ── -->
+                  <!-- ── GROUP B: Input + Button — always full width when stacked, grows on lg ── -->
                   <div class="flex items-center">
                     <div class="flex-1 flex items-center gap-2 px-4">
                       <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm shrink-0"></i>
-                      <input type="text" id="banner-search-input"
-                        placeholder="Search for assets, services, categories or locations..."
-                        class="flex-1 py-3.5 text-xs text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none bg-transparent font-medium">
+                      <input type="text" id="banner-search-input" placeholder="আপনার প্রয়োজন লিখুন..."
+                        class="flex-1 py-3.5 text-xs text-slate-700 placeholder-slate-400 outline-none bg-transparent font-medium"
+                        style="font-family: 'Noto Sans Bengali', sans-serif;">
                     </div>
                     <button id="banner-search-btn" type="button"
-                      class="shrink-0 m-1.5 bg-theme-primary hover:bg-[#0f172a] text-white font-extrabold text-xs uppercase tracking-wider px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 border-none cursor-pointer">
+                      class="shrink-0 m-1.5 bg-theme-primary hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 border-none cursor-pointer">
                       <i class="fa-solid fa-magnifying-glass text-xs"></i>
                       <span>Search</span>
                     </button>
                   </div>
 
-                </div><!-- /#banner-search-pill -->
-              </div><!-- /.col-span-12 -->
+                </div><!-- /.pill -->
+              </div><!-- /.col-span-8 -->
             </div><!-- /.grid -->
           </div><!-- /.container -->
+        </section><!-- /.search-bar -->
+
+        <section class="catalog-section mt-6 lg:mt-6 pb-8">
+          <div class="container">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+              <!-- SIDEBAR FILTERS (col-span-3) -->
+              <aside id="unified-sidebar-filter"
+                class="fixed top-0 left-0 h-full w-[310px] sm:w-[350px] max-w-[90%] bg-slate-50 dark:bg-[#0f172a] z-[10001] overflow-hidden transition-transform duration-300 -translate-x-full flex flex-col lg:flex lg:flex-col lg:col-span-3 lg:w-auto lg:max-w-none lg:bg-slate-50 dark:lg:bg-[#1e293b] lg:rounded-2xl lg:border lg:border-slate-200/80 dark:lg:border-white/10 lg:shadow-sm lg:z-0 lg:translate-x-0 lg:sticky">
+
+                <!-- Sidebar Header (h-[72px] to match settings-offcanvas standard) -->
+                <div
+                  class="flex items-center justify-between px-4 h-[72px] border-b border-slate-200/80 dark:border-white/10 shrink-0 bg-white dark:bg-[#1e293b] z-10">
+                  <div class="flex items-center gap-2.5">
+                    <div
+                      class="w-9 h-9 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center">
+                      <i class="fa-solid fa-sliders text-sm"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">Filters</h3>
+                      <p class="text-[11px] text-slate-400">Refine catalog search</p>
+                    </div>
+                  </div>
+                  <button id="filter-close-btn" type="button"
+                    class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-theme-primary hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer lg:hidden border-none">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                  </button>
+                </div>
+
+                <!-- Scrolling Content (Scrolls on Mobile, and optionally on Desktop when filters exceed height) -->
+                <div
+                  class="flex-1 overflow-y-auto p-4 space-y-4 lg:pr-3 scrollbar-thin bg-slate-50 dark:bg-[#0f172a] lg:bg-slate-50 dark:lg:bg-[#1e293b]">
+
+                  <!-- Functionality -->
+                  <div
+                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
+                    <h3
+                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
+                      Functionality
+                    </h3>
+                    <div class="select2-wrapper">
+                      <select id="functionality-select" class="form-control select2-bootstrap-5" style="width: 100%;">
+                        <option value="">All Functionality</option>
+                        <option value="Buy">Buy</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Hire">Hire</option>
+                        <option value="Book">Book</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Department -->
+                  <div
+                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
+                    <h3
+                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
+                      Department
+                    </h3>
+                    <div class="select2-wrapper">
+                      <select id="department-select" class="form-control select2-bootstrap-5" style="width: 100%;">
+                        <option value="">All Departments</option>
+                        <option value="Services">Services</option>
+                        <option value="Assets">Assets</option>
+                        <option value="AssetSheba Store">AssetSheba Store</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Categories (Accordion List) -->
+                  <div
+                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
+                    <h3
+                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
+                      Categories
+                    </h3>
+                    <div id="category-accordion-list" class="space-y-1.5">
+                      <!-- Populated dynamically via Script -->
+                    </div>
+                  </div>
+
+                  <!-- Price Range -->
+                  <div
+                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
+                    <h3
+                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
+                      Price
+                      Range
+                    </h3>
+                    <div class="space-y-4">
+                      <div
+                        class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                        <span>Price:</span>
+                        <span class="text-theme-primary font-black"><span id="price-min-val">৳0</span> - <span
+                            id="price-max-val">৳3,000</span></span>
+                      </div>
+
+                      <!-- Dual Range Slider Widget -->
+                      <div class="relative w-full h-5 flex items-center select-none">
+                        <!-- Slider Track Background line -->
+                        <div class="absolute inset-x-0 h-1 bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
+                        <!-- Colored Selected Range highlights line -->
+                        <div id="price-slider-track-highlight" class="absolute h-1 bg-theme-primary rounded-lg"
+                          style="left: 0%; right: 0%;"></div>
+
+                        <!-- Range Handle Inputs stacked on top -->
+                        <input type="range" id="price-slider-min" min="0" max="3000" step="50" value="0"
+                          class="absolute w-full appearance-none pointer-events-none bg-transparent outline-none z-20 cursor-pointer accent-theme-primary"
+                          style="margin: 0;">
+                        <input type="range" id="price-slider-max" min="0" max="3000" step="50" value="3000"
+                          class="absolute w-full appearance-none pointer-events-none bg-transparent outline-none z-20 cursor-pointer accent-theme-primary"
+                          style="margin: 0;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Badges / Deals -->
+                  <div
+                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
+                    <h3
+                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
+                      Filter by Badges
+                    </h3>
+                    <div class="space-y-2.5">
+                      <label
+                        class="flex items-center gap-3 text-xs font-semibold text-slate-700 dark:text-slate-350 cursor-pointer hover:text-theme-primary transition-colors">
+                        <input type="checkbox" name="filter-deal" value="New"
+                          class="w-4 h-4 rounded border-slate-300 dark:border-white/10 text-theme-primary focus:ring-theme-primary accent-theme-primary">
+                        New Arrivals
+                      </label>
+                      <label
+                        class="flex items-center gap-3 text-xs font-semibold text-slate-700 dark:text-slate-350 cursor-pointer hover:text-theme-primary transition-colors">
+                        <input type="checkbox" name="filter-deal" value="Urgent"
+                          class="w-4 h-4 rounded border-slate-300 dark:border-white/10 text-theme-primary focus:ring-theme-primary accent-theme-primary">
+                        Urgent
+                      </label>
+                      <label
+                        class="flex items-center gap-3 text-xs font-semibold text-slate-700 dark:text-slate-350 cursor-pointer hover:text-theme-primary transition-colors">
+                        <input type="checkbox" name="filter-deal" value="Premium"
+                          class="w-4 h-4 rounded border-slate-300 dark:border-white/10 text-theme-primary focus:ring-theme-primary accent-theme-primary">
+                        Premium
+                      </label>
+                      <label
+                        class="flex items-center gap-3 text-xs font-semibold text-slate-700 dark:text-slate-350 cursor-pointer hover:text-theme-primary transition-colors">
+                        <input type="checkbox" name="filter-deal" value="Featured"
+                          class="w-4 h-4 rounded border-slate-300 dark:border-white/10 text-theme-primary focus:ring-theme-primary accent-theme-primary">
+                        Featured
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Action Buttons (Sticky/Fixed at bottom on Mobile, separate card on Desktop) -->
+                <div
+                  class="h-[68px] flex items-center px-5 border-t border-slate-100 dark:border-white/10 bg-white dark:bg-[#1e293b] shrink-0">
+                  <div class="flex items-center gap-2.5 w-full">
+                    <button id="apply-filters-btn"
+                      class="flex-1 py-2.5 bg-theme-primary text-white border border-theme-primary hover:bg-white hover:text-theme-primary font-extrabold text-xs rounded-xl tracking-wide uppercase transition-all shadow-md cursor-pointer flex items-center justify-center">
+                      Apply
+                    </button>
+                    <button id="clear-filters-btn"
+                      class="flex-1 py-2.5 bg-slate-900 text-white border border-slate-900 hover:bg-black hover:text-white font-extrabold text-xs rounded-xl tracking-wide uppercase transition-all shadow-md cursor-pointer flex items-center justify-center">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </aside>
+
+              <!-- CATALOG RIGHT COLUMN -->
+              <div class="lg:col-span-9 space-y-5">
+
+                <!-- Toolbar (Translucent Blur Container) -->
+                <div
+                  class="flex flex-col md:flex-row md:items-center md:justify-between bg-white/40 dark:bg-[#1e293b]/40 backdrop-blur-md border border-slate-100 dark:border-white/10 rounded-2xl p-4 md:px-6 md:py-4 shadow-sm gap-4">
+
+                  <!-- Left Side: Mobile Toggle -->
+                  <div
+                    class="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between md:justify-start gap-4">
+
+                    <!-- Mobile Toggle Filter (only visible on mobile next to counter) -->
+                    <button id="mobile-filter-open-btn"
+                      class="lg:hidden h-[38px] px-4 border border-slate-200 dark:border-white/10 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-250 bg-white dark:bg-slate-800 flex items-center gap-2 hover:border-theme-primary hover:text-theme-primary transition-all cursor-pointer shadow-xs">
+                      <i class="fa-solid fa-sliders text-theme-primary text-xs"></i> Filters
+                    </button>
+                  </div>
+
+                  <!-- Right Side: Layout Grid Controls & Sorts -->
+                  <div class="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto">
+
+                    <!-- Sort By Dropdown -->
+                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-350">
+                      <span class="shrink-0">Sort By:</span>
+                      <div class="select2-wrapper" style="min-width: 170px;">
+                        <select id="sort-select" class="form-control select2-bootstrap-5" style="width: 100%;">
+                          <option value="featured">Featured</option>
+                          <option value="price-asc">Price: Low to High</option>
+                          <option value="price-desc">Price: High to Low</option>
+                          <option value="newest">New Arrivals</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Layout Toggle Buttons (Always visible on all screens!) -->
+                    <div
+                      class="flex items-center border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden bg-white dark:bg-slate-850 shrink-0 h-[38px]">
+                      <button id="grid-layout-btn"
+                        class="w-9 h-[38px] flex items-center justify-center border-r border-slate-200 dark:border-white/10 text-theme-primary bg-slate-50 dark:bg-slate-800 cursor-pointer"
+                        aria-label="Grid View">
+                        <i class="fa-solid fa-grip text-xs"></i>
+                      </button>
+                      <button id="list-layout-btn"
+                        class="w-9 h-[38px] flex items-center justify-center text-slate-400 hover:text-theme-primary dark:bg-slate-800 cursor-pointer"
+                        aria-label="List View">
+                        <i class="fa-solid fa-list text-xs"></i>
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Top Pagination -->
+                <div id="catalog-pagination-top"
+                  class="flex items-center justify-between gap-4 px-6 py-3.5 bg-white/40 dark:bg-[#1e293b]/40 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-white/10 shadow-xs">
+                  <!-- Generated dynamically -->
+                </div>
+
+                <!-- Products Grid Catalog Box -->
+                <div id="products-catalog-grid"
+                  class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5 transition-all duration-300">
+                  <!-- Populated dynamically via Script -->
+                </div>
+
+                <!-- Bottom Pagination -->
+                <div id="catalog-pagination"
+                  class="flex items-center justify-between gap-4 px-6 py-3.5 bg-white/40 dark:bg-[#1e293b]/40 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-white/10 shadow-xs">
+                  <!-- Generated dynamically -->
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         </section>
 
       </div>
@@ -1966,11 +2267,1100 @@
         }
       }
 
+      // Dynamically calculate sticky top and maximum height of filters sidebar
+      function updateSidebarStickyHeight() {
+        const unifiedSidebar = document.getElementById('unified-sidebar-filter');
+        if (unifiedSidebar) {
+          if (window.innerWidth >= 992) {
+            const headerCardEl = document.getElementById('header-card');
+            if (headerCardEl) {
+              // Sticky top = header card height + gap spacing (20px)
+              const stickyTopValue = headerCardEl.offsetHeight + 20;
+              unifiedSidebar.style.top = stickyTopValue + 'px';
+
+              // Set container height dynamically to fit remaining viewport height
+              const remainingHeight = window.innerHeight - stickyTopValue - 20;
+              unifiedSidebar.style.height = remainingHeight + 'px';
+            }
+          } else {
+            // Reset style rules on mobile drawer viewports
+            unifiedSidebar.style.top = '';
+            unifiedSidebar.style.height = '';
+          }
+        }
+      }
+
       // Initial execution and bind to events
       adjustMobileBottomPadding();
-      $(window).on('resize', adjustMobileBottomPadding);
+      updateSidebarStickyHeight();
+      $(window).on('resize', function () {
+        adjustMobileBottomPadding();
+        updateSidebarStickyHeight();
+      });
+      $(window).on('load', updateSidebarStickyHeight);
+
+      // ==========================================
+      // DATABASE AND FILTERING LOGIC
+      // ==========================================
+      const PRODUCTS = [
+        {
+          id: 1,
+          name: "Half Shirt GO-296",
+          category: "Katua Shirt",
+          brand: "Goby Fashion",
+          price: 850,
+          oldPrice: 1090,
+          image: "frontend/assets/images/products/shirt (1).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (2).jpg",
+          rating: 5,
+          reviewsCount: 30,
+          sizes: ["S", "M", "L", "XL"],
+          colors: ["White", "Blue"],
+          isSale: true,
+          isNew: true
+        },
+        {
+          id: 2,
+          name: "Cuban Shirt GO-299",
+          category: "Katua Shirt",
+          brand: "Febrifest Wear",
+          price: 850,
+          oldPrice: 1090,
+          image: "frontend/assets/images/products/shirt (2).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (3).jpg",
+          rating: 4,
+          reviewsCount: 23,
+          sizes: ["M", "L", "XL"],
+          colors: ["Blue", "Black"],
+          isSale: false,
+          isNew: true
+        },
+        {
+          id: 3,
+          name: "Full Sleeve Katua GO-297",
+          category: "Katua Shirt",
+          brand: "Goby Fashion",
+          price: 990,
+          oldPrice: 1250,
+          image: "frontend/assets/images/products/shirt (3).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (1).jpg",
+          rating: 5,
+          reviewsCount: 16,
+          sizes: ["S", "M", "L", "XL", "XXL"],
+          colors: ["Brown", "White"],
+          isSale: true,
+          isNew: false
+        },
+        {
+          id: 4,
+          name: "Half Shirt GO-294",
+          category: "Katua Shirt",
+          brand: "IMBD Premium",
+          price: 850,
+          oldPrice: 1090,
+          image: "frontend/assets/images/products/shirt (4).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (5).jpg",
+          rating: 5,
+          reviewsCount: 30,
+          sizes: ["M", "L", "XL"],
+          colors: ["Orange", "Black"],
+          isSale: true,
+          isNew: false,
+          isOutOfStock: true
+        },
+        {
+          id: 5,
+          name: "Cuban Shirt GO-298",
+          category: "Katua Shirt",
+          brand: "Outfitter Co.",
+          price: 850,
+          oldPrice: 1090,
+          image: "frontend/assets/images/products/shirt (5).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (6).jpg",
+          rating: 4,
+          reviewsCount: 11,
+          sizes: ["S", "M", "L"],
+          colors: ["Orange", "Blue"],
+          isSale: false,
+          isNew: true
+        },
+        {
+          id: 6,
+          name: "Half Shirt GO-300",
+          category: "Katua Shirt",
+          brand: "Goby Fashion",
+          price: 850,
+          oldPrice: 1090,
+          image: "frontend/assets/images/products/shirt (6).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (2).jpg",
+          rating: 5,
+          reviewsCount: 17,
+          sizes: ["M", "L", "XL", "XXL"],
+          colors: ["White", "Black"],
+          isSale: true,
+          isNew: true
+        },
+        {
+          id: 7,
+          name: "Premium Punjabi Premium-01",
+          category: "Panjabi",
+          brand: "IMBD Premium",
+          price: 1850,
+          oldPrice: 2200,
+          image: "frontend/assets/images/products/shirt (1).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (2).jpg",
+          rating: 5,
+          reviewsCount: 42,
+          sizes: ["M", "L", "XL"],
+          colors: ["Black", "White"],
+          isSale: true,
+          isNew: true
+        },
+        {
+          id: 8,
+          name: "Premium Punjabi Premium-02",
+          category: "Panjabi",
+          brand: "Febrifest Wear",
+          price: 1950,
+          oldPrice: 2400,
+          image: "frontend/assets/images/products/shirt (3).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (4).jpg",
+          rating: 5,
+          reviewsCount: 35,
+          sizes: ["L", "XL", "XXL"],
+          colors: ["Brown", "Blue"],
+          isSale: false,
+          isNew: true
+        },
+        {
+          id: 9,
+          name: "Classic Polo Shirt Polo-10",
+          category: "Polo T-Shirt",
+          brand: "Outfitter Co.",
+          price: 650,
+          oldPrice: 850,
+          image: "frontend/assets/images/products/shirt (2).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (5).jpg",
+          rating: 4,
+          reviewsCount: 19,
+          sizes: ["S", "M", "L", "XL"],
+          colors: ["Blue", "White"],
+          isSale: true,
+          isNew: false
+        },
+        {
+          id: 10,
+          name: "Signature Polo Shirt Polo-12",
+          category: "Polo T-Shirt",
+          brand: "Goby Fashion",
+          price: 690,
+          oldPrice: 900,
+          image: "frontend/assets/images/products/shirt (4).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (6).jpg",
+          rating: 5,
+          reviewsCount: 14,
+          sizes: ["M", "L", "XL"],
+          colors: ["Black", "Orange"],
+          isSale: false,
+          isNew: true
+        },
+        {
+          id: 11,
+          name: "Premium Winter Hoodie HD-04",
+          category: "Hoodie",
+          brand: "Febrifest Wear",
+          price: 1250,
+          oldPrice: 1600,
+          image: "frontend/assets/images/products/shirt (5).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (1).jpg",
+          rating: 5,
+          reviewsCount: 28,
+          sizes: ["M", "L", "XL", "XXL"],
+          colors: ["Black", "Brown"],
+          isSale: true,
+          isNew: true
+        },
+        {
+          id: 12,
+          name: "Cozy Cotton Sweat Shirt SS-09",
+          category: "Sweat Shirt",
+          brand: "IMBD Premium",
+          price: 1100,
+          oldPrice: 1450,
+          image: "frontend/assets/images/products/shirt (6).jpg",
+          hoverImage: "frontend/assets/images/products/shirt (3).jpg",
+          rating: 4,
+          reviewsCount: 22,
+          sizes: ["S", "M", "L", "XL"],
+          colors: ["Blue", "Brown"],
+          isSale: true,
+          isNew: false
+        }
+      ];
+
+      // Populate department and functionality mock values dynamically on PRODUCTS array elements
+      PRODUCTS.forEach(p => {
+        if (p.category === "Panjabi") {
+          p.department = "Assets";
+          p.functionality = "Buy";
+        } else if (p.category === "Polo T-Shirt" || p.category === "Katua Shirt") {
+          p.department = "AssetSheba Store";
+          p.functionality = "Buy";
+        } else if (p.category === "Hoodie") {
+          p.department = "AssetSheba Store";
+          p.functionality = "Rent";
+        } else if (p.category === "Sweat Shirt") {
+          p.department = "Services";
+          p.functionality = "Rent";
+        } else {
+          p.department = "Services";
+          p.functionality = "Hire";
+        }
+
+        // Map badge boolean indicators dynamically
+        p.isPremium = (p.id % 2 === 0);
+        p.isUrgent = (p.id % 3 === 0);
+        p.isFeatured = (p.id % 4 === 0);
+      });
+
+      // Filters State
+      let filterFunctionality = "";
+      let filterDepartment = "";
+      let filterCategory = [];
+      let filterMinPrice = 0;
+      let filterMaxPrice = 3000;
+      let filterDeals = [];
+      let sortOption = "featured";
+      let gridCols = 4;
+      let currentLayout = "grid";
+      let currentPage = 1;
+      const itemsPerPage = 8;
+
+      // Category Tree Configuration
+      const CATEGORY_TREE = [
+        {
+          name: "Men's Clothing",
+          image: "frontend/assets/images/products/shirt (1).jpg",
+          children: [
+            { name: "Panjabi" },
+            { name: "Polo T-Shirt" },
+            { name: "Katua Shirt" },
+            { name: "Hoodie" },
+            { name: "Sweat Shirt" }
+          ]
+        },
+        {
+          name: "Real Estate",
+          image: "frontend/assets/images/products/shirt (2).jpg",
+          children: [
+            {
+              name: "Flat",
+              children: [
+                { name: "Flat rent" },
+                { name: "Flat sell" }
+              ]
+            },
+            { name: "Commercial" }
+          ]
+        },
+        {
+          name: "Electronics",
+          image: "frontend/assets/images/products/shirt (3).jpg",
+          children: [
+            { name: "Computers" },
+            { name: "Accessories" }
+          ]
+        }
+      ];
+
+      let categoryTraversalPath = [];
+
+      // Render Category Accordion List (Folder Traversal System)
+      function renderCategoryAccordion() {
+        const container = document.getElementById('category-accordion-list');
+        if (!container) return;
+        container.innerHTML = "";
+
+        // Determine current folder level
+        let currentLevelList = CATEGORY_TREE;
+        if (categoryTraversalPath.length > 0) {
+          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
+          currentLevelList = currentFolder.children || [];
+        }
+
+        // Render Breadcrumb if inside folders
+        if (categoryTraversalPath.length > 0) {
+          const breadcrumb = document.createElement('div');
+          breadcrumb.className = "flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 pb-3 border-b border-slate-100 dark:border-white/5 mb-3";
+
+          // Back button
+          const backBtn = document.createElement('button');
+          backBtn.type = "button";
+          backBtn.className = "w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 hover:text-theme-primary flex items-center justify-center border-none cursor-pointer";
+          backBtn.innerHTML = `<i class="fa-solid fa-arrow-left text-[10px]"></i>`;
+          backBtn.addEventListener('click', () => {
+            categoryTraversalPath.pop();
+            renderCategoryAccordion();
+          });
+          breadcrumb.appendChild(backBtn);
+
+          // Path link
+          const pathContainer = document.createElement('div');
+          pathContainer.className = "flex items-center gap-1.5 flex-wrap";
+
+          const rootSpan = document.createElement('span');
+          rootSpan.className = "text-slate-400 hover:text-theme-primary cursor-pointer";
+          rootSpan.textContent = "Categories";
+          rootSpan.addEventListener('click', () => {
+            categoryTraversalPath = [];
+            renderCategoryAccordion();
+          });
+          pathContainer.appendChild(rootSpan);
+
+          categoryTraversalPath.forEach((folder, idx) => {
+            const separator = document.createElement('span');
+            separator.className = "text-slate-300 dark:text-white/10";
+            separator.textContent = "/";
+            pathContainer.appendChild(separator);
+
+            const folderSpan = document.createElement('span');
+            const isLast = idx === categoryTraversalPath.length - 1;
+            folderSpan.className = isLast ? "text-slate-800 dark:text-white font-extrabold" : "text-slate-400 hover:text-theme-primary cursor-pointer";
+            folderSpan.textContent = folder.name;
+            if (!isLast) {
+              folderSpan.addEventListener('click', () => {
+                categoryTraversalPath = categoryTraversalPath.slice(0, idx + 1);
+                renderCategoryAccordion();
+              });
+            }
+            pathContainer.appendChild(folderSpan);
+          });
+
+          breadcrumb.appendChild(pathContainer);
+          container.appendChild(breadcrumb);
+
+          // "All in Current Folder" option
+          const allBtn = document.createElement('div');
+          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
+          const getLeafCategories = (item) => {
+            if (!item.children) return [item.name];
+            return item.children.flatMap(getLeafCategories);
+          };
+          const allChildrenNames = getLeafCategories(currentFolder);
+          const isAllSelected = allChildrenNames.every(name => filterCategory.includes(name)) && filterCategory.length === allChildrenNames.length;
+
+          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${isAllSelected ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
+          allBtn.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-tags text-[11px]"></i>
+              </div>
+              <span>All in ${currentFolder.name}</span>
+            </div>
+            ${isAllSelected ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
+          `;
+          allBtn.addEventListener('click', () => {
+            filterCategory = [...allChildrenNames];
+            renderCategoryAccordion();
+            currentPage = 1;
+            renderCatalog();
+          });
+          container.appendChild(allBtn);
+        } else {
+          // At the Root Level: render "All Categories" option
+          const allBtn = document.createElement('div');
+          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${filterCategory.length === 0 ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
+          allBtn.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-tags text-[11px]"></i>
+              </div>
+              <span>All Categories</span>
+            </div>
+            ${filterCategory.length === 0 ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
+          `;
+          allBtn.addEventListener('click', () => {
+            filterCategory = [];
+            renderCategoryAccordion();
+            currentPage = 1;
+            renderCatalog();
+          });
+          container.appendChild(allBtn);
+        }
+
+        // Render current list of items at this folder level
+        currentLevelList.forEach(item => {
+          const isFolder = !!item.children;
+          const getLeafCategories = (node) => {
+            if (!node.children) return [node.name];
+            return node.children.flatMap(getLeafCategories);
+          };
+          const leafNames = getLeafCategories(item);
+          const itemCount = PRODUCTS.filter(p => leafNames.includes(p.category)).length;
+          const isSelected = !isFolder && filterCategory.includes(item.name) && filterCategory.length === 1;
+
+          const row = document.createElement('div');
+          row.className = `flex items-center justify-between p-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${isSelected ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
+
+          const iconMarkup = isFolder
+            ? `<div class="w-7 h-7 rounded-lg overflow-hidden shrink-0 bg-slate-100 dark:bg-slate-850">
+                 ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover" alt="">` : `<i class="fa-solid fa-folder text-amber-500 text-[11px]"></i>`}
+               </div>`
+            : `<div class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-850 flex items-center justify-center shrink-0">
+                 <i class="fa-solid fa-bullhorn text-[11px] text-slate-500 dark:text-slate-400"></i>
+               </div>`;
+
+          row.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              ${iconMarkup}
+              <span class="truncate max-w-[150px]">${item.name}</span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[9px] text-slate-400 font-medium">${itemCount} listings</span>
+              ${isFolder ? `<i class="fa-solid fa-chevron-right text-[8px] text-slate-400"></i>` : (isSelected ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : '')}
+            </div>
+          `;
+
+          row.addEventListener('click', () => {
+            if (isFolder) {
+              categoryTraversalPath.push(item);
+              renderCategoryAccordion();
+            } else {
+              filterCategory = [item.name];
+              renderCategoryAccordion();
+              currentPage = 1;
+              renderCatalog();
+            }
+          });
+
+          container.appendChild(row);
+        });
+      }
+
+      // URL parameters processing
+      function parseUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('category');
+        if (cat) {
+          filterCategory = [cat];
+        }
+        const deal = params.get('deal');
+        if (deal) {
+          filterDeals = [deal];
+          document.querySelectorAll('input[name="filter-deal"]').forEach(input => {
+            if (input.value === deal) input.checked = true;
+          });
+        }
+      }
+
+      // Filter and Sort function
+      function getFilteredProducts() {
+        let list = [...PRODUCTS];
+
+        if (filterFunctionality) {
+          list = list.filter(p => p.functionality === filterFunctionality);
+        }
+        if (filterDepartment) {
+          list = list.filter(p => p.department === filterDepartment);
+        }
+        if (filterCategory.length > 0) {
+          list = list.filter(p => filterCategory.includes(p.category));
+        }
+        list = list.filter(p => p.price >= filterMinPrice && p.price <= filterMaxPrice);
+        if (filterDeals.length > 0) {
+          list = list.filter(p => {
+            let matches = false;
+            if (filterDeals.includes('New') && p.isNew) matches = true;
+            if (filterDeals.includes('Urgent') && p.isUrgent) matches = true;
+            if (filterDeals.includes('Premium') && p.isPremium) matches = true;
+            if (filterDeals.includes('Featured') && p.isFeatured) matches = true;
+            return matches;
+          });
+        }
+
+        if (sortOption === "price-asc") {
+          list.sort((a, b) => a.price - b.price);
+        } else if (sortOption === "price-desc") {
+          list.sort((a, b) => b.price - a.price);
+        } else if (sortOption === "newest") {
+          list.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+        }
+
+        return list;
+      }
+
+      // Render Dynamic Grid Cards
+      function renderCatalog() {
+        const grid = document.getElementById('products-catalog-grid');
+        if (!grid) return;
+
+        const filtered = getFilteredProducts();
+
+        const showingCountEl = document.getElementById('showing-count');
+        const totalCountEl = document.getElementById('total-count');
+        if (showingCountEl) showingCountEl.textContent = Math.min(filtered.length, currentPage * itemsPerPage);
+        if (totalCountEl) totalCountEl.textContent = filtered.length;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paged = filtered.slice(startIndex, endIndex);
+
+        grid.innerHTML = "";
+
+        if (paged.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center space-y-3">
+              <div class="w-16 h-16 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center mx-auto border border-slate-100 dark:border-white/10">
+                <i class="fa-solid fa-box-open text-slate-400 text-lg"></i>
+              </div>
+              <h4 class="font-bold text-sm text-slate-800 dark:text-white">No products found</h4>
+              <p class="text-xs text-slate-500">Try broadening your active filters or clear them to start over.</p>
+            </div>
+          `;
+          renderPagination(filtered.length);
+          return;
+        }
+
+        if (currentLayout === 'list') {
+          grid.className = "grid grid-cols-1 gap-4 transition-all duration-300";
+        } else {
+          grid.className = gridCols === 4
+            ? "grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-5 transition-all duration-300"
+            : "grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5 transition-all duration-300";
+        }
+
+        paged.forEach(p => {
+          const saveAmount = p.oldPrice - p.price;
+          const discountPercentage = Math.round((saveAmount / p.oldPrice) * 100);
+
+          const card = document.createElement('div');
+
+          if (currentLayout === 'list') {
+            card.className = "product-card bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 relative flex flex-row items-center p-3.5 gap-4 shadow-sm";
+            card.innerHTML = `
+              <div class="relative w-28 h-28 sm:w-36 sm:h-36 overflow-hidden rounded-xl bg-slate-50 dark:bg-[#0f172a] shrink-0">
+                <img src="${p.image}" alt="${p.name}" class="product-image-primary w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-0">
+                <img src="${p.hoverImage}" alt="${p.name} Hover" class="product-image-secondary absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                
+                <!-- Hover Dark Overlay -->
+                <div class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+
+                <!-- Centered Quick View Eye Button -->
+                <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
+                  <button class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer" title="Quick View" aria-label="Quick View">
+                    <i class="fa-regular fa-eye text-sm"></i>
+                  </button>
+                </div>
+
+                ${p.isSale ? `
+                  <span class="absolute top-2.5 left-2.5 bg-theme-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-lg z-20">
+                    -${discountPercentage}%
+                  </span>
+                ` : p.isNew ? `
+                  <span class="absolute top-2.5 left-2.5 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-lg z-20">
+                    NEW
+                  </span>
+                ` : ""}
+
+                ${p.isOutOfStock ? `
+                  <span class="absolute top-2.5 left-2.5 bg-slate-950/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-lg z-20">
+                    STOCK OUT
+                  </span>
+                ` : ""}
+
+                <button class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer z-20" aria-label="Add to wishlist">
+                  <i class="fa-regular fa-heart text-xs"></i>
+                </button>
+              </div>
+
+              <div class="flex-1 min-w-0 flex flex-col justify-between py-1 self-stretch">
+                <div>
+                  <div class="flex items-center gap-1 mb-1 truncate">
+                    <i class="fa-solid fa-shirt text-theme-primary text-[10px] shrink-0"></i>
+                    <span class="text-[10px] text-slate-400 font-medium truncate">${p.category}</span>
+                  </div>
+                  <h3 class="font-bold text-sm sm:text-base text-slate-800 dark:text-white truncate hover:text-theme-primary transition-colors cursor-pointer mb-1">
+                    ${p.name}
+                  </h3>
+                  <div class="flex items-center gap-1 mb-2 truncate">
+                    <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
+                    <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
+                  </div>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 dark:border-white/[0.05] flex items-center justify-between gap-2 min-h-[38px] mt-auto">
+                  <div class="truncate">
+                    <span class="font-black text-sm text-slate-900 dark:text-white">৳${p.price}</span>
+                    ${p.oldPrice ? `<span class="text-xs text-slate-400 line-through ml-1">৳${p.oldPrice}</span>` : ""}
+                  </div>
+                  <a href="#" class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details →</a>
+                </div>
+              </div>
+            `;
+          } else {
+            card.className = "product-card bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 flex flex-col justify-between shadow-sm";
+            card.innerHTML = `
+              <div>
+                <div class="relative aspect-[4/3] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
+                  <img src="${p.image}" alt="${p.name}" class="product-image-primary w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-0">
+                  <img src="${p.hoverImage}" alt="${p.name} Hover" class="product-image-secondary absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                  
+                  <!-- Hover Dark Overlay -->
+                  <div class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+
+                  <!-- Centered Quick View Eye Button -->
+                  <div class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
+                    <button class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer" title="Quick View" aria-label="Quick View">
+                      <i class="fa-regular fa-eye text-sm"></i>
+                    </button>
+                  </div>
+
+                  ${p.isSale ? `
+                    <span class="absolute top-2.5 left-2.5 bg-theme-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-lg z-20">
+                      -${discountPercentage}%
+                    </span>
+                  ` : p.isNew ? `
+                    <span class="absolute top-2.5 left-2.5 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-lg z-20">
+                      NEW
+                    </span>
+                  ` : ""}
+
+                  ${p.isOutOfStock ? `
+                    <span class="absolute top-2.5 left-2.5 bg-slate-950/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-lg z-20">
+                      STOCK OUT
+                    </span>
+                  ` : ""}
+
+                  <!-- Action Buttons: Favourite & Compare (Above Overlay) -->
+                  <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
+                    <button class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer" title="Add to Wishlist" aria-label="Add to Wishlist">
+                      <i class="fa-regular fa-heart text-xs"></i>
+                    </button>
+                    <button class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer" title="Compare" aria-label="Compare">
+                      <i class="fa-solid fa-code-compare text-xs"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="p-3">
+                  <div class="flex items-center gap-1 mb-1 truncate">
+                    <i class="fa-solid fa-shirt text-theme-primary text-[10px] shrink-0"></i>
+                    <span class="text-[10px] text-slate-400 font-medium truncate">${p.category}</span>
+                  </div>
+                  <h3 class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors cursor-pointer" title="${p.name}">
+                    ${p.name}
+                  </h3>
+                  <div class="flex items-center gap-1 mb-2 truncate">
+                    <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
+                    <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 pt-0">
+                <div class="pt-2 border-t border-slate-100 dark:border-white/[0.05] flex items-center justify-between gap-2 min-h-[38px] mt-auto">
+                  <div class="truncate">
+                    <span class="font-black text-sm text-slate-900 dark:text-white">৳${p.price}</span>
+                    ${p.oldPrice ? `<span class="text-[10px] font-medium text-slate-400 line-through ml-1">৳${p.oldPrice}</span>` : ""}
+                  </div>
+                  <a href="#" class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details →</a>
+                </div>
+              </div>
+            `;
+          }
+
+          grid.appendChild(card);
+        });
+
+        renderPagination(filtered.length);
+      }
+
+      // Render Pagination Buttons
+      function renderPagination(totalItems) {
+        const bottomContainer = document.getElementById('catalog-pagination');
+        const topContainer = document.getElementById('catalog-pagination-top');
+
+        if (bottomContainer) bottomContainer.innerHTML = "";
+        if (topContainer) {
+          topContainer.innerHTML = "";
+          topContainer.classList.add('hidden');
+        }
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if (totalPages <= 1) return;
+
+        if (topContainer) topContainer.classList.remove('hidden');
+
+        // Helper to build a pagination set
+        const buildPaginationElements = (targetContainer) => {
+          if (!targetContainer) return;
+
+          // Left side: Counter text
+          const counterSpan = document.createElement('span');
+          counterSpan.className = "text-xs font-semibold text-slate-500 dark:text-slate-400";
+          const currentShowing = Math.min(totalItems, currentPage * itemsPerPage);
+          counterSpan.innerHTML = `Showing <span class="font-extrabold text-theme-primary text-sm">${currentShowing}</span> of <span class="font-extrabold text-slate-800 dark:text-white">${totalItems}</span> products`;
+          targetContainer.appendChild(counterSpan);
+
+          // Right side: Page buttons wrapper
+          const buttonsWrapper = document.createElement('div');
+          buttonsWrapper.className = "flex items-center gap-1.5";
+
+          // Previous button
+          const prev = document.createElement('button');
+          prev.className = `w-8 h-8 rounded-xl border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:border-theme-primary hover:text-theme-primary transition-all cursor-pointer ${currentPage === 1 ? "opacity-40 cursor-not-allowed" : ""}`;
+          prev.innerHTML = `<i class="fa-solid fa-chevron-left text-xs"></i>`;
+          if (currentPage > 1) {
+            prev.addEventListener('click', () => {
+              currentPage--;
+              renderCatalog();
+              window.scrollTo({ top: 120, behavior: 'smooth' });
+            });
+          }
+          buttonsWrapper.appendChild(prev);
+
+          // Page Numbers
+          for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = `w-8 h-8 rounded-xl border text-xs font-bold transition-all cursor-pointer ${i === currentPage ? "border-theme-primary bg-theme-primary text-white" : "border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-theme-primary hover:text-theme-primary"}`;
+            pageBtn.textContent = i;
+            pageBtn.addEventListener('click', () => {
+              currentPage = i;
+              renderCatalog();
+              window.scrollTo({ top: 120, behavior: 'smooth' });
+            });
+            buttonsWrapper.appendChild(pageBtn);
+          }
+
+          // Next button
+          const next = document.createElement('button');
+          next.className = `w-8 h-8 rounded-xl border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:border-theme-primary hover:text-theme-primary transition-all cursor-pointer ${currentPage === totalPages ? "opacity-40 cursor-not-allowed" : ""}`;
+          next.innerHTML = `<i class="fa-solid fa-chevron-right text-xs"></i>`;
+          if (currentPage < totalPages) {
+            next.addEventListener('click', () => {
+              currentPage++;
+              renderCatalog();
+              window.scrollTo({ top: 120, behavior: 'smooth' });
+            });
+          }
+          buttonsWrapper.appendChild(next);
+
+          targetContainer.appendChild(buttonsWrapper);
+        };
+
+        buildPaginationElements(bottomContainer);
+        buildPaginationElements(topContainer);
+      }
+
+      // Handle checkbox change events
+      function handleFiltersChange() {
+        filterCategory = [];
+        document.querySelectorAll('input[name="category"]:checked').forEach(c => {
+          if (!filterCategory.includes(c.value)) filterCategory.push(c.value);
+        });
+
+        filterBrand = [];
+        document.querySelectorAll('input[name="brand"]:checked').forEach(b => {
+          if (!filterBrand.includes(b.value)) filterBrand.push(b.value);
+        });
+
+        filterDeals = [];
+        document.querySelectorAll('input[name="filter-deal"]:checked').forEach(d => {
+          if (!filterDeals.includes(d.value)) filterDeals.push(d.value);
+        });
+      }
+
+      // Initialize filter events
+      function initFilterControls() {
+        // Initialize Select2 components
+        try {
+          if (window.jQuery && $.fn.select2) {
+            $('#functionality-select').select2({
+              theme: 'bootstrap-5',
+              placeholder: 'Select Functionality',
+              allowClear: true
+            }).on('change', function () {
+              filterFunctionality = $(this).val() || "";
+              currentPage = 1;
+              renderCatalog();
+            });
+
+            $('#department-select').select2({
+              theme: 'bootstrap-5',
+              placeholder: 'Select Department',
+              allowClear: true
+            }).on('change', function () {
+              filterDepartment = $(this).val() || "";
+              currentPage = 1;
+              renderCatalog();
+            });
+
+            $('#sort-select').select2({
+              theme: 'bootstrap-5',
+              placeholder: 'Sort By',
+              minimumResultsForSearch: -1 // Hide search bar for sorting options
+            }).on('change', function () {
+              sortOption = $(this).val() || "featured";
+              currentPage = 1;
+              renderCatalog();
+            });
+          }
+        } catch (e) {
+          console.error("Select2 initialization failed: ", e);
+        }
+
+        document.querySelectorAll('input[name="category"], input[name="brand"], input[name="filter-deal"]').forEach(input => {
+          input.addEventListener('change', () => {
+            const name = input.name;
+            const val = input.value;
+            const checked = input.checked;
+            document.querySelectorAll(`input[name="${name}"][value="${val}"]`).forEach(sibling => {
+              sibling.checked = checked;
+            });
+            handleFiltersChange();
+          });
+        });
+
+        function setupDualPriceSlider(container) {
+          const sliderMin = container.querySelector('#price-slider-min');
+          const sliderMax = container.querySelector('#price-slider-max');
+          const valMinEl = container.querySelector('#price-min-val') || document.getElementById('price-min-val');
+          const valMaxEl = container.querySelector('#price-max-val') || document.getElementById('price-max-val');
+          const trackHighlight = container.querySelector('#price-slider-track-highlight') || document.getElementById('price-slider-track-highlight');
+
+          if (!sliderMin || !sliderMax) return;
+
+          const maxLimit = 3000;
+
+          function updateSliderTrack() {
+            let minVal = parseInt(sliderMin.value);
+            let maxVal = parseInt(sliderMax.value);
+
+            if (maxVal - minVal < 100) {
+              if (this === sliderMin) {
+                sliderMin.value = maxVal - 100;
+                minVal = maxVal - 100;
+              } else {
+                sliderMax.value = minVal + 100;
+                maxVal = minVal + 100;
+              }
+            }
+
+            if (valMinEl) valMinEl.textContent = '৳' + minVal.toLocaleString('en-IN');
+            if (valMaxEl) valMaxEl.textContent = '৳' + maxVal.toLocaleString('en-IN');
+
+            const pctMin = (minVal / maxLimit) * 100;
+            const pctMax = (maxVal / maxLimit) * 100;
+            if (trackHighlight) {
+              trackHighlight.style.left = pctMin + "%";
+              trackHighlight.style.right = (100 - pctMax) + "%";
+            }
+          }
+
+          sliderMin.addEventListener('input', updateSliderTrack);
+          sliderMax.addEventListener('input', updateSliderTrack);
+
+          updateSliderTrack.call(sliderMin);
+        }
+
+        const desktopSidebar = document.querySelector('aside');
+        if (desktopSidebar) {
+          setupDualPriceSlider(desktopSidebar);
+        }
+
+        const applyBtn = document.getElementById('apply-filters-btn');
+        if (applyBtn) {
+          applyBtn.addEventListener('click', () => {
+            const sliderMin = document.getElementById('price-slider-min');
+            const sliderMax = document.getElementById('price-slider-max');
+
+            if (sliderMin && sliderMax) {
+              filterMinPrice = parseFloat(sliderMin.value);
+              filterMaxPrice = parseFloat(sliderMax.value);
+            }
+
+            handleFiltersChange();
+            currentPage = 1;
+            renderCatalog();
+          });
+        }
+
+        const clearBtn = document.getElementById('clear-filters-btn');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', () => {
+            // Reset Select2 components
+            try {
+              if (window.jQuery && $.fn.select2) {
+                $('#functionality-select').val('').trigger('change.select2');
+                $('#department-select').val('').trigger('change.select2');
+                $('#sort-select').val('featured').trigger('change.select2');
+              }
+            } catch (e) {
+              console.error(e);
+            }
+            filterFunctionality = "";
+            filterDepartment = "";
+            sortOption = "featured";
+
+            filterCategory = [];
+            renderCategoryAccordion();
+            filterMinPrice = 0;
+            filterMaxPrice = 3000;
+            filterDeals = [];
+
+            const sliderMin = document.getElementById('price-slider-min');
+            const sliderMax = document.getElementById('price-slider-max');
+            if (sliderMin) sliderMin.value = 0;
+            if (sliderMax) sliderMax.value = 3000;
+
+            const valMinEl = document.getElementById('price-min-val');
+            const valMaxEl = document.getElementById('price-max-val');
+            if (valMinEl) valMinEl.textContent = "৳0";
+            if (valMaxEl) valMaxEl.textContent = "৳3,000";
+
+            const trackHighlight = document.getElementById('price-slider-track-highlight');
+            if (trackHighlight) {
+              trackHighlight.style.left = "0%";
+              trackHighlight.style.right = "0%";
+            }
+
+            document.querySelectorAll('input[name="category"], input[name="filter-deal"]').forEach(i => i.checked = false);
+
+            currentPage = 1;
+            renderCatalog();
+          });
+        }
+
+
+
+        const gridLayoutBtn = document.getElementById('grid-layout-btn');
+        const listLayoutBtn = document.getElementById('list-layout-btn');
+
+        if (gridLayoutBtn && listLayoutBtn) {
+          function updateLayoutButtons(activeBtn) {
+            [gridLayoutBtn, listLayoutBtn].forEach(btn => {
+              if (btn === activeBtn) {
+                btn.classList.add('text-theme-primary', 'bg-slate-50/60', 'dark:bg-white/5');
+                btn.classList.remove('text-slate-400');
+              } else {
+                btn.classList.remove('text-theme-primary', 'bg-slate-50/60', 'dark:bg-white/5');
+                btn.classList.add('text-slate-400');
+              }
+            });
+          }
+
+          gridLayoutBtn.addEventListener('click', () => {
+            currentLayout = 'grid';
+            updateLayoutButtons(gridLayoutBtn);
+            renderCatalog();
+          });
+
+          listLayoutBtn.addEventListener('click', () => {
+            currentLayout = 'list';
+            updateLayoutButtons(listLayoutBtn);
+            renderCatalog();
+          });
+        }
+
+        // Mobile drawer filters toggle utilizing common shebaBackdrop
+        const openMobileFiltersBtn = document.getElementById('mobile-filter-open-btn');
+        const unifiedSidebar = $('#unified-sidebar-filter');
+
+        if (openMobileFiltersBtn && unifiedSidebar.length) {
+          function openDrawer() {
+            unifiedSidebar.removeClass('-translate-x-full').addClass('translate-x-0');
+            if (typeof shebaBackdrop !== 'undefined') {
+              shebaBackdrop.show('#unified-sidebar-filter', closeDrawer);
+            }
+          }
+
+          function closeDrawer() {
+            unifiedSidebar.addClass('-translate-x-full').removeClass('translate-x-0');
+            if (typeof shebaBackdrop !== 'undefined') {
+              shebaBackdrop.hide('#unified-sidebar-filter');
+            }
+          }
+
+          openMobileFiltersBtn.addEventListener('click', openDrawer);
+
+          document.addEventListener('click', function (e) {
+            if (e.target.closest('#filter-close-btn')) {
+              closeDrawer();
+            }
+          });
+
+          const applyBtn = document.getElementById('apply-filters-btn');
+          if (applyBtn) {
+            applyBtn.addEventListener('click', () => {
+              if (unifiedSidebar.hasClass('translate-x-0')) {
+                closeDrawer();
+              }
+            });
+          }
+
+          const clearBtn = document.getElementById('clear-filters-btn');
+          if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+              if (unifiedSidebar.hasClass('translate-x-0')) {
+                closeDrawer();
+              }
+            });
+          }
+
+          window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+              if (unifiedSidebar.hasClass('translate-x-0')) {
+                closeDrawer();
+              }
+            }
+          });
+        }
+      }
+
+      // Initialize
+      parseUrlParams();
+      initFilterControls();
+      renderCategoryAccordion();
+      renderCatalog();
+
+      // Product Size Selection Pill & Wishlist Toggle System
+      document.addEventListener('click', function (e) {
+        const sizePill = e.target.closest('.size-pill');
+        if (sizePill) {
+          const pillContainer = sizePill.closest('.product-size-pills');
+          if (pillContainer) {
+            pillContainer.querySelectorAll('.size-pill').forEach(btn => {
+              btn.classList.remove('bg-theme-primary', 'text-white');
+              btn.classList.add('bg-slate-100', 'text-slate-700/75');
+            });
+            sizePill.classList.remove('bg-slate-100', 'text-slate-700/75');
+            sizePill.classList.add('bg-theme-primary', 'text-white');
+          }
+        }
+
+        const wishlistBtn = e.target.closest('.wishlist-btn');
+        if (wishlistBtn) {
+          const icon = wishlistBtn.querySelector('i');
+          if (icon) {
+            if (icon.classList.contains('fa-regular')) {
+              icon.classList.remove('fa-regular');
+              icon.classList.add('fa-solid', 'text-red-500');
+              wishlistBtn.classList.add('bg-red-50');
+            } else {
+              icon.classList.remove('fa-solid', 'text-red-500');
+              icon.classList.add('fa-regular');
+              wishlistBtn.classList.remove('bg-red-50');
+            }
+          }
+        }
+      });
     });
   </script>
+
+  <!-- jQuery (required for Select2) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <!-- Floating Create Listing Button (Desktop/Tablet Only) -->
   <a href="#"
