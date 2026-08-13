@@ -649,32 +649,27 @@
             <!-- Right (col-span-3 to align with products view) -->
             <div class="flex items-center gap-3 shrink-0 lg:col-span-3 h-full lg:justify-end">
 
-              <!-- Compare Icon Button with Badge -->
-              <a href="#" aria-label="Compare"
-                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
-                <i class="fa-solid fa-code-compare text-[13px]"></i>
-                <span id="compare-badge"
-                  class="absolute -top-1.5 -right-1.5 bg-theme-primary text-white text-[9px] leading-none min-w-[15px] h-3.5 rounded-full flex items-center justify-center font-bold px-0.5">2</span>
+              <!-- Message/Chat Icon Button -->
+              <a href="#" aria-label="Messages"
+                class="w-10 h-10 rounded-full border border-slate-100 dark:border-slate-850 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
+                <i class="fa-regular fa-comment-dots text-[13px]"></i>
+                <span
+                  class="absolute -top-1.5 -right-1.5 bg-theme-primary text-white text-[9px] leading-none min-w-[15px] h-3.5 rounded-full flex items-center justify-center font-bold px-0.5">5</span>
               </a>
 
-              <!-- Wishlist Icon Button -->
-              <a href="#" aria-label="Wishlist"
-                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
-                <i class="fa-regular fa-heart text-[13px]"></i>
-              </a>
-
-              <!-- Cart Toggle Button with Badge -->
-              <button id="cart-toggle-btn" aria-label="Cart"
-                class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative cursor-pointer">
-                <i class="fa-solid fa-bag-shopping text-[13px]"></i>
-                <span id="cart-badge"
+              <!-- Notification Bell with Badge -->
+              <a href="#" aria-label="Notifications"
+                class="w-10 h-10 rounded-full border border-slate-100 dark:border-slate-850 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
+                <i class="fa-regular fa-bell text-[13px]"></i>
+                <span
                   class="absolute -top-1.5 -right-1.5 bg-theme-primary text-white text-[9px] leading-none min-w-[15px] h-3.5 rounded-full flex items-center justify-center font-bold px-0.5">3</span>
-              </button>
+              </a>
 
-              <!-- User Account / Profile Icon Button (Hidden on Mobile) -->
-              <a href="#" aria-label="Account"
-                class="auth-modal-trigger hidden lg:flex w-10 h-10 rounded-full border border-slate-100 items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 overflow-hidden">
-                <i class="fa-regular fa-user text-[13px]"></i>
+              <!-- User Profile Avatar Image -->
+              <a href="dashboard.html" aria-label="Account"
+                class="w-10 h-10 rounded-full border border-slate-100 dark:border-slate-800 flex items-center justify-center overflow-hidden hover:border-theme-primary transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80"
+                  alt="User Avatar" class="w-full h-full object-cover">
               </a>
 
               <!-- Settings Toggle button (Theme & Language & Preferences) -->
@@ -691,965 +686,633 @@
 
     <main class="flex flex-col justify-between py-5">
       <div>
-        <!-- ============ BREADCRUMBS ============ -->
-        <nav class="pb-6 select-none">
+
+        <!-- ============ MAIN CONTENT AREA ============ -->
+        <section class="catalog-section pb-8">
           <div class="container">
-            <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
-              <a href="index.html" class="hover:text-theme-primary transition-colors flex items-center gap-1">
-                <i class="fa-solid fa-house text-[10px]"></i> Home
-              </a>
-              <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
-              <a href="products.html?department=Assets" class="hover:text-theme-primary transition-colors">Assets</a>
-              <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
-              <a href="products.html?category=Vehicles" class="hover:text-theme-primary transition-colors">Vehicles</a>
-              <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
-              <span class="text-slate-900 dark:text-white font-semibold">Toyota C-HR Hybrid 2019</span>
-            </div>
-          </div>
-        </nav>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
 
-        <!-- ============ MAIN CONTENT GRID ============ -->
-        <section class="pb-8">
-          <div class="container">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              <!-- LEFT SIDEBAR USER NAVIGATION (col-span-3) -->
+              <aside id="unified-sidebar-filter"
+                class="fixed top-0 left-0 h-full w-[310px] sm:w-[350px] max-w-[90%] bg-slate-50 dark:bg-[#0f172a] z-[10001] overflow-hidden transition-transform duration-300 -translate-x-full flex flex-col lg:flex lg:flex-col lg:col-span-3 lg:w-auto lg:max-w-none lg:bg-slate-50 dark:lg:bg-[#1e293b] lg:rounded-2xl lg:border lg:border-slate-200/80 dark:lg:border-white/10 lg:shadow-sm lg:z-0 lg:translate-x-0 lg:sticky">
 
-              <!-- LEFT COLUMN: Synced Slider & Tabs (col-span-8) -->
-              <div class="lg:col-span-8 space-y-6">
-                <!-- Gallery Box -->
+                <!-- Sidebar User Header & Info (Matches standard 72px height filters header) -->
                 <div
-                  class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 border border-slate-100 dark:border-white/10 shadow-sm space-y-4">
-                  <!-- Main Image Slider -->
-                  <div
-                    class="slider qv-main-slider product-main-container relative group border border-slate-100 dark:border-white/10 rounded-[20px] overflow-hidden shadow-xs"
-                    slider-name="product-main" data-slides-to-show="BPD: 1" data-slides-to-scroll="BPD: 1"
-                    data-arrows="true" data-dots="false" data-infinite="true" data-autoplay="false" data-inner-gap="0"
-                    data-slider-for="product-thumb" data-transition="fade">
-
-                    <!-- Badges -->
-                    <span
-                      class="absolute top-3.5 left-3.5 bg-theme-primary text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-lg z-10 shadow-sm">PREMIUM</span>
-
-                    <button type="button"
-                      class="wishlist-btn absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xs text-slate-500 hover:text-rose-500 flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer z-10 border-none">
-                      <i class="fa-regular fa-heart text-sm"></i>
-                    </button>
-
-                    <button
-                      class="left_btn absolute left-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-9 h-9 rounded-full !bg-white !text-slate-700 shadow-md border border-slate-100 hover:!bg-theme-primary hover:!text-white hover:border-theme-primary transition-all duration-200"
-                      aria-label="Previous">
-                      <i class="fa-solid fa-chevron-left text-xs !text-slate-700"></i>
-                    </button>
-                    <!-- Arrow: Right -->
-                    <button
-                      class="right_btn absolute right-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-9 h-9 rounded-full !bg-white !text-slate-700 shadow-md border border-slate-100 hover:!bg-theme-primary hover:!text-white hover:border-theme-primary transition-all duration-200"
-                      aria-label="Next">
-                      <i class="fa-solid fa-chevron-right text-xs !text-slate-700"></i>
-                    </button>
-
-                    <!-- Page Indicator Counter -->
-                    <div
-                      class="absolute bottom-3.5 left-3.5 z-10 bg-slate-950/70 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1">
-                      <i class="fa-regular fa-image"></i>
-                      <span><span id="slider-current-page">1</span> / 10</span>
-                    </div>
-
-                    <!-- Hidden gallery links for lightgallery -->
-                    <div class="hidden">
-                      <div class="lightgallery" id="lightgallery-detail">
-                        <a href="frontend/assets/images/products/shirt (1).jpg"><img
-                            src="frontend/assets/images/products/shirt (1).jpg" alt="Img 1"></a>
-                        <a href="frontend/assets/images/products/shirt (2).jpg"><img
-                            src="frontend/assets/images/products/shirt (2).jpg" alt="Img 2"></a>
-                        <a href="frontend/assets/images/products/shirt (3).jpg"><img
-                            src="frontend/assets/images/products/shirt (3).jpg" alt="Img 3"></a>
-                        <a href="frontend/assets/images/products/shirt (4).jpg"><img
-                            src="frontend/assets/images/products/shirt (4).jpg" alt="Img 4"></a>
-                        <a href="frontend/assets/images/products/shirt (5).jpg"><img
-                            src="frontend/assets/images/products/shirt (5).jpg" alt="Img 5"></a>
-                        <a href="frontend/assets/images/products/shirt (6).jpg"><img
-                            src="frontend/assets/images/products/shirt (6).jpg" alt="Img 6"></a>
-                        <a href="frontend/assets/images/products/shirt (1).jpg"><img
-                            src="frontend/assets/images/products/shirt (1).jpg" alt="Img 7"></a>
-                        <a href="frontend/assets/images/products/shirt (2).jpg"><img
-                            src="frontend/assets/images/products/shirt (2).jpg" alt="Img 8"></a>
-                        <a href="frontend/assets/images/products/shirt (3).jpg"><img
-                            src="frontend/assets/images/products/shirt (3).jpg" alt="Img 9"></a>
-                        <a href="frontend/assets/images/products/shirt (4).jpg"><img
-                            src="frontend/assets/images/products/shirt (4).jpg" alt="Img 10"></a>
-                      </div>
-                    </div>
-
-                    <!-- Slides Wrapper -->
-                    <div class="slider_wrap overflow-hidden rounded-[20px]" style="overflow: hidden !important;">
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="0">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (1).jpg" alt="Product Image 1"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="1">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (2).jpg" alt="Product Image 2"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="2">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (3).jpg" alt="Product Image 3"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="3">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (4).jpg" alt="Product Image 4"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="4">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (5).jpg" alt="Product Image 5"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="5">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (6).jpg" alt="Product Image 6"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="6">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (1).jpg" alt="Product Image 7"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="7">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (2).jpg" alt="Product Image 8"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="8">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (3).jpg" alt="Product Image 9"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                      <div class="slider_item lightgallery-selector cursor-pointer"
-                        data-lightgallery-selector="#lightgallery-detail" data-lightgallery-id="9">
-                        <div
-                          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900/50 flex items-center justify-center">
-                          <img src="frontend/assets/images/products/shirt (4).jpg" alt="Product Image 10"
-                            class="w-full h-full object-cover">
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- Thumbnail Navigation Slider -->
-                  <div class="relative group mt-2">
-                    <div class="slider qv-thumb-slider" slider-name="product-thumb" data-slider-nav="product-main"
-                      data-slides-to-show="BPD: 5, BP-992: 4, BP-576: 3" data-slides-to-scroll="BPD: 1"
-                      data-autoplay="false" data-arrows="true" data-dots="false" data-infinite="true"
-                      data-center-mode="true" data-inner-gap="6">
-
-                      <button type="button"
-                        class="left_btn action-btn flex items-center justify-center !w-7 !h-7 !left-1 z-20 !bg-white/90 dark:!bg-slate-900/90 !text-slate-800 dark:!text-white hover:!bg-theme-primary hover:!text-white border border-slate-200 dark:border-white/10 shadow-md rounded-full cursor-pointer transition-all border-none">
-                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
-                      </button>
-                      <button type="button"
-                        class="right_btn action-btn flex items-center justify-center !w-7 !h-7 !right-1 z-20 !bg-white/90 dark:!bg-slate-900/90 !text-slate-800 dark:!text-white hover:!bg-theme-primary hover:!text-white border border-slate-200 dark:border-white/10 shadow-md rounded-full cursor-pointer transition-all border-none">
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                      </button>
-
-                      <div class="slider_wrap overflow-hidden rounded-2xl">
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (1).jpg" alt="Thumb 1"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (2).jpg" alt="Thumb 2"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (3).jpg" alt="Thumb 3"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (4).jpg" alt="Thumb 4"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (5).jpg" alt="Thumb 5"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (6).jpg" alt="Thumb 6"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (1).jpg" alt="Thumb 7"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (2).jpg" alt="Thumb 8"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (3).jpg" alt="Thumb 9"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                        <div class="slider_item p-0.5">
-                          <div
-                            class="qv-thumb-btn w-full aspect-[16/9] rounded-lg overflow-hidden cursor-pointer bg-white dark:bg-slate-800">
-                            <img src="frontend/assets/images/products/shirt (4).jpg" alt="Thumb 10"
-                              class="w-full h-full object-cover">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Tabs Info Box -->
-                <div
-                  class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 border border-slate-100 dark:border-white/10 shadow-sm space-y-4">
-                  <!-- Navigation Buttons -->
-                  <div
-                    class="flex items-center gap-1 border-b border-slate-100 dark:border-white/5 pb-3 overflow-x-auto no-scrollbar select-none">
-                    <button type="button"
-                      class="tab-trigger-btn px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider bg-theme-primary text-white shadow-md transition-all duration-200 cursor-pointer border-none"
-                      data-tab-target="tab-desc">Description</button>
-                    <button type="button"
-                      class="tab-trigger-btn px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-theme-primary hover:bg-theme-primary/5 transition-all duration-200 cursor-pointer border-none"
-                      data-tab-target="tab-specs">Specifications</button>
-                    <button type="button"
-                      class="tab-trigger-btn px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-theme-primary hover:bg-theme-primary/5 transition-all duration-200 cursor-pointer border-none"
-                      data-tab-target="tab-features">Features</button>
-                    <button type="button"
-                      class="tab-trigger-btn px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-theme-primary hover:bg-theme-primary/5 transition-all duration-200 cursor-pointer border-none"
-                      data-tab-target="tab-location">Location</button>
-                  </div>
-
-                  <!-- Tab Panels -->
-                  <div class="tab-panel-content text-xs leading-relaxed text-slate-600 dark:text-slate-300 space-y-3"
-                    id="tab-desc">
-                    <p class="text-slate-700 dark:text-slate-200">Toyota C-HR Hybrid 2019, excellent condition. Well maintained, regular service history available.
-                      Full option, push start, original paint. No accident history. Papers up to date.</p>
-                    <div
-                      class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-slate-100 dark:border-white/5">
-                      <div class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-tags text-theme-primary"></i>
-                        <span class="text-slate-700 dark:text-slate-200"><strong>Brand:</strong> Toyota</span>
-                      </div>
-                      <div class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-car text-theme-primary"></i>
-                        <span class="text-slate-700 dark:text-slate-200"><strong>Model:</strong> C-HR</span>
-                      </div>
-                      <div class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-info text-theme-primary"></i>
-                        <span class="text-slate-700 dark:text-slate-200"><strong>Condition:</strong> Used</span>
-                      </div>
-                      <div class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-palette text-theme-primary"></i>
-                        <span class="text-slate-700 dark:text-slate-200"><strong>Color:</strong> Pearl White</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    class="tab-panel-content text-xs leading-relaxed text-slate-600 dark:text-slate-300 hidden space-y-2"
-                    id="tab-specs">
-                    <div class="grid grid-cols-2 gap-4">
-                      <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-white/5">
-                        <span class="text-slate-400">Model Year</span>
-                        <span class="font-semibold text-slate-800 dark:text-white">2019</span>
-                      </div>
-                      <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-white/5">
-                        <span class="text-slate-400">Registration Year</span>
-                        <span class="font-semibold text-slate-800 dark:text-white">2020</span>
-                      </div>
-                      <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-white/5">
-                        <span class="text-slate-400">Engine Capacity</span>
-                        <span class="font-semibold text-slate-800 dark:text-white">1800 cc</span>
-                      </div>
-                      <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-white/5">
-                        <span class="text-slate-400">Body Type</span>
-                        <span class="font-semibold text-slate-800 dark:text-white">SUV</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="tab-panel-content text-xs leading-relaxed text-slate-600 dark:text-slate-300 hidden"
-                    id="tab-features">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Push Start</div>
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Alloy Wheels</div>
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Backup Camera</div>
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Cruise Control</div>
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Leather Interior</div>
-                      <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Auto Climate Control</div>
-                    </div>
-                  </div>
-
-                  <div
-                    class="tab-panel-content text-xs leading-relaxed text-slate-600 dark:text-slate-300 hidden space-y-4"
-                    id="tab-location">
-                    <div
-                      class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
-                      <div class="flex items-start gap-2.5">
-                        <i class="fa-solid fa-location-dot text-theme-primary text-sm mt-0.5"></i>
-                        <div>
-                          <p class="font-bold text-slate-800 dark:text-white">Uttara, Dhaka</p>
-                          <p class="text-[10px] text-slate-400">Sector 12, Uttara</p>
-                        </div>
-                      </div>
-                      <a href="#"
-                        class="px-4 py-2 bg-theme-primary text-white text-[10px] font-bold rounded-xl hover:brightness-110 transition-all text-center">View
-                        on Map</a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- RIGHT COLUMN: Details, Info Grid & Highlights (col-span-4) -->
-              <div class="lg:col-span-4 space-y-6">
-                <!-- Info Card -->
-                <div
-                  class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 border border-slate-100 dark:border-white/10 shadow-sm space-y-5">
-                  <div class="space-y-2">
-                    <div class="flex items-center gap-1.5 flex-wrap">
+                  class="flex items-center justify-between px-4 h-[72px] border-b border-slate-200/80 dark:border-white/10 shrink-0 bg-white dark:bg-[#1e293b] z-10 relative">
+                  <div class="flex items-center gap-2.5">
+                    <div class="relative w-9 h-9 rounded-xl overflow-hidden border border-theme-primary">
+                      <img
+                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80"
+                        alt="Ahmad Hossain" class="w-full h-full object-cover">
                       <span
-                        class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary text-[9px] font-black uppercase tracking-wider"><i
-                          class="fa-solid fa-star text-[8px]"></i> Featured</span>
-                      <span
-                        class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-black uppercase tracking-wider"><i
-                          class="fa-solid fa-shield-check text-[8px]"></i> Verified</span>
+                        class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
                     </div>
-                    <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white leading-tight">Toyota C-HR
-                      Hybrid 2019</h2>
-
-                    <div class="flex items-center gap-1.5">
-                      <div class="flex items-center text-amber-400 gap-0.5 text-xs">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                      </div>
-                      <span class="text-[10px] text-slate-400 font-semibold">4.8 (24 Reviews)</span>
-                    </div>
-                  </div>
-
-                  <!-- Price -->
-                  <div class="flex items-baseline gap-2.5 pb-4 border-b border-slate-100 dark:border-white/5">
-                    <span class="text-2xl font-black text-theme-primary">৳ 36,50,000</span>
-                    <span class="text-xs text-slate-400 line-through">৳ 38,50,000</span>
-                    <span class="text-[9px] font-extrabold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-lg">5%
-                      Off</span>
-                  </div>
-
-                  <!-- Specs Grid -->
-                  <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div
-                      class="flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-white/[0.03]">
-                      <i class="fa-solid fa-calendar text-theme-primary shrink-0 text-sm"></i>
-                      <div class="min-w-0">
-                        <p class="text-[9px] text-slate-400 font-medium leading-none">Year</p>
-                        <p class="font-bold text-slate-800 dark:text-white mt-0.5 leading-none">2019</p>
-                      </div>
-                    </div>
-                    <div
-                      class="flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-white/[0.03]">
-                      <i class="fa-solid fa-gauge-high text-theme-primary shrink-0 text-sm"></i>
-                      <div class="min-w-0">
-                        <p class="text-[9px] text-slate-400 font-medium leading-none">Mileage</p>
-                        <p class="font-bold text-slate-800 dark:text-white mt-0.5 leading-none">45000 km</p>
-                      </div>
-                    </div>
-                    <div
-                      class="flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-white/[0.03]">
-                      <i class="fa-solid fa-charging-station text-theme-primary shrink-0 text-sm"></i>
-                      <div class="min-w-0">
-                        <p class="text-[9px] text-slate-400 font-medium leading-none">Fuel Type</p>
-                        <p class="font-bold text-slate-800 dark:text-white mt-0.5 leading-none">Hybrid</p>
-                      </div>
-                    </div>
-                    <div
-                      class="flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-white/[0.03]">
-                      <i class="fa-solid fa-gears text-theme-primary shrink-0 text-sm"></i>
-                      <div class="min-w-0">
-                        <p class="text-[9px] text-slate-400 font-medium leading-none">Transmission</p>
-                        <p class="font-bold text-slate-800 dark:text-white mt-0.5 leading-none">Automatic</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Highlights Checklist -->
-                  <div class="space-y-2">
-                    <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider">Highlights
-                    </h4>
-                    <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 dark:text-slate-300 font-medium">
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Push Start</div>
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Alloy Wheels</div>
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Backup Camera</div>
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Cruise Control</div>
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Leather Interior
-                      </div>
-                      <div class="flex items-center gap-1.5"><i
-                          class="fa-solid fa-circle-check text-theme-primary text-xs shrink-0"></i> Auto Climate Control
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <!-- Seller Sidebar Widget -->
-                <div
-                  class="bg-white dark:bg-[#1e293b] rounded-3xl p-6 border border-slate-100 dark:border-white/10 shadow-sm space-y-4">
-                  <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider">Seller
-                    Information</h4>
-
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="w-12 h-12 rounded-full overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
-                      <img src="frontend/assets/images/auth/sign-in.jpeg" alt="Ahmad Hossain"
-                        class="w-full h-full object-cover">
-                    </div>
-                    <div class="min-w-0">
-                      <h4 class="text-xs font-bold text-slate-800 dark:text-white flex items-center gap-1.5">
+                    <div>
+                      <h3
+                        class="text-xs font-bold text-slate-900 dark:text-white leading-tight flex items-center gap-1">
                         Ahmad Hossain
-                        <i class="fa-solid fa-circle-check text-theme-primary text-[10px]"></i>
-                      </h4>
-                      <p class="text-[9px] text-slate-400 mt-0.5">Member since Jan 2021</p>
-                      <span class="inline-flex items-center gap-1 text-[9px] text-emerald-500 font-bold mt-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
-                      </span>
+                        <i class="fa-solid fa-circle-check text-theme-primary text-[9px]" title="Verified Member"></i>
+                      </h3>
+                      <p class="text-[10px] text-slate-400">Member since Jan 2021</p>
                     </div>
                   </div>
-
-                  <!-- Seller Stats -->
-                  <div
-                    class="grid grid-cols-3 gap-2 border-t border-b border-slate-100 dark:border-white/5 py-3 text-center">
-                    <div>
-                      <p class="text-sm font-black text-slate-900 dark:text-white">98%</p>
-                      <p class="text-[9px] text-slate-400 mt-0.5 leading-none">Positive Reviews</p>
-                    </div>
-                    <div>
-                      <p class="text-sm font-black text-slate-900 dark:text-white">120</p>
-                      <p class="text-[9px] text-slate-400 mt-0.5 leading-none">Total Ads</p>
-                    </div>
-                    <div>
-                      <p class="text-sm font-black text-slate-900 dark:text-white">2 yrs+</p>
-                      <p class="text-[9px] text-slate-400 mt-0.5 leading-none">On Asset Sheba</p>
-                    </div>
-                  </div>
-
-                  <!-- Buttons -->
-                  <div class="space-y-2 select-none">
-                    <button
-                      class="w-full h-11 bg-theme-primary text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 hover:brightness-110 shadow-sm border-none cursor-pointer">
-                      <i class="fa-solid fa-comments"></i> Chat with Seller
-                    </button>
-                    <button
-                      class="w-full h-11 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer">
-                      <i class="fa-solid fa-phone"></i> Call Now
-                    </button>
-                    <button
-                      class="w-full h-11 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer">
-                      <i class="fa-regular fa-heart"></i> Add to Favorites
-                    </button>
-                    <button
-                      class="w-full h-11 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer">
-                      <i class="fa-solid fa-share-nodes"></i> Share this ad
-                    </button>
-                  </div>
-
-                  <!-- Safe notice -->
-                  <div
-                    class="flex gap-2.5 p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/30 border border-slate-100 dark:border-white/[0.03] text-[10px] text-slate-500">
-                    <i class="fa-solid fa-shield-halved text-theme-primary text-sm shrink-0"></i>
-                    <div>
-                      <p class="font-bold text-slate-800 dark:text-white leading-none">Safe & Secure</p>
-                      <p class="text-[9px] text-slate-400 mt-1 leading-normal">All transactions are protected by Asset
-                        Sheba Buyer Protection.</p>
-                    </div>
-                  </div>
+                  <!-- Close Button (Mobile Only) -->
+                  <button id="filter-close-btn" type="button"
+                    class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-theme-primary hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer lg:hidden border-none">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                  </button>
                 </div>
 
+                <!-- Scrolling Sidebar Navigation Menu -->
+                <div class="flex-1 overflow-y-auto p-3 space-y-0.5 scrollbar-thin">
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold bg-theme-primary text-white transition-all shadow-sm">
+                    <i class="fa-solid fa-chart-simple text-xs"></i>
+                    <span>Dashboard</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-folder-open text-xs"></i>
+                    <span>My Ads</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-heart text-xs"></i>
+                    <span>Saved Items</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-user text-xs"></i>
+                    <span>Following</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <span class="flex items-center gap-2.5">
+                      <i class="fa-regular fa-comment-dots text-xs"></i>
+                      <span>Messages</span>
+                    </span>
+                    <span
+                      class="bg-theme-primary text-white text-[9px] px-1.5 py-0.5 rounded-full font-extrabold">5</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-star text-xs"></i>
+                    <span>Reviews</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-solid fa-basket-shopping text-xs"></i>
+                    <span>My Orders</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-solid fa-receipt text-xs"></i>
+                    <span>Transactions</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-user text-xs"></i>
+                    <span>My Profile</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                    <span>Security</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-regular fa-bell text-xs"></i>
+                    <span>Notifications</span>
+                  </a>
+                  <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-theme-primary transition-all">
+                    <i class="fa-solid fa-sliders text-xs"></i>
+                    <span>Settings</span>
+                  </a>
+                </div>
+
+                <!-- Action Button -->
+                <div class="h-[68px] p-3 border-t border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#1e293b] shrink-0">
+                  <a href="#"
+                    class="w-full h-10 bg-theme-primary text-white border border-theme-primary hover:bg-white hover:text-theme-primary font-bold text-xs rounded-xl tracking-wide uppercase transition-all shadow-sm cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus text-xs"></i> Post Free Listing
+                  </a>
+                </div>
+              </aside>
+
+              <!-- CATALOG/DASHBOARD RIGHT CONTENT AREA (col-span-9) -->
+              <div class="lg:col-span-9 space-y-5">
+
+                <!-- BREADCRUMBS IN THE RIGHT SIDE CONTENT CONTAINER -->
+                <nav class="select-none">
+                  <div
+                    class="flex items-center justify-between gap-4 text-xs text-slate-550 dark:text-slate-400 font-medium">
+                    <div class="flex items-center gap-1.5">
+                      <a href="index.html" class="hover:text-theme-primary transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-house text-[10px]"></i> Home
+                      </a>
+                      <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+                      <a href="dashboard.html" class="hover:text-theme-primary transition-colors">User</a>
+                      <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+                      <span class="text-slate-900 dark:text-white font-semibold">Dashboard</span>
+                    </div>
+
+                    <!-- Mobile Toggle Sidebar Button -->
+                    <button id="mobile-filter-open-btn"
+                      class="lg:hidden px-3.5 h-[32px] border border-slate-200 dark:border-white/10 rounded-xl text-[11px] font-bold text-slate-700 dark:text-slate-250 bg-white dark:bg-slate-800 flex items-center gap-2 hover:border-theme-primary hover:text-theme-primary transition-all cursor-pointer shadow-xs">
+                      <i class="fa-solid fa-bars text-theme-primary text-[10px]"></i> Dashboard Menu
+                    </button>
+                  </div>
+                </nav>
+
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
+
+                  <!-- LEFT MAIN COLUMN: WELCOME + STATISTICS + RECENT ADS + POPULAR CATEGORIES (col-span-8) -->
+                  <div class="xl:col-span-8 space-y-5">
+
+                    <!-- Welcome back banner -->
+                    <div
+                      class="p-6 bg-gradient-to-r from-theme-primary/5 via-indigo-500/5 to-transparent border border-slate-100 dark:border-white/10 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden min-h-[160px]">
+                      <!-- Decorative graphic details -->
+                      <div
+                        class="absolute top-0 right-0 w-48 h-full bg-gradient-to-l from-theme-primary/10 to-transparent pointer-events-none rounded-r-3xl">
+                      </div>
+                      <div class="space-y-1.5 relative z-10 max-w-md">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Welcome back, Ahmad! 👋
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Here's what's happening
+                          with your account today. Keep track of views, requests, and listings.</p>
+                      </div>
+                      <div class="w-36 h-24 shrink-0 relative z-10 flex items-center justify-center">
+                        <svg viewBox="0 0 100 50" class="w-full h-full text-theme-primary drop-shadow-md" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 45 C 20 20, 40 40, 60 15 C 75 5, 85 25, 95 10" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" />
+                          <circle cx="95" cy="10" r="3" fill="currentColor" />
+                          <path d="M5 45 C 20 20, 40 40, 60 15 C 75 5, 85 25, 95 10 L 95 50 L 5 50 Z"
+                            fill="currentColor" fill-opacity="0.05" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Statistics Cards Grid -->
+                    <div class="grid grid-cols-2 min-[540px]:grid-cols-5 gap-3">
+                      <!-- Card 1 -->
+                      <div
+                        class="p-4 bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-center shadow-xs">
+                        <div
+                          class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-2">
+                          <i class="fa-regular fa-folder-open text-base"></i>
+                        </div>
+                        <span
+                          class="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Total
+                          Ads</span>
+                        <h4 class="text-lg font-black text-slate-800 dark:text-white mt-1">12</h4>
+                        <span class="text-[9px] text-slate-400 mt-0.5">Active ads</span>
+                      </div>
+                      <!-- Card 2 -->
+                      <div
+                        class="p-4 bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-center shadow-xs">
+                        <div
+                          class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-2">
+                          <i class="fa-regular fa-eye text-base"></i>
+                        </div>
+                        <span
+                          class="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Total
+                          Views</span>
+                        <h4 class="text-lg font-black text-slate-800 dark:text-white mt-1">2,458</h4>
+                        <span class="text-[9px] text-slate-400 mt-0.5">All ads views</span>
+                      </div>
+                      <!-- Card 3 -->
+                      <div
+                        class="p-4 bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-center shadow-xs">
+                        <div
+                          class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-2">
+                          <i class="fa-regular fa-comment-dots text-base"></i>
+                        </div>
+                        <span
+                          class="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Messages</span>
+                        <h4 class="text-lg font-black text-slate-800 dark:text-white mt-1">89</h4>
+                        <span class="text-[9px] text-slate-400 mt-0.5">From buyers</span>
+                      </div>
+                      <!-- Card 4 -->
+                      <div
+                        class="p-4 bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-center shadow-xs">
+                        <div
+                          class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-2">
+                          <i class="fa-regular fa-star text-base"></i>
+                        </div>
+                        <span
+                          class="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Reviews</span>
+                        <h4 class="text-lg font-black text-slate-800 dark:text-white mt-1">24</h4>
+                        <span class="text-[9px] text-slate-400 mt-0.5">Positive reviews</span>
+                      </div>
+                      <!-- Card 5 -->
+                      <div
+                        class="p-4 bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-2xl col-span-2 min-[540px]:col-span-1 flex flex-col items-center justify-center text-center shadow-xs">
+                        <div
+                          class="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center mb-2">
+                          <i class="fa-solid fa-gauge-high text-base"></i>
+                        </div>
+                        <span
+                          class="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Score</span>
+                        <h4 class="text-lg font-black text-slate-800 dark:text-white mt-1">98%</h4>
+                        <span class="text-[9px] text-slate-400 mt-0.5">Keep it up!</span>
+                      </div>
+                    </div>
+
+                    <!-- My Recent Ads Card -->
+                    <div
+                      class="bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
+                      <div class="flex items-center justify-between pb-2">
+                        <h3 class="text-sm font-bold text-slate-850 dark:text-white uppercase tracking-wider">My Recent
+                          Ads</h3>
+                        <a href="#"
+                          class="text-xs font-semibold text-theme-primary hover:underline flex items-center gap-1">
+                          View all ads <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                      </div>
+
+                      <!-- Ads Table List -->
+                      <div class="space-y-3">
+
+                        <!-- Row 1 -->
+                        <div
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 rounded-2xl border border-slate-100/50 dark:border-white/5 flex items-center justify-between gap-4 transition-all">
+                          <div class="flex items-center gap-3.5 min-w-0">
+                            <img src="frontend/assets/images/products/shirt (1).jpg" alt="Toyota C-HR Hybrid"
+                              class="w-16 h-12 rounded-xl object-cover shrink-0 border border-slate-200/50 dark:border-white/5 bg-slate-100">
+                            <div class="min-w-0">
+                              <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Toyota C-HR Hybrid
+                                2019</h4>
+                              <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                                <span>Vehicles</span>
+                                <span class="w-1 h-1 rounded-full bg-slate-350 dark:bg-white/10"></span>
+                                <span class="font-extrabold text-slate-700 dark:text-slate-300">৳ 36,50,000</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center gap-4 shrink-0">
+                            <span
+                              class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold">Active</span>
+                            <div class="hidden sm:flex items-center gap-3 text-[10px] text-slate-400">
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> 1,256</span>
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-comment-dots"></i> 45</span>
+                            </div>
+                            <button
+                              class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850 flex items-center justify-center text-slate-500 cursor-pointer">
+                              <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 rounded-2xl border border-slate-100/50 dark:border-white/5 flex items-center justify-between gap-4 transition-all">
+                          <div class="flex items-center gap-3.5 min-w-0">
+                            <img src="frontend/assets/images/products/shirt (2).jpg" alt="Modern Apartment in Uttara"
+                              class="w-16 h-12 rounded-xl object-cover shrink-0 border border-slate-200/50 dark:border-white/5 bg-slate-100">
+                            <div class="min-w-0">
+                              <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Modern Apartment in
+                                Uttara</h4>
+                              <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                                <span>Real Estate</span>
+                                <span class="w-1 h-1 rounded-full bg-slate-350 dark:bg-white/10"></span>
+                                <span class="font-extrabold text-slate-700 dark:text-slate-300">৳ 1,25,00,000</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center gap-4 shrink-0">
+                            <span
+                              class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold">Active</span>
+                            <div class="hidden sm:flex items-center gap-3 text-[10px] text-slate-400">
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> 892</span>
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-comment-dots"></i> 32</span>
+                            </div>
+                            <button
+                              class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850 flex items-center justify-center text-slate-500 cursor-pointer">
+                              <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 rounded-2xl border border-slate-100/50 dark:border-white/5 flex items-center justify-between gap-4 transition-all">
+                          <div class="flex items-center gap-3.5 min-w-0">
+                            <img src="frontend/assets/images/products/shirt (3).jpg" alt="Canon EOS 700D"
+                              class="w-16 h-12 rounded-xl object-cover shrink-0 border border-slate-200/50 dark:border-white/5 bg-slate-100">
+                            <div class="min-w-0">
+                              <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Canon EOS 700D with
+                                18-55mm</h4>
+                              <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                                <span>Electronics</span>
+                                <span class="w-1 h-1 rounded-full bg-slate-350 dark:bg-white/10"></span>
+                                <span class="font-extrabold text-slate-700 dark:text-slate-300">৳ 32,000</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center gap-4 shrink-0">
+                            <span
+                              class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold">Active</span>
+                            <div class="hidden sm:flex items-center gap-3 text-[10px] text-slate-400">
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> 645</span>
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-comment-dots"></i> 18</span>
+                            </div>
+                            <button
+                              class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850 flex items-center justify-center text-slate-500 cursor-pointer">
+                              <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 rounded-2xl border border-slate-100/50 dark:border-white/5 flex items-center justify-between gap-4 transition-all">
+                          <div class="flex items-center gap-3.5 min-w-0">
+                            <img src="frontend/assets/images/products/shirt (4).jpg" alt="HSC Physics Tuition"
+                              class="w-16 h-12 rounded-xl object-cover shrink-0 border border-slate-200/50 dark:border-white/5 bg-slate-100">
+                            <div class="min-w-0">
+                              <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">HSC Physics Private
+                                Tuition</h4>
+                              <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                                <span>Services</span>
+                                <span class="w-1 h-1 rounded-full bg-slate-350 dark:bg-white/10"></span>
+                                <span class="font-extrabold text-slate-700 dark:text-slate-300">৳ 8,000</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center gap-4 shrink-0">
+                            <span
+                              class="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[9px] font-bold">Pending</span>
+                            <div class="hidden sm:flex items-center gap-3 text-[10px] text-slate-400">
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> 231</span>
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-comment-dots"></i> 8</span>
+                            </div>
+                            <button
+                              class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850 flex items-center justify-center text-slate-500 cursor-pointer">
+                              <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 rounded-2xl border border-slate-100/50 dark:border-white/5 flex items-center justify-between gap-4 transition-all">
+                          <div class="flex items-center gap-3.5 min-w-0">
+                            <img src="frontend/assets/images/products/shirt (5).jpg" alt="Office Table (Wooden)"
+                              class="w-16 h-12 rounded-xl object-cover shrink-0 border border-slate-200/50 dark:border-white/5 bg-slate-100">
+                            <div class="min-w-0">
+                              <h4 class="text-xs font-bold text-slate-800 dark:text-white truncate">Office Table
+                                (Wooden)</h4>
+                              <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                                <span>Home & Living</span>
+                                <span class="w-1 h-1 rounded-full bg-slate-350 dark:bg-white/10"></span>
+                                <span class="font-extrabold text-slate-700 dark:text-slate-300">৳ 6,500</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex items-center gap-4 shrink-0">
+                            <span
+                              class="px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-500 text-[9px] font-bold">Expired</span>
+                            <div class="hidden sm:flex items-center gap-3 text-[10px] text-slate-400">
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-eye"></i> 112</span>
+                              <span class="flex items-center gap-1"><i class="fa-regular fa-comment-dots"></i> 2</span>
+                            </div>
+                            <button
+                              class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850 flex items-center justify-center text-slate-500 cursor-pointer">
+                              <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- Popular Categories Section -->
+                    <div
+                      class="bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
+                      <div class="flex items-center justify-between pb-2">
+                        <h3 class="text-sm font-bold text-slate-850 dark:text-white uppercase tracking-wider">Popular
+                          Categories</h3>
+                        <a href="#"
+                          class="text-xs font-semibold text-theme-primary hover:underline flex items-center gap-1">
+                          Explore all <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                      </div>
+
+                      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3">
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-car text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Vehicles</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">250+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-house-chimney text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Real
+                            Estate</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">180+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-laptop text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Electronics</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">320+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-screwdriver-wrench text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Services</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">150+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-briefcase text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Jobs</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">210+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-graduation-cap text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Education</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">120+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-couch text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">Home &
+                            Living</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">160+ Ads</span>
+                        </a>
+
+                        <a href="#"
+                          class="p-3 bg-slate-50 dark:bg-slate-900/40 hover:bg-theme-primary/5 hover:border-theme-primary/30 rounded-2xl border border-slate-100 dark:border-white/5 flex flex-col items-center justify-center text-center transition-all group">
+                          <div
+                            class="w-9 h-9 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-ellipsis text-sm"></i>
+                          </div>
+                          <span
+                            class="text-[9px] font-extrabold text-slate-700 dark:text-slate-350 truncate w-full">More</span>
+                          <span class="text-[8px] text-slate-400 mt-0.5">Categories</span>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- RIGHT SIDEBAR COLUMN: ACCOUNT OVERVIEW + RECENT ACTIVITY (col-span-4) -->
+                  <div class="xl:col-span-4 space-y-5">
+
+                    <!-- Account Overview Card -->
+                    <div
+                      class="bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
+                      <div class="flex items-center justify-between pb-1">
+                        <h3 class="text-sm font-bold text-slate-850 dark:text-white uppercase tracking-wider">Account
+                          Overview</h3>
+                        <a href="#" class="text-xs font-semibold text-theme-primary hover:underline">View Details</a>
+                      </div>
+
+                      <div class="space-y-3.5">
+                        <div
+                          class="flex items-center justify-between text-xs py-1 border-b border-slate-50 dark:border-white/5">
+                          <span class="text-slate-450 flex items-center gap-2"><i
+                              class="fa-regular fa-calendar text-theme-primary"></i> Member Since</span>
+                          <span class="font-bold text-slate-800 dark:text-white">Jan 15, 2021</span>
+                        </div>
+                        <div
+                          class="flex items-center justify-between text-xs py-1 border-b border-slate-50 dark:border-white/5">
+                          <span class="text-slate-450 flex items-center gap-2"><i
+                              class="fa-regular fa-gem text-theme-primary"></i> Account Type</span>
+                          <span class="font-bold text-slate-800 dark:text-white flex items-center gap-1.5">Free Member
+                            <a href="#"
+                              class="text-[10px] text-theme-primary hover:underline font-extrabold">Upgrade</a></span>
+                        </div>
+                        <div
+                          class="flex items-center justify-between text-xs py-1 border-b border-slate-50 dark:border-white/5">
+                          <span class="text-slate-450 flex items-center gap-2"><i
+                              class="fa-solid fa-phone text-theme-primary"></i> Phone Number</span>
+                          <span class="font-bold text-slate-850 dark:text-white flex items-center gap-1.5">+880
+                            1862-864477 <span
+                              class="text-[9px] bg-emerald-500/10 text-emerald-500 px-1.5 py-0.2 rounded-md font-bold">Verified</span></span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs py-1">
+                          <span class="text-slate-450 flex items-center gap-2"><i
+                              class="fa-regular fa-envelope text-theme-primary"></i> Email Address</span>
+                          <span
+                            class="font-bold text-slate-850 dark:text-white flex items-center gap-1.5">ahmad.hossain@email.com
+                            <span
+                              class="text-[9px] bg-emerald-500/10 text-emerald-500 px-1.5 py-0.2 rounded-md font-bold">Verified</span></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Recent Activity Card -->
+                    <div
+                      class="bg-white dark:bg-[#1e293b] border border-slate-100 dark:border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
+                      <div class="flex items-center justify-between pb-1">
+                        <h3 class="text-sm font-bold text-slate-850 dark:text-white uppercase tracking-wider">Recent
+                          Activity</h3>
+                        <a href="#" class="text-xs font-semibold text-theme-primary hover:underline">View all</a>
+                      </div>
+
+                      <div class="space-y-4">
+                        <!-- Activity 1 -->
+                        <div class="flex gap-3">
+                          <div
+                            class="w-8 h-8 rounded-full bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                            <i class="fa-regular fa-eye text-sm"></i>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed font-semibold">Your ad
+                              <span class="text-theme-primary">Toyota C-HR Hybrid 2019</span> received 25 new views.
+                            </p>
+                            <span class="text-[9px] text-slate-400 mt-0.5 block">2h ago</span>
+                          </div>
+                        </div>
+
+                        <!-- Activity 2 -->
+                        <div class="flex gap-3">
+                          <div
+                            class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                            <i class="fa-regular fa-comment-dots text-sm"></i>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed font-semibold">New
+                              message from <span class="font-bold">Rafiq Hasan</span> interested in your apartment.</p>
+                            <span class="text-[9px] text-slate-400 mt-0.5 block">5h ago</span>
+                          </div>
+                        </div>
+
+                        <!-- Activity 3 -->
+                        <div class="flex gap-3">
+                          <div
+                            class="w-8 h-8 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                            <i class="fa-regular fa-star text-sm"></i>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed font-semibold">You
+                              received a 5-star review for <span class="font-bold">Canon EOS 700D</span>.</p>
+                            <span class="text-[9px] text-slate-400 mt-0.5 block">1d ago</span>
+                          </div>
+                        </div>
+
+                        <!-- Activity 4 -->
+                        <div class="flex gap-3">
+                          <div
+                            class="w-8 h-8 rounded-full bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-check text-sm"></i>
+                          </div>
+                          <div>
+                            <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed font-semibold">Your
+                              profile information was updated successfully.</p>
+                            <span class="text-[9px] text-slate-400 mt-0.5 block">2d ago</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
               </div>
 
             </div>
-          </div>
-        </section>
-
-        <!-- ============ SIMILAR ITEMS SECTION ============ -->
-        <section class="pb-12 pt-8">
-          <div class="container">
-            <div class="flex items-center justify-between mb-6">
-              <h3 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">Similar Items You
-                May Like</h3>
-              <a href="products.html"
-                class="text-xs font-extrabold text-theme-primary hover:underline flex items-center gap-1.5">View all <i
-                  class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <!-- Slick Slider -->
-            <div class="slider relative group/slider" slider-name="similar-items-slider"
-              data-slides-to-show="BPD: 5, BP-1200: 4, BP-992: 3, BP-768: 2, BP-576: 2, BP-480: 1" data-autoplay="false"
-              data-arrows="true" data-dots="false" data-inner-gap="16">
-
-              <!-- Arrow: Left -->
-              <button
-                class="left_btn flex items-center justify-center w-9 h-9 rounded-full bg-white text-slate-700 shadow-md border border-slate-100 hover:bg-theme-primary hover:text-white hover:border-theme-primary transition-all duration-200"
-                aria-label="Previous">
-                <i class="fa-solid fa-chevron-left text-xs"></i>
-              </button>
-              <!-- Arrow: Right -->
-              <button
-                class="right_btn flex items-center justify-center w-9 h-9 rounded-full bg-white text-slate-700 shadow-md border border-slate-100 hover:bg-theme-primary hover:text-white hover:border-theme-primary transition-all duration-200"
-                aria-label="Next">
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-              </button>
-
-              <!-- Slides Wrapper -->
-              <div class="slider_wrap">
-
-                <!-- Item 1 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (1).jpg" alt="Vezel"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <span
-                        class="absolute top-2.5 left-2.5 bg-theme-primary text-white text-[9px] font-bold px-2 py-0.5 rounded-lg z-20">PREMIUM</span>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Honda Vezel Hybrid 2018">
-                          <a href="product-details.html">Honda Vezel Hybrid 2018</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 29,50,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (2).jpg" alt="Grace"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Honda Grace 2018">
-                          <a href="product-details.html">Honda Grace 2018</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 17,00,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (3).jpg" alt="Corolla"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Toyota Corolla Axio 2017">
-                          <a href="product-details.html">Toyota Corolla Axio 2017</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 14,50,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (4).jpg" alt="X-Trail"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Nissan X-Trail 2016">
-                          <a href="product-details.html">Nissan X-Trail 2016</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 22,00,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Item 5 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (1).jpg" alt="Noah"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Toyota Noah 2015">
-                          <a href="product-details.html">Toyota Noah 2015</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 18,50,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="slider_item h-full p-1">
-                  <div
-                    class="bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 h-full flex flex-col shadow-xs">
-                    <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
-                      <a href="product-details.html" class="absolute inset-0 z-0 block">
-                        <img src="frontend/assets/images/products/shirt (2).jpg" alt="Axela"
-                          class="product-image-primary w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div
-                          class="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                      </a>
-                      <div
-                        class="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                        <a href="product-details.html"
-                          class="w-10 h-10 rounded-full bg-white/95 text-slate-800 hover:bg-theme-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 transform scale-75 group-hover:scale-100 cursor-pointer border-none"
-                          title="Quick View">
-                          <i class="fa-regular fa-eye text-xs"></i>
-                        </a>
-                      </div>
-                      <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
-                        <button
-                          class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Add to Wishlist">
-                          <i class="fa-regular fa-heart text-xs"></i>
-                        </button>
-                        <button
-                          class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer border-none"
-                          title="Compare">
-                          <i class="fa-solid fa-code-compare text-xs"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                      <div>
-                        <div class="flex items-center gap-1 mb-1 truncate">
-                          <i class="fa-solid fa-car text-theme-primary text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 font-medium truncate">Vehicles</span>
-                        </div>
-                        <h3
-                          class="text-xs font-black text-slate-900 dark:text-white truncate mb-1 group-hover:text-theme-primary transition-colors"
-                          title="Mazda Axela 2016">
-                          <a href="product-details.html">Mazda Axela 2016</a>
-                        </h3>
-                        <div class="flex items-center gap-1 mb-2 truncate">
-                          <i class="fa-solid fa-location-dot text-slate-300 text-[10px] shrink-0"></i>
-                          <span class="text-[10px] text-slate-400 truncate">Dhaka, Bangladesh</span>
-                        </div>
-                      </div>
-                      <div
-                        class="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2 min-h-[38px] mt-auto">
-                        <div class="truncate">
-                          <span class="font-black text-sm text-slate-900 dark:text-white">৳ 16,80,000</span>
-                        </div>
-                        <a href="product-details.html"
-                          class="text-[10px] font-bold text-theme-primary hover:underline shrink-0 whitespace-nowrap">Details
-                          →</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
           </div>
         </section>
 
@@ -3198,155 +2861,33 @@
           ]
         }
       ];
+      // Mobile dashboard sidebar offcanvas toggle utilizing common shebaBackdrop
+      const openMobileDashboardBtn = document.getElementById('mobile-filter-open-btn');
+      const dashboardSidebar = $('#unified-sidebar-filter');
+      const closeMobileDashboardBtn = document.getElementById('filter-close-btn');
 
-      let categoryTraversalPath = [];
-
-      // Render Category Accordion List (Folder Traversal System)
-      function renderCategoryAccordion() {
-        const container = document.getElementById('category-accordion-list');
-        if (!container) return;
-        container.innerHTML = "";
-
-        // Determine current folder level
-        let currentLevelList = CATEGORY_TREE;
-        if (categoryTraversalPath.length > 0) {
-          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
-          currentLevelList = currentFolder.children || [];
+      if (dashboardSidebar.length) {
+        function openDashboardDrawer() {
+          dashboardSidebar.removeClass('-translate-x-full').addClass('translate-x-0');
+          if (typeof shebaBackdrop !== 'undefined') {
+            shebaBackdrop.show('#unified-sidebar-filter', closeDashboardDrawer);
+          }
         }
 
-        // Render Breadcrumb if inside folders
-        if (categoryTraversalPath.length > 0) {
-          const breadcrumb = document.createElement('div');
-          breadcrumb.className = "flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 pb-3 border-b border-slate-100 dark:border-white/5 mb-3";
+        function closeDashboardDrawer() {
+          dashboardSidebar.addClass('-translate-x-full').removeClass('translate-x-0');
+          if (typeof shebaBackdrop !== 'undefined') {
+            shebaBackdrop.hide('#unified-sidebar-filter');
+          }
+        }
 
-          // Back button
-          const backBtn = document.createElement('button');
-          backBtn.type = "button";
-          backBtn.className = "w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 hover:text-theme-primary flex items-center justify-center border-none cursor-pointer";
-          backBtn.innerHTML = `<i class="fa-solid fa-arrow-left text-[10px]"></i>`;
-          backBtn.addEventListener('click', () => {
-            categoryTraversalPath.pop();
-            renderCategoryAccordion();
-          });
-          breadcrumb.appendChild(backBtn);
-
-          // Path link
-          const pathContainer = document.createElement('div');
-          pathContainer.className = "flex items-center gap-1.5 flex-wrap";
-
-          const rootSpan = document.createElement('span');
-          rootSpan.className = "text-slate-400 hover:text-theme-primary cursor-pointer";
-          rootSpan.textContent = "Categories";
-          rootSpan.addEventListener('click', () => {
-            categoryTraversalPath = [];
-            renderCategoryAccordion();
-          });
-          pathContainer.appendChild(rootSpan);
-
-          categoryTraversalPath.forEach((folder, idx) => {
-            const separator = document.createElement('span');
-            separator.className = "text-slate-300 dark:text-white/10";
-            separator.textContent = "/";
-            pathContainer.appendChild(separator);
-
-            const folderSpan = document.createElement('span');
-            const isLast = idx === categoryTraversalPath.length - 1;
-            folderSpan.className = isLast ? "text-slate-800 dark:text-white font-extrabold" : "text-slate-400 hover:text-theme-primary cursor-pointer";
-            folderSpan.textContent = folder.name;
-            if (!isLast) {
-              folderSpan.addEventListener('click', () => {
-                categoryTraversalPath = categoryTraversalPath.slice(0, idx + 1);
-                renderCategoryAccordion();
-              });
-            }
-            pathContainer.appendChild(folderSpan);
-          });
-
-          breadcrumb.appendChild(pathContainer);
-          container.appendChild(breadcrumb);
-
-          // "All in Current Folder" option
-          const allBtn = document.createElement('div');
-          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
-          const getLeafCategories = (item) => {
-            if (!item.children) return [item.name];
-            return item.children.flatMap(getLeafCategories);
-          };
-          const allChildrenNames = getLeafCategories(currentFolder);
-          const isAllSelected = allChildrenNames.every(name => filterCategory.includes(name)) && filterCategory.length === allChildrenNames.length;
-
-          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${isAllSelected ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
-          allBtn.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-tags text-[11px]"></i>
-              </div>
-              <span>All in ${currentFolder.name}</span>
-            </div>
-            ${isAllSelected ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
-          `;
-          allBtn.addEventListener('click', () => {
-            filterCategory = [...allChildrenNames];
-            renderCategoryAccordion();
-            currentPage = 1;
-            renderCatalog();
-          });
-          container.appendChild(allBtn);
-        } else {
-          // At the Root Level: render "All Categories" option
-          const allBtn = document.createElement('div');
-          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${filterCategory.length === 0 ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
-          allBtn.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-tags text-[11px]"></i>
-              </div>
-              <span>All Categories</span>
-            </div>
-            ${filterCategory.length === 0 ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
-          `;
-          allBtn.addEventListener('click', () => {
-            filterCategory = [];
-            renderCategoryAccordion();
-            currentPage = 1;
-            renderCatalog();
-          });
-          container.appendChild(allBtn);
+        if (openMobileDashboardBtn) {
+          openMobileDashboardBtn.addEventListener('click', openDashboardDrawer);
+        }
+        if (closeMobileDashboardBtn) {
+          closeMobileDashboardBtn.addEventListener('click', closeDashboardDrawer);
         }
       }
-
-      // Track current slide index and update page indicator counter
-      $(document).on('afterChange', '.qv-main-slider .slider_wrap', function (event, slick, currentSlide) {
-        $('#slider-current-page').text(currentSlide + 1);
-      });
-
-
-      // Tab switcher layout handler
-      $(document).on('click', '.tab-trigger-btn', function (e) {
-        e.preventDefault();
-        const btn = $(this);
-        const targetId = btn.data('tab-target');
-
-        // Toggle active button class
-        $('.tab-trigger-btn').removeClass('bg-theme-primary text-white shadow-md').addClass('text-slate-500 dark:text-slate-400 hover:text-theme-primary hover:bg-theme-primary/5');
-        btn.addClass('bg-theme-primary text-white shadow-md').removeClass('text-slate-500 dark:text-slate-400 hover:text-theme-primary hover:bg-theme-primary/5');
-
-        // Toggle tab content panel
-        $('.tab-panel-content').addClass('hidden');
-        $('#' + targetId).removeClass('hidden');
-      });
-
-      // Wishlist Heart Toggle
-      $(document).on('click', '.wishlist-btn', function (e) {
-        e.preventDefault();
-        const btn = $(this);
-        const icon = btn.find('i');
-        if (icon.hasClass('fa-regular')) {
-          icon.removeClass('fa-regular').addClass('fa-solid text-rose-500');
-        } else {
-          icon.removeClass('fa-solid text-rose-500').addClass('fa-regular');
-        }
-      });
     });
   </script>
 
