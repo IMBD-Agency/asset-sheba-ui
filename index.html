@@ -5007,6 +5007,30 @@
     <span>Create Free Listing</span>
   </a>
 
+
+  <!-- Dynamically set card anchors to product-details.html -->
+  <script>
+    $(document).ready(function () {
+      // Find all Details links and change their href
+      $('.slider_item a, .product-card a').each(function() {
+        if ($(this).text().trim().includes('Details')) {
+          $(this).attr('href', 'product-details.html');
+        }
+      });
+
+      // Wrap card titles in standard HTML anchor tags
+      $('.slider_item h3, .product-card h3').each(function() {
+        const titleText = $(this).text().trim();
+        $(this).html(`<a href="product-details.html" class="hover:text-theme-primary">${titleText}</a>`);
+      });
+
+      // Make Quick View buttons standard links
+      $('button[title="Quick View"]').each(function() {
+        $(this).wrap('<a href="product-details.html"></a>');
+      });
+    });
+  </script>
+
 </body>
 
 </html>

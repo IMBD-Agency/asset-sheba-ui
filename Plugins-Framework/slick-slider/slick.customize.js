@@ -182,20 +182,20 @@ $(document).ready(function () {
             if (innerGap && innerGap !== '0') {
                 const gapValue = parseInt(innerGap);
                 const halfGap = gapValue / 2;
-                
+
                 // Safe native styling to keep Slick's dynamically calculated widths and transforms
-                $slider.find('.slick-list').each(function() {
+                $slider.find('.slick-list').each(function () {
                     this.style.setProperty('margin-left', `-${halfGap}px`, 'important');
                     this.style.setProperty('margin-right', `-${halfGap}px`, 'important');
                 });
 
-                $slider.find('.slick-slide').each(function() {
+                $slider.find('.slick-slide').each(function () {
                     this.style.setProperty('padding-left', `${halfGap}px`, 'important');
                     this.style.setProperty('padding-right', `${halfGap}px`, 'important');
                     this.style.setProperty('box-sizing', 'border-box', 'important');
                 });
 
-                $slider.find('.slick-track').each(function() {
+                $slider.find('.slick-track').each(function () {
                     this.style.setProperty('display', 'flex', 'important');
                     const currentSlidesToShow = resolveResponsiveVal(slidesToShowAttr, 1);
                     if (totalSlides <= currentSlidesToShow) {
