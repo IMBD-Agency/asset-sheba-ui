@@ -2838,7 +2838,7 @@
           if (currentLayout === 'list') {
             card.className = "product-card bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 relative flex flex-row items-center p-3.5 gap-4 shadow-sm";
             card.innerHTML = `
-              <div class="relative w-28 h-28 sm:w-36 sm:h-36 overflow-hidden rounded-xl bg-slate-50 dark:bg-[#0f172a] shrink-0">
+              <div class="relative h-28 sm:h-36 aspect-[16/9] overflow-hidden rounded-xl bg-slate-50 dark:bg-[#0f172a] shrink-0">
                 <img src="${p.image}" alt="${p.name}" class="product-image-primary w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-0">
                 <img src="${p.hoverImage}" alt="${p.name} Hover" class="product-image-secondary absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                 
@@ -2868,9 +2868,15 @@
                   </span>
                 ` : ""}
 
-                <button class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer z-20" aria-label="Add to wishlist">
-                  <i class="fa-regular fa-heart text-xs"></i>
-                </button>
+                <!-- Action Buttons: Favourite & Compare (Above Overlay) -->
+                <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-20">
+                  <button class="wishlist-btn w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-rose-500 hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer" title="Add to Wishlist" aria-label="Add to Wishlist">
+                    <i class="fa-regular fa-heart text-xs"></i>
+                  </button>
+                  <button class="w-7 h-7 rounded-full bg-white/85 backdrop-blur-sm text-slate-500 hover:text-theme-primary hover:bg-white flex items-center justify-center transition-all duration-200 shadow-sm cursor-pointer" title="Compare" aria-label="Compare">
+                    <i class="fa-solid fa-code-compare text-xs"></i>
+                  </button>
+                </div>
               </div>
 
               <div class="flex-1 min-w-0 flex flex-col justify-between py-1 self-stretch">
@@ -2901,7 +2907,7 @@
             card.className = "product-card bg-white dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 hover:border-theme-primary dark:hover:border-theme-primary overflow-hidden group transition-all duration-300 flex flex-col justify-between shadow-sm";
             card.innerHTML = `
               <div>
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
+                <div class="relative aspect-[16/9] overflow-hidden bg-slate-50 dark:bg-[#0f172a] shrink-0">
                   <img src="${p.image}" alt="${p.name}" class="product-image-primary w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-0">
                   <img src="${p.hoverImage}" alt="${p.name} Hover" class="product-image-secondary absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                   
