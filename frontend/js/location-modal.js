@@ -379,8 +379,6 @@
       this.closeBtn = document.getElementById('close-location-modal');
       this.backBtn = document.getElementById('loc-modal-back-btn');
       this.titleEl = document.getElementById('loc-modal-title');
-      this.stepCounter = document.getElementById('loc-step-counter');
-      this.levelBadge = document.getElementById('loc-level-badge');
       this.breadcrumbWrapper = document.getElementById('loc-breadcrumb-wrapper');
       this.searchInput = document.getElementById('loc-search-input');
       this.clearSearchBtn = document.getElementById('loc-clear-search');
@@ -541,13 +539,13 @@
     confirmCurrentSelection() {
       let label = 'All Locations';
 
-      if (this.state.area) {
+      if (this.state.area && !this.state.area.isAll) {
         label = this.state.district 
           ? `${this.state.area.name}, ${this.state.district.name}` 
           : this.state.area.name;
-      } else if (this.state.district) {
+      } else if (this.state.district && !this.state.district.isAll) {
         label = this.state.district.name;
-      } else if (this.state.division) {
+      } else if (this.state.division && !this.state.division.isAll) {
         label = this.state.division.name;
       } else if (this.state.country) {
         label = this.state.country.name;
@@ -563,9 +561,6 @@
     }
 
     updateHeaderAndBreadcrumbs() {
-      this.stepCounter.textContent = `Step ${this.currentLevel + 1} of 4`;
-      this.levelBadge.textContent = this.levelNames[this.currentLevel];
-
       if (this.currentLevel > 0) {
         this.backBtn.classList.remove('hidden');
       } else {
@@ -574,59 +569,53 @@
 
       let titleHtml = '';
       if (this.currentLevel === 0) {
-        titleHtml = `Select a <span class="text-theme-primary">Country</span>`;
+        titleHtml = `Select <span class="text-theme-primary">Country</span>`;
         this.searchInput.placeholder = 'Search country...';
       } else if (this.currentLevel === 1) {
         const countryName = this.state.country?.name || 'Bangladesh';
-        titleHtml = `Select a Division in <span class="text-theme-primary">${countryName}</span>`;
+        titleHtml = `Select Division in <span class="text-theme-primary">${countryName}</span>`;
         this.searchInput.placeholder = `Search division in ${countryName}...`;
       } else if (this.currentLevel === 2) {
         const divisionName = this.state.division?.name || 'Division';
-        titleHtml = `Select a City/District in <span class="text-theme-primary">${divisionName}</span>`;
+        titleHtml = `Select City in <span class="text-theme-primary">${divisionName}</span>`;
         this.searchInput.placeholder = `Search city in ${divisionName}...`;
       } else if (this.currentLevel === 3) {
         const cityName = this.state.district?.name || 'Dhaka';
-        titleHtml = `Select a location in <span class="text-theme-primary">${cityName}</span>`;
+        titleHtml = `Select Area in <span class="text-theme-primary">${cityName}</span>`;
         this.searchInput.placeholder = `Search area in ${cityName}...`;
       }
       this.titleEl.innerHTML = titleHtml;
 
+      // Plain-text Location Trail after Search Box (e.g. Shivalaya, Manikganj, Dhaka, Bangladesh)
       const crumbs = [];
-      crumbs.push({ name: this.state.country?.name || 'Country', level: 0, active: this.currentLevel === 0 });
-
-      if (this.state.division) {
-        crumbs.push({ name: this.state.division.name, level: 1, active: this.currentLevel === 1 && !this.state.district });
+      if (this.state.area && !this.state.area.isAll) {
+        crumbs.push({ name: this.state.area.name, level: 3, isCurrent: true });
       }
-      if (this.state.district) {
-        crumbs.push({ name: this.state.district.name, level: 2, active: this.currentLevel === 2 && !this.state.area });
+      if (this.state.district && !this.state.district.isAll) {
+        crumbs.push({ name: this.state.district.name, level: 2, isCurrent: (!this.state.area || this.state.area.isAll) && this.currentLevel === 3 });
       }
-      if (this.state.area) {
-        crumbs.push({ name: this.state.area.name, level: 3, active: true });
+      if (this.state.division && !this.state.division.isAll) {
+        crumbs.push({ name: this.state.division.name, level: 1, isCurrent: (!this.state.district || this.state.district.isAll) && this.currentLevel === 2 });
+      }
+      if (this.state.country) {
+        crumbs.push({ name: this.state.country.name, level: 0, isCurrent: (!this.state.division || this.state.division.isAll) && this.currentLevel === 1 });
       }
 
-      let breadcrumbHtml = `<div class="flex items-center gap-1.5 flex-wrap">`;
-      crumbs.forEach((crumb, idx) => {
-        const isClickable = crumb.level < this.currentLevel;
-        const isLast = idx === crumbs.length - 1;
-
-        breadcrumbHtml += `
-          <button type="button" data-jump-level="${crumb.level}" 
-            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all border ${
-              crumb.active 
-                ? 'bg-theme-primary/10 text-theme-primary border-theme-primary/20' 
-                : isClickable 
-                  ? 'bg-slate-100 hover:bg-theme-primary/5 text-slate-700 hover:text-theme-primary border-slate-200 cursor-pointer' 
-                  : 'bg-slate-50 text-slate-400 border-transparent cursor-default'
-            }">
-            <span>${crumb.name}</span>
-          </button>
-        `;
-
-        if (!isLast) {
-          breadcrumbHtml += `<i class="fa-solid fa-chevron-right text-[9px] text-slate-300"></i>`;
-        }
-      });
-      breadcrumbHtml += `</div>`;
+      let breadcrumbHtml = '';
+      if (crumbs.length === 0) {
+        breadcrumbHtml = `<span class="text-slate-400">All Locations</span>`;
+      } else {
+        breadcrumbHtml = crumbs.map((crumb) => {
+          const isClickable = crumb.level < this.currentLevel;
+          if (isClickable) {
+            return `<button type="button" data-jump-level="${crumb.level}" class="hover:text-theme-primary transition-colors cursor-pointer hover:underline underline-offset-2">${crumb.name}</button>`;
+          } else if (crumb.isCurrent) {
+            return `<span class="text-theme-primary font-semibold">${crumb.name}</span>`;
+          } else {
+            return `<span>${crumb.name}</span>`;
+          }
+        }).join('<span class="text-slate-300 dark:text-slate-600">, </span>');
+      }
       this.breadcrumbWrapper.innerHTML = breadcrumbHtml;
 
       this.breadcrumbWrapper.querySelectorAll('[data-jump-level]').forEach(btn => {
@@ -639,9 +628,9 @@
       });
 
       const fullPathNames = [
-        this.state.area?.name,
-        this.state.district?.name,
-        this.state.division?.name,
+        (this.state.area && !this.state.area.isAll) ? this.state.area.name : null,
+        (this.state.district && !this.state.district.isAll) ? this.state.district.name : null,
+        (this.state.division && !this.state.division.isAll) ? this.state.division.name : null,
         this.state.country?.name
       ].filter(Boolean);
 
@@ -680,7 +669,7 @@
         this.currentItems = [allDivisionItem, ...rawDistricts];
 
       } else if (this.currentLevel === 3) {
-        // Under District/City -> viewing Areas/Sub-cities: Prepend "All [City]" (e.g., "All Dhaka")
+        // Under District/City -> viewing Areas/Sub-cities: Prepend "All [City]" (e.g., "All Manikganj")
         const cityName = this.state.district?.name || 'City';
         const allCityItem = {
           id: `all-city-${this.state.district?.id || 'city'}`,
@@ -705,40 +694,54 @@
       let html = '';
       items.forEach(item => {
         const isAllOption = item.isAll || item.name.startsWith('All ');
-        const isSelected = this.state.area && this.state.area.id === item.id;
-        
+        let isSelected = false;
+
+        if (this.currentLevel === 3) {
+          // Level 3 (Area level)
+          if (isAllOption) {
+            isSelected = !this.state.area || this.state.area.isAll;
+          } else {
+            isSelected = Boolean(this.state.area && !this.state.area.isAll && this.state.area.id === item.id);
+          }
+        } else if (this.currentLevel === 2) {
+          // Level 2 (City / District level)
+          if (isAllOption) {
+            isSelected = !this.state.district || this.state.district.isAll;
+          } else {
+            isSelected = Boolean(this.state.district && !this.state.district.isAll && this.state.district.id === item.id);
+          }
+        } else if (this.currentLevel === 1) {
+          // Level 1 (Division level)
+          if (isAllOption) {
+            isSelected = !this.state.division || this.state.division.isAll;
+          } else {
+            isSelected = Boolean(this.state.division && !this.state.division.isAll && this.state.division.id === item.id);
+          }
+        } else if (this.currentLevel === 0) {
+          // Level 0 (Country level)
+          isSelected = Boolean(this.state.country && this.state.country.id === item.id);
+        }
+
         html += `
           <button type="button" data-id="${item.id}" data-name="${item.name}" data-is-all="${isAllOption ? 'true' : 'false'}"
-            class="loc-card w-full flex items-center justify-between p-3 sm:p-3.5 rounded-2xl border transition-all duration-200 group text-left cursor-pointer ${
+            class="loc-card w-full flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl border transition-all duration-150 text-left group cursor-pointer ${
               isSelected
-                ? 'bg-theme-primary/10 border-theme-primary shadow-sm ring-1 ring-theme-primary'
-                : isAllOption 
-                  ? 'bg-theme-primary/[0.04] border-theme-primary/35 hover:border-theme-primary hover:bg-theme-primary/10 shadow-xs' 
-                  : 'bg-white hover:bg-theme-primary/5 border-slate-200/80 hover:border-theme-primary/40 shadow-xs hover:shadow-card-hover'
+                ? 'bg-theme-primary/10 dark:bg-theme-primary/20 border-theme-primary shadow-xs ring-1 ring-theme-primary/30'
+                : 'bg-white dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/70 hover:border-theme-primary/50 dark:hover:border-theme-primary/50 hover:bg-theme-primary/[0.03] dark:hover:bg-theme-primary/[0.08]'
             }">
-            <div class="flex items-center gap-3 min-w-0">
-              <!-- Pin Icon Badge (Matching Screenshot) -->
-              <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shrink-0 ${
-                isSelected || isAllOption
-                  ? 'bg-theme-primary text-white shadow-xs'
-                  : 'bg-theme-primary/10 text-theme-primary group-hover:bg-theme-primary group-hover:text-white'
-              }">
-                <i class="${isSelected ? 'fa-solid fa-check' : 'fa-solid fa-location-dot'} text-xs"></i>
-              </div>
-              
-              <!-- Location Name -->
-              <div class="flex flex-col min-w-0">
-                <span class="text-xs sm:text-[13px] font-bold ${
-                  isSelected || isAllOption ? 'text-theme-primary font-black' : 'text-slate-800 group-hover:text-theme-primary'
-                } transition-colors truncate">
-                  ${item.name}
-                </span>
-                ${isAllOption ? '<span class="text-[9px] text-theme-primary/70 font-semibold uppercase tracking-wider">Select entire region</span>' : ''}
-              </div>
-            </div>
+            <span class="text-xs sm:text-[13px] ${
+              isSelected 
+                ? 'font-bold text-theme-primary' 
+                : 'font-medium text-slate-700 dark:text-slate-200 group-hover:text-theme-primary dark:group-hover:text-theme-primary'
+            } transition-colors truncate">
+              ${item.name}
+            </span>
 
-            <!-- Chevron or Check Icon -->
-            <i class="fa-solid ${isSelected ? 'fa-check text-theme-primary font-bold' : 'fa-chevron-right text-slate-300 group-hover:text-theme-primary group-hover:translate-x-0.5'} transition-all text-xs shrink-0 ml-2"></i>
+            <i class="${
+              isSelected 
+                ? 'fa-solid fa-check text-xs text-theme-primary' 
+                : 'fa-solid fa-chevron-right text-[10px] text-slate-300 dark:text-slate-600 group-hover:text-theme-primary group-hover:translate-x-0.5'
+            } transition-all shrink-0 ml-2"></i>
           </button>
         `;
       });
@@ -759,23 +762,26 @@
     handleItemSelection(id, name, isAll) {
       const selectedObj = this.currentItems.find(item => item.id === id) || { id, name, isAll };
 
-      // Handle "All [Region]" option at any step
+      // Handle "All [Region]" selection
       if (isAll) {
         if (this.currentLevel === 1) {
           // Clicked "All Bangladesh" -> Selects entire Country
-          this.state.division = null;
+          this.state.division = { id, name, isAll: true };
           this.state.district = null;
           this.state.area = null;
-          this.finishSelection(this.state.country?.name || name.replace('All ', ''));
+          this.updateHeaderAndBreadcrumbs();
+          this.renderCards(this.currentItems);
         } else if (this.currentLevel === 2) {
           // Clicked "All Dhaka" (Division level) -> Selects entire Division
-          this.state.district = null;
+          this.state.district = { id, name, isAll: true };
           this.state.area = null;
-          this.finishSelection(this.state.division?.name || name.replace('All ', ''));
+          this.updateHeaderAndBreadcrumbs();
+          this.renderCards(this.currentItems);
         } else if (this.currentLevel === 3) {
-          // Clicked "All Dhaka" (City level) -> Selects entire City/District
-          this.state.area = null;
-          this.finishSelection(this.state.district?.name || name.replace('All ', ''));
+          // Clicked "All Manikganj" (City level) -> Selects entire City (clears specific sub-city)
+          this.state.area = { id, name, isAll: true };
+          this.updateHeaderAndBreadcrumbs();
+          this.renderCards(this.currentItems);
         }
         return;
       }
@@ -827,8 +833,7 @@
         }
 
       } else if (this.currentLevel === 3) {
-        // Selected Area / Sub-City:
-        // Set area in state, update header & footer, highlight the card, and allow instant confirmation
+        // Selected Specific Area / Sub-City (e.g. Shivalaya)
         this.state.area = selectedObj;
         this.updateHeaderAndBreadcrumbs();
         this.renderCards(this.currentItems);
