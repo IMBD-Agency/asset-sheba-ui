@@ -586,37 +586,50 @@
       }
       this.titleEl.innerHTML = titleHtml;
 
-      // Plain-text Location Trail after Search Box (e.g. Shivalaya, Manikganj, Dhaka, Bangladesh)
+      // Plain-text Location Trail after Search Box (e.g. Bangladesh / Dhaka / Manikganj / Shivalaya)
       const crumbs = [];
-      if (this.state.area && !this.state.area.isAll) {
-        crumbs.push({ name: this.state.area.name, level: 3, isCurrent: true });
-      }
-      if (this.state.district && !this.state.district.isAll) {
-        crumbs.push({ name: this.state.district.name, level: 2, isCurrent: (!this.state.area || this.state.area.isAll) && this.currentLevel === 3 });
-      }
-      if (this.state.division && !this.state.division.isAll) {
-        crumbs.push({ name: this.state.division.name, level: 1, isCurrent: (!this.state.district || this.state.district.isAll) && this.currentLevel === 2 });
-      }
       if (this.state.country) {
-        crumbs.push({ name: this.state.country.name, level: 0, isCurrent: (!this.state.division || this.state.division.isAll) && this.currentLevel === 1 });
+        const isCurrent = this.currentLevel <= 1 && (!this.state.division || this.state.division.isAll);
+        crumbs.push({ name: this.state.country.name, level: 0, isClickable: this.currentLevel > 0, isCurrent: isCurrent });
+      }
+      if (this.state.division && !this.state.division.isAll && this.currentLevel >= 2) {
+        const isCurrent = this.currentLevel === 2 && (!this.state.district || this.state.district.isAll);
+        crumbs.push({ name: this.state.division.name, level: 1, isClickable: this.currentLevel > 1, isCurrent: isCurrent });
+      }
+      if (this.state.district && !this.state.district.isAll && this.currentLevel >= 3) {
+        const isCurrent = this.currentLevel === 3 && (!this.state.area || this.state.area.isAll);
+        crumbs.push({ name: this.state.district.name, level: 2, isClickable: this.currentLevel > 2, isCurrent: isCurrent });
+      }
+      if (this.state.area && !this.state.area.isAll) {
+        crumbs.push({ name: this.state.area.name, level: 3, isClickable: false, isCurrent: true });
       }
 
       let breadcrumbHtml = '';
       if (crumbs.length === 0) {
         breadcrumbHtml = `<span class="text-slate-400">All Locations</span>`;
       } else {
-        breadcrumbHtml = crumbs.map((crumb) => {
-          const isClickable = crumb.level < this.currentLevel;
-          if (isClickable) {
-            return `<button type="button" data-jump-level="${crumb.level}" class="hover:text-theme-primary transition-colors cursor-pointer hover:underline underline-offset-2">${crumb.name}</button>`;
-          } else if (crumb.isCurrent) {
-            return `<span class="text-theme-primary font-semibold">${crumb.name}</span>`;
+        breadcrumbHtml = crumbs.map((crumb, idx) => {
+          const isLast = idx === crumbs.length - 1;
+          if (crumb.isCurrent || isLast) {
+            return `<span class="text-theme-primary font-bold shrink-0">${crumb.name}</span>`;
+          } else if (crumb.isClickable) {
+            return `<button type="button" data-jump-level="${crumb.level}" class="text-slate-400 dark:text-slate-400 hover:text-theme-primary transition-colors cursor-pointer hover:underline underline-offset-2 shrink-0">${crumb.name}</button>`;
           } else {
-            return `<span>${crumb.name}</span>`;
+            return `<span class="shrink-0">${crumb.name}</span>`;
           }
-        }).join('<span class="text-slate-300 dark:text-slate-600">, </span>');
+        }).join('<span class="text-slate-300 dark:text-slate-600 mx-1 shrink-0">/</span>');
       }
       this.breadcrumbWrapper.innerHTML = breadcrumbHtml;
+
+      // Auto-scroll breadcrumbs container so the last (active) item is always inside view!
+      setTimeout(() => {
+        if (this.breadcrumbWrapper) {
+          this.breadcrumbWrapper.scrollTo({
+            left: this.breadcrumbWrapper.scrollWidth,
+            behavior: 'smooth'
+          });
+        }
+      }, 40);
 
       this.breadcrumbWrapper.querySelectorAll('[data-jump-level]').forEach(btn => {
         btn.addEventListener('click', (e) => {

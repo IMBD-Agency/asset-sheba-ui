@@ -4942,7 +4942,8 @@
       class="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-2xl z-10 flex flex-col max-h-[88vh] h-[620px] scale-95 opacity-0 transition-all duration-300">
 
       <!-- Modal Header (Clean & Minimized) -->
-      <div class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800/80 flex flex-col gap-2.5 shrink-0 bg-white dark:bg-slate-900">
+      <div
+        class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800/80 flex flex-col gap-2.5 shrink-0 bg-white dark:bg-slate-900">
 
         <!-- Row 1: Back Button (Left) + Center-aligned Dynamic Title + Close Button (Right) -->
         <div class="grid grid-cols-[32px_1fr_32px] items-center gap-2">
@@ -4982,9 +4983,9 @@
           </button>
         </div>
 
-        <!-- Row 3: Plain-text Location Trail (After Search Box) e.g. Shivalaya, Manikganj, Dhaka, Bangladesh -->
+        <!-- Row 3: Plain-text Location Trail (After Search Box) e.g. Bangladesh / Dhaka / Manikganj / Shivalaya -->
         <div id="loc-breadcrumb-wrapper"
-          class="text-xs text-slate-400 dark:text-slate-400 truncate flex items-center gap-1 font-normal pt-0.5">
+          class="text-xs text-slate-400 dark:text-slate-400 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap flex items-center gap-1 font-normal pt-0.5 scroll-smooth">
           <!-- Injected via JavaScript -->
         </div>
 
@@ -4998,8 +4999,10 @@
         </div>
 
         <!-- No Results Empty State -->
-        <div id="loc-empty-state" class="hidden py-16 flex flex-col items-center justify-center text-center space-y-2.5">
-          <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+        <div id="loc-empty-state"
+          class="hidden py-16 flex flex-col items-center justify-center text-center space-y-2.5">
+          <div
+            class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
             <i class="fa-solid fa-location-crosshairs text-xl"></i>
           </div>
           <div>
@@ -5018,7 +5021,8 @@
         class="px-4 sm:px-5 py-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
         <div class="flex items-center gap-1.5 min-w-0 flex-1 text-slate-500 dark:text-slate-400">
           <!-- <span class="text-slate-400 dark:text-slate-500 shrink-0">Selected:</span> -->
-          <span id="loc-footer-selection-text" class="font-semibold text-slate-800 dark:text-slate-200 truncate">Bangladesh</span>
+          <span id="loc-footer-selection-text"
+            class="font-semibold text-slate-800 dark:text-slate-200 truncate">Bangladesh</span>
         </div>
         <div class="flex items-center gap-2">
           <button id="loc-clear-all-btn" type="button"
@@ -5038,6 +5042,135 @@
 
   <!-- ============ LOCATION SELECTOR JAVASCRIPT ENGINE ============ -->
   <script src="frontend/js/location-modal.js"></script>
+
+
+  <!-- ============ CATEGORY SELECTION MODAL (HYBRID DESKTOP 3-COL / MOBILE DRILLDOWN) ============ -->
+  <div id="category-modal"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 opacity-0 pointer-events-none transition-all duration-300 hidden">
+    <!-- Backdrop with blur -->
+    <div id="category-modal-backdrop"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300"></div>
+
+    <!-- Modal Dialog Window (Clean & Minimized Design matching Location Modal exactly) -->
+    <div id="category-modal-dialog"
+      class="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-2xl z-10 flex flex-col max-h-[88vh] h-[620px] scale-95 opacity-0 transition-all duration-300">
+
+      <!-- Modal Header (Clean & Minimized) -->
+      <div
+        class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800/80 flex flex-col gap-2.5 shrink-0 bg-white dark:bg-slate-900">
+
+        <!-- Row 1: Back Button (Left) + Center-aligned Dynamic Title + Close Button (Right) -->
+        <div class="grid grid-cols-[32px_1fr_32px] items-center gap-2">
+          <!-- Back Button (shown on mobile when inside folders) -->
+          <div class="flex items-center">
+            <button id="cat-modal-back-btn" type="button"
+              class="hidden w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 dark:hover:bg-theme-primary/20 text-slate-600 dark:text-slate-300 hover:text-theme-primary dark:hover:text-theme-primary flex items-center justify-center transition-all cursor-pointer shrink-0 border border-slate-200/60 dark:border-slate-700/60"
+              title="Previous level" aria-label="Go to previous step">
+              <i class="fa-solid fa-arrow-left text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Centered Dynamic Title -->
+          <h2 id="cat-modal-title"
+            class="text-base sm:text-lg font-bold text-slate-800 dark:text-white tracking-tight text-center truncate">
+            Select Category
+          </h2>
+
+          <!-- Close Modal Button -->
+          <div class="flex items-center justify-end">
+            <button id="close-category-modal" type="button"
+              class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center justify-center transition-all cursor-pointer shrink-0 border border-slate-200/60 dark:border-slate-700/60"
+              aria-label="Close category modal">
+              <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Row 2: Search Bar -->
+        <div class="relative w-full z-30">
+          <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="cat-search-input" placeholder="Search category..."
+            class="w-full bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100/60 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-800 text-xs sm:text-sm text-slate-800 dark:text-slate-100 px-3.5 py-2.5 pl-9 pr-8 rounded-xl outline-none border border-slate-200 dark:border-slate-700/80 focus:border-theme-primary dark:focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/10 transition-all placeholder:text-slate-400 font-normal">
+          <button id="cat-clear-search" type="button"
+            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 text-[10px] flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <!-- ── Positioned Floating Search Results Dropdown Overlay (Floating z-50) ── -->
+          <div id="cat-search-view"
+            class="hidden absolute left-0 right-0 top-full mt-2 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[380px] overflow-y-auto p-3 scrollbar-thin">
+            <div id="cat-search-list" class="space-y-1.5">
+              <!-- Injected via JS -->
+            </div>
+            <!-- Empty State inside dropdown -->
+            <div id="cat-empty-state" class="hidden py-8 flex flex-col items-center justify-center text-center space-y-2">
+              <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+                <i class="fa-solid fa-layer-group text-base"></i>
+              </div>
+              <h4 class="text-xs font-semibold text-slate-700 dark:text-slate-200">No Category Found</h4>
+              <p class="text-[11px] text-slate-400">We couldn't find any category matching your search query.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Plain-text Category Trail (After Search Box) e.g. Shivalaya / Manikganj / Dhaka / Bangladesh -->
+        <div id="cat-breadcrumb-wrapper"
+          class="text-xs text-slate-400 dark:text-slate-400 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap flex items-center gap-1 font-normal pt-0.5 scroll-smooth">
+          <!-- Injected via JavaScript -->
+        </div>
+
+      </div>
+
+      <!-- Scrollable Category Content Area -->
+      <div class="flex-1 min-h-0 overflow-hidden bg-slate-50/50 dark:bg-slate-900/50 flex flex-col">
+
+        <!-- ── Desktop Dynamic Responsive Miller Columns Carousel View (md:flex, hidden on mobile) ── -->
+        <div class="hidden md:flex relative flex-1 min-h-0 overflow-hidden">
+          <div id="cat-desktop-columns-container" data-slides-to-show="BPD: 3, BP-992: 2" class="flex h-full divide-x divide-slate-200/80 dark:divide-slate-800 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full">
+            <!-- Dynamically populated columns based on data-slides-to-show breakpoints -->
+          </div>
+
+          <!-- Slick Slider Pagination Dots (shown when columns > 3) -->
+          <div id="cat-slider-dots"
+            class="hidden absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 py-1 px-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 shadow-lg">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- ── Mobile 1-Column Step Drilldown View (block on mobile, hidden on md:) ── -->
+        <div id="cat-mobile-drilldown-view" class="block md:hidden flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 scrollbar-thin">
+          <div id="cat-mobile-list-container" class="space-y-1.5">
+            <!-- Injected dynamically via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer (Clean & Minimized matching Location Modal exactly) -->
+      <div
+        class="px-4 sm:px-5 py-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+        <div class="flex items-center gap-1.5 min-w-0 flex-1 text-slate-500 dark:text-slate-400">
+          <span id="cat-footer-selection-text"
+            class="font-semibold text-slate-800 dark:text-slate-200 truncate">All Categories</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="cat-clear-all-btn" type="button"
+            class="text-xs font-medium text-slate-400 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer bg-transparent border-none">
+            Reset
+          </button>
+          <button id="cat-confirm-btn" type="button"
+            class="text-xs font-semibold text-white bg-theme-primary hover:bg-theme-primary/90 px-4 py-2 rounded-xl transition-all shadow-xs cursor-pointer border-none flex items-center gap-1.5 whitespace-nowrap">
+            <span>Confirm</span>
+            <i class="fa-solid fa-check text-[11px]"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ CATEGORY SELECTOR JAVASCRIPT ENGINE ============ -->
+  <script src="frontend/js/category-modal.js"></script>
 
 
   <div
@@ -5123,20 +5256,20 @@
   <script>
     $(document).ready(function () {
       // Find all Details links and change their href
-      $('.slider_item a, .product-card a').each(function() {
+      $('.slider_item a, .product-card a').each(function () {
         if ($(this).text().trim().includes('Details')) {
           $(this).attr('href', 'product-details.html');
         }
       });
 
       // Wrap card titles in standard HTML anchor tags
-      $('.slider_item h3, .product-card h3').each(function() {
+      $('.slider_item h3, .product-card h3').each(function () {
         const titleText = $(this).text().trim();
         $(this).html(`<a href="product-details.html" class="hover:text-theme-primary">${titleText}</a>`);
       });
 
       // Make Quick View buttons standard links
-      $('button[title="Quick View"]').each(function() {
+      $('button[title="Quick View"]').each(function () {
         $(this).wrap('<a href="product-details.html"></a>');
       });
     });
