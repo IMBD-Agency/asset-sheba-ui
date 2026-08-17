@@ -4973,7 +4973,7 @@
         </div>
 
         <!-- Row 2: Search Bar -->
-        <div class="relative w-full">
+        <div class="relative w-full z-30">
           <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3.5 top-1/2 -translate-y-1/2"></i>
           <input type="text" id="loc-search-input" placeholder="Search location..."
             class="w-full bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100/60 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-800 text-xs sm:text-sm text-slate-800 dark:text-slate-100 px-3.5 py-2.5 pl-9 pr-8 rounded-xl outline-none border border-slate-200 dark:border-slate-700/80 focus:border-theme-primary dark:focus:border-theme-primary focus:ring-2 focus:ring-theme-primary/10 transition-all placeholder:text-slate-400 font-normal">
@@ -4981,6 +4981,24 @@
             class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 text-[10px] flex items-center justify-center transition-colors">
             <i class="fa-solid fa-xmark"></i>
           </button>
+
+          <!-- ── Positioned Floating Search Results Dropdown Overlay (Floating z-50) ── -->
+          <div id="loc-search-view"
+            class="hidden absolute left-0 right-0 top-full mt-2 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[380px] overflow-y-auto p-3 scrollbar-thin">
+            <div id="loc-search-list" class="space-y-1.5">
+              <!-- Injected via JS -->
+            </div>
+            <!-- Empty State inside dropdown -->
+            <div id="loc-search-empty-state"
+              class="hidden py-8 flex flex-col items-center justify-center text-center space-y-2">
+              <div
+                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+                <i class="fa-solid fa-location-crosshairs text-base"></i>
+              </div>
+              <h4 class="text-xs font-semibold text-slate-700 dark:text-slate-200">No Location Found</h4>
+              <p class="text-[11px] text-slate-400">We couldn't find any location matching your search query.</p>
+            </div>
+          </div>
         </div>
 
         <!-- Row 3: Plain-text Location Trail (After Search Box) e.g. Bangladesh / Dhaka / Manikganj / Shivalaya -->
@@ -4991,8 +5009,16 @@
 
       </div>
 
-      <!-- Scrollable Location Grid Content Area -->
+      <!-- Scrollable Location Content Area -->
       <div class="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 bg-slate-50/50 dark:bg-slate-900/50 scrollbar-thin">
+        
+        <!-- Separate Top "All [Location]" Row Container (Hidden at level 0) -->
+        <div id="loc-all-option-container" class="hidden mb-3 pb-3 border-b border-slate-200/80 dark:border-slate-800">
+          <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-2.5">
+            <!-- All Card injected via JS (exact same card style) -->
+          </div>
+        </div>
+
         <!-- Cards Grid Container -->
         <div id="loc-cards-grid" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-2.5">
           <!-- Location Cards injected dynamically via JS -->
@@ -5103,8 +5129,10 @@
               <!-- Injected via JS -->
             </div>
             <!-- Empty State inside dropdown -->
-            <div id="cat-empty-state" class="hidden py-8 flex flex-col items-center justify-center text-center space-y-2">
-              <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+            <div id="cat-empty-state"
+              class="hidden py-8 flex flex-col items-center justify-center text-center space-y-2">
+              <div
+                class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
                 <i class="fa-solid fa-layer-group text-base"></i>
               </div>
               <h4 class="text-xs font-semibold text-slate-700 dark:text-slate-200">No Category Found</h4>
@@ -5126,7 +5154,8 @@
 
         <!-- ── Desktop Dynamic Responsive Miller Columns Carousel View (md:flex, hidden on mobile) ── -->
         <div class="hidden md:flex relative flex-1 min-h-0 overflow-hidden">
-          <div id="cat-desktop-columns-container" data-slides-to-show="BPD: 3, BP-992: 2" class="flex h-full divide-x divide-slate-200/80 dark:divide-slate-800 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full">
+          <div id="cat-desktop-columns-container" data-slides-to-show="BPD: 3, BP-992: 2"
+            class="flex h-full divide-x divide-slate-200/80 dark:divide-slate-800 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full">
             <!-- Dynamically populated columns based on data-slides-to-show breakpoints -->
           </div>
 
@@ -5138,7 +5167,8 @@
         </div>
 
         <!-- ── Mobile 1-Column Step Drilldown View (block on mobile, hidden on md:) ── -->
-        <div id="cat-mobile-drilldown-view" class="block md:hidden flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 scrollbar-thin">
+        <div id="cat-mobile-drilldown-view"
+          class="block md:hidden flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 scrollbar-thin">
           <div id="cat-mobile-list-container" class="space-y-1.5">
             <!-- Injected dynamically via JS -->
           </div>
@@ -5150,8 +5180,8 @@
       <div
         class="px-4 sm:px-5 py-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
         <div class="flex items-center gap-1.5 min-w-0 flex-1 text-slate-500 dark:text-slate-400">
-          <span id="cat-footer-selection-text"
-            class="font-semibold text-slate-800 dark:text-slate-200 truncate">All Categories</span>
+          <span id="cat-footer-selection-text" class="font-semibold text-slate-800 dark:text-slate-200 truncate">All
+            Categories</span>
         </div>
         <div class="flex items-center gap-2">
           <button id="cat-clear-all-btn" type="button"

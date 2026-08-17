@@ -1099,11 +1099,6 @@
     initDOM();
     if (!dom.modal) return;
 
-    if (state.pathStack.length === 0 && CATEGORY_DATA.length > 0) {
-      state.pathStack = [CATEGORY_DATA[0]];
-      setActiveSelection(CATEGORY_DATA[0], [CATEGORY_DATA[0]]);
-    }
-
     renderDesktopColumns();
     renderMobileDrilldown();
     updateSelectionUI();
@@ -1174,10 +1169,6 @@
 
   function resetAll() {
     resetSelectionState();
-    if (CATEGORY_DATA.length > 0) {
-      state.pathStack = [CATEGORY_DATA[0]];
-      setActiveSelection(CATEGORY_DATA[0], [CATEGORY_DATA[0]]);
-    }
     renderDesktopColumns();
     renderMobileDrilldown();
     updateSelectionUI();

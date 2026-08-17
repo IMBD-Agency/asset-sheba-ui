@@ -371,6 +371,74 @@
     ]
   };
 
+  // Helper: Flatten entire location hierarchy for lightning-fast floating search
+  function getAllLocationsFlat(data) {
+    const flat = [];
+    (data.countries || []).forEach(country => {
+      flat.push({
+        id: country.id,
+        name: country.name,
+        type: 'country',
+        typeLabel: 'Country',
+        icon: 'fa-solid fa-globe',
+        pathString: country.name,
+        countryObj: country,
+        divisionObj: null,
+        districtObj: null,
+        areaObj: null
+      });
+
+      (country.divisions || []).forEach(division => {
+        flat.push({
+          id: division.id,
+          name: division.name,
+          type: 'division',
+          typeLabel: 'Division',
+          icon: 'fa-solid fa-map',
+          pathString: `${country.name} > ${division.name}`,
+          countryObj: country,
+          divisionObj: division,
+          districtObj: null,
+          areaObj: null
+        });
+
+        (division.districts || []).forEach(district => {
+          flat.push({
+            id: district.id,
+            name: district.name,
+            type: 'district',
+            typeLabel: 'City / District',
+            icon: 'fa-solid fa-city',
+            pathString: `${country.name} > ${division.name} > ${district.name}`,
+            countryObj: country,
+            divisionObj: division,
+            districtObj: district,
+            areaObj: null
+          });
+
+          (district.areas || []).forEach(area => {
+            if (area.isAll || area.name.startsWith('All ')) return;
+            flat.push({
+              id: area.id,
+              name: area.name,
+              type: 'area',
+              typeLabel: 'Area',
+              icon: 'fa-solid fa-location-dot',
+              pathString: `${country.name} > ${division.name} > ${district.name} > ${area.name}`,
+              countryObj: country,
+              divisionObj: division,
+              districtObj: district,
+              areaObj: area
+            });
+          });
+        });
+      });
+    });
+    return flat;
+  }
+
+  const ALL_LOCATIONS_FLAT = getAllLocationsFlat(LOCATION_DATA);
+
   class LocationModalManager {
     constructor() {
       this.modal = document.getElementById('location-modal');
@@ -383,7 +451,12 @@
       this.searchInput = document.getElementById('loc-search-input');
       this.clearSearchBtn = document.getElementById('loc-clear-search');
       this.cardsGrid = document.getElementById('loc-cards-grid');
+      this.allOptionContainer = document.getElementById('loc-all-option-container');
+      this.subitemsHeader = document.getElementById('loc-subitems-header');
       this.emptyState = document.getElementById('loc-empty-state');
+      this.searchView = document.getElementById('loc-search-view');
+      this.searchList = document.getElementById('loc-search-list');
+      this.searchEmptyState = document.getElementById('loc-search-empty-state');
       this.resetSearchBtn = document.getElementById('loc-reset-search-btn');
       this.footerSelection = document.getElementById('loc-footer-selection-text');
       this.clearAllBtn = document.getElementById('loc-clear-all-btn');
@@ -417,9 +490,20 @@
     }
 
     bindEvents() {
-      $(document).on('click', '#banner-location-btn, .location-modal-trigger, [data-open-location-modal]', (e) => {
-        e.preventDefault();
-        this.open();
+      // Trigger click delegation (handles dynamic and static buttons)
+      if (typeof $ !== 'undefined') {
+        $(document).on('click', '#banner-location-btn, .location-modal-trigger, [data-open-location-modal]', (e) => {
+          e.preventDefault();
+          this.open();
+        });
+      }
+
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('#banner-location-btn, .location-modal-trigger, [data-open-location-modal]');
+        if (trigger) {
+          e.preventDefault();
+          this.open();
+        }
       });
 
       if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.close());
@@ -427,7 +511,19 @@
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && this.modal && !this.modal.classList.contains('hidden')) {
-          this.close();
+          if (this.searchView && !this.searchView.classList.contains('hidden')) {
+            this.searchView.classList.add('hidden');
+          } else {
+            this.close();
+          }
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (this.searchView && !this.searchView.classList.contains('hidden')) {
+          if (!this.searchView.contains(e.target) && e.target !== this.searchInput) {
+            this.searchView.classList.add('hidden');
+          }
         }
       });
 
@@ -438,7 +534,7 @@
       if (this.searchInput) {
         this.searchInput.addEventListener('input', (e) => {
           const query = e.target.value.trim().toLowerCase();
-          this.filterItems(query);
+          this.handleSearch(query);
         });
       }
 
@@ -446,7 +542,7 @@
         this.clearSearchBtn.addEventListener('click', () => {
           this.searchInput.value = '';
           this.clearSearchBtn.classList.add('hidden');
-          this.filterItems('');
+          this.handleSearch('');
           this.searchInput.focus();
         });
       }
@@ -454,8 +550,8 @@
       if (this.resetSearchBtn) {
         this.resetSearchBtn.addEventListener('click', () => {
           this.searchInput.value = '';
-          this.clearSearchBtn.classList.add('hidden');
-          this.filterItems('');
+          if (this.clearSearchBtn) this.clearSearchBtn.classList.add('hidden');
+          this.handleSearch('');
         });
       }
 
@@ -487,6 +583,7 @@
 
     close() {
       if (!this.modal) return;
+      if (this.searchView) this.searchView.classList.add('hidden');
       this.modal.classList.remove('opacity-100', 'pointer-events-auto');
       this.modal.classList.add('opacity-0', 'pointer-events-none');
       this.dialog.classList.add('scale-95', 'opacity-0');
@@ -497,24 +594,33 @@
     }
 
     goBack() {
-      if (this.currentLevel > 0) {
-        this.currentLevel--;
-        if (this.currentLevel === 2) this.state.area = null;
-        if (this.currentLevel === 1) { this.state.district = null; this.state.area = null; }
-        if (this.currentLevel === 0) { this.state.division = null; this.state.district = null; this.state.area = null; }
-
-        this.searchInput.value = '';
-        if (this.clearSearchBtn) this.clearSearchBtn.classList.add('hidden');
-        this.render();
+      if (this.currentLevel > 1) {
+        this.jumpToLevel(this.currentLevel - 1);
+      } else if (this.currentLevel === 1) {
+        if (LOCATION_DATA.countries.length > 1) {
+          this.jumpToLevel(0);
+        }
       }
     }
 
     jumpToLevel(level) {
       if (level < this.currentLevel) {
         this.currentLevel = level;
-        if (level === 0) { this.state.division = null; this.state.district = null; this.state.area = null; }
-        if (level === 1) { this.state.district = null; this.state.area = null; }
-        if (level === 2) { this.state.area = null; }
+        if (level === 0) {
+          this.state.country = null;
+          this.state.division = null;
+          this.state.district = null;
+          this.state.area = null;
+        } else if (level === 1) {
+          this.state.division = null;
+          this.state.district = null;
+          this.state.area = null;
+        } else if (level === 2) {
+          this.state.district = null;
+          this.state.area = null;
+        } else if (level === 3) {
+          this.state.area = null;
+        }
 
         this.searchInput.value = '';
         if (this.clearSearchBtn) this.clearSearchBtn.classList.add('hidden');
@@ -540,8 +646,8 @@
       let label = 'All Locations';
 
       if (this.state.area && !this.state.area.isAll) {
-        label = this.state.district 
-          ? `${this.state.area.name}, ${this.state.district.name}` 
+        label = this.state.district
+          ? `${this.state.area.name}, ${this.state.district.name}`
           : this.state.area.name;
       } else if (this.state.district && !this.state.district.isAll) {
         label = this.state.district.name;
@@ -580,7 +686,7 @@
         titleHtml = `Select City in <span class="text-theme-primary">${divisionName}</span>`;
         this.searchInput.placeholder = `Search city in ${divisionName}...`;
       } else if (this.currentLevel === 3) {
-        const cityName = this.state.district?.name || 'Dhaka';
+        const cityName = this.state.district?.name || 'City';
         titleHtml = `Select Area in <span class="text-theme-primary">${cityName}</span>`;
         this.searchInput.placeholder = `Search area in ${cityName}...`;
       }
@@ -589,19 +695,39 @@
       // Plain-text Location Trail after Search Box (e.g. Bangladesh / Dhaka / Manikganj / Shivalaya)
       const crumbs = [];
       if (this.state.country) {
-        const isCurrent = this.currentLevel <= 1 && (!this.state.division || this.state.division.isAll);
-        crumbs.push({ name: this.state.country.name, level: 0, isClickable: this.currentLevel > 0, isCurrent: isCurrent });
+        const isCurrent = this.currentLevel === 1;
+        crumbs.push({
+          name: this.state.country.name,
+          level: 1, // Clicking Country jumps to Level 1 (viewing Divisions of that Country)
+          isClickable: this.currentLevel > 1,
+          isCurrent: isCurrent
+        });
       }
       if (this.state.division && !this.state.division.isAll && this.currentLevel >= 2) {
-        const isCurrent = this.currentLevel === 2 && (!this.state.district || this.state.district.isAll);
-        crumbs.push({ name: this.state.division.name, level: 1, isClickable: this.currentLevel > 1, isCurrent: isCurrent });
+        const isCurrent = this.currentLevel === 2;
+        crumbs.push({
+          name: this.state.division.name,
+          level: 2, // Clicking Division jumps to Level 2 (viewing Cities of that Division)
+          isClickable: this.currentLevel > 2,
+          isCurrent: isCurrent
+        });
       }
       if (this.state.district && !this.state.district.isAll && this.currentLevel >= 3) {
         const isCurrent = this.currentLevel === 3 && (!this.state.area || this.state.area.isAll);
-        crumbs.push({ name: this.state.district.name, level: 2, isClickable: this.currentLevel > 2, isCurrent: isCurrent });
+        crumbs.push({
+          name: this.state.district.name,
+          level: 3, // Clicking City jumps to Level 3 (viewing Areas of that City)
+          isClickable: false,
+          isCurrent: isCurrent
+        });
       }
       if (this.state.area && !this.state.area.isAll) {
-        crumbs.push({ name: this.state.area.name, level: 3, isClickable: false, isCurrent: true });
+        crumbs.push({
+          name: this.state.area.name,
+          level: 3,
+          isClickable: false,
+          isCurrent: true
+        });
       }
 
       let breadcrumbHtml = '';
@@ -695,74 +821,89 @@
       }
     }
 
+    createCardHtml(item, isSelected, isAllOption) {
+      return `
+        <button type="button" data-id="${item.id}" data-name="${item.name}" data-is-all="${isAllOption ? 'true' : 'false'}"
+          class="loc-card w-full flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl border transition-all duration-150 text-left group cursor-pointer ${isSelected
+          ? 'bg-theme-primary/10 dark:bg-theme-primary/20 border-theme-primary shadow-xs ring-1 ring-theme-primary/30'
+          : 'bg-white dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/70 hover:border-theme-primary/50 dark:hover:border-theme-primary/50 hover:bg-theme-primary/[0.03] dark:hover:bg-theme-primary/[0.08]'
+        }">
+          <span class="text-xs sm:text-[13px] ${isSelected
+          ? 'font-bold text-theme-primary'
+          : 'font-medium text-slate-700 dark:text-slate-200 group-hover:text-theme-primary dark:group-hover:text-theme-primary'
+        } transition-colors truncate">
+            ${item.name}
+          </span>
+
+          <i class="${isSelected
+          ? 'fa-solid fa-check text-xs text-theme-primary'
+          : 'fa-solid fa-chevron-right text-[10px] text-slate-300 dark:text-slate-600 group-hover:text-theme-primary group-hover:translate-x-0.5'
+        } transition-all shrink-0 ml-2"></i>
+        </button>
+      `;
+    }
+
     renderCards(items) {
       if (!items || items.length === 0) {
-        this.cardsGrid.innerHTML = '';
-        this.emptyState.classList.remove('hidden');
+        if (this.cardsGrid) this.cardsGrid.innerHTML = '';
+        if (this.allOptionContainer) this.allOptionContainer.classList.add('hidden');
+        if (this.emptyState) this.emptyState.classList.remove('hidden');
         return;
       }
 
-      this.emptyState.classList.add('hidden');
+      if (this.emptyState) this.emptyState.classList.add('hidden');
 
+      // Separate "All [Parent]" option from sub-level items
+      const allItem = items.find(item => item.isAll || item.name.startsWith('All '));
+      const subItems = items.filter(item => !(item.isAll || item.name.startsWith('All ')));
+
+      // 1. All Option in separate top row (exact same card style & size)
+      if (allItem && this.allOptionContainer) {
+        let isAllSelected = false;
+        if (this.currentLevel === 3) {
+          isAllSelected = !this.state.area || this.state.area.isAll;
+        } else if (this.currentLevel === 2) {
+          isAllSelected = !this.state.district || this.state.district.isAll;
+        } else if (this.currentLevel === 1) {
+          isAllSelected = !this.state.division || this.state.division.isAll;
+        }
+
+        this.allOptionContainer.classList.remove('hidden');
+        const allCardGrid = this.allOptionContainer.querySelector('.grid') || this.allOptionContainer;
+        allCardGrid.innerHTML = this.createCardHtml(allItem, isAllSelected, true);
+      } else if (this.allOptionContainer) {
+        this.allOptionContainer.classList.add('hidden');
+        const allCardGrid = this.allOptionContainer.querySelector('.grid') || this.allOptionContainer;
+        allCardGrid.innerHTML = '';
+      }
+
+      // 2. Sub-items Grid (exact same card style)
       let html = '';
-      items.forEach(item => {
-        const isAllOption = item.isAll || item.name.startsWith('All ');
+      subItems.forEach(item => {
         let isSelected = false;
 
         if (this.currentLevel === 3) {
-          // Level 3 (Area level)
-          if (isAllOption) {
-            isSelected = !this.state.area || this.state.area.isAll;
-          } else {
-            isSelected = Boolean(this.state.area && !this.state.area.isAll && this.state.area.id === item.id);
-          }
+          isSelected = Boolean(this.state.area && !this.state.area.isAll && this.state.area.id === item.id);
         } else if (this.currentLevel === 2) {
-          // Level 2 (City / District level)
-          if (isAllOption) {
-            isSelected = !this.state.district || this.state.district.isAll;
-          } else {
-            isSelected = Boolean(this.state.district && !this.state.district.isAll && this.state.district.id === item.id);
-          }
+          isSelected = Boolean(this.state.district && !this.state.district.isAll && this.state.district.id === item.id);
         } else if (this.currentLevel === 1) {
-          // Level 1 (Division level)
-          if (isAllOption) {
-            isSelected = !this.state.division || this.state.division.isAll;
-          } else {
-            isSelected = Boolean(this.state.division && !this.state.division.isAll && this.state.division.id === item.id);
-          }
+          isSelected = Boolean(this.state.division && !this.state.division.isAll && this.state.division.id === item.id);
         } else if (this.currentLevel === 0) {
-          // Level 0 (Country level)
           isSelected = Boolean(this.state.country && this.state.country.id === item.id);
         }
 
-        html += `
-          <button type="button" data-id="${item.id}" data-name="${item.name}" data-is-all="${isAllOption ? 'true' : 'false'}"
-            class="loc-card w-full flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl border transition-all duration-150 text-left group cursor-pointer ${
-              isSelected
-                ? 'bg-theme-primary/10 dark:bg-theme-primary/20 border-theme-primary shadow-xs ring-1 ring-theme-primary/30'
-                : 'bg-white dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/70 hover:border-theme-primary/50 dark:hover:border-theme-primary/50 hover:bg-theme-primary/[0.03] dark:hover:bg-theme-primary/[0.08]'
-            }">
-            <span class="text-xs sm:text-[13px] ${
-              isSelected 
-                ? 'font-bold text-theme-primary' 
-                : 'font-medium text-slate-700 dark:text-slate-200 group-hover:text-theme-primary dark:group-hover:text-theme-primary'
-            } transition-colors truncate">
-              ${item.name}
-            </span>
-
-            <i class="${
-              isSelected 
-                ? 'fa-solid fa-check text-xs text-theme-primary' 
-                : 'fa-solid fa-chevron-right text-[10px] text-slate-300 dark:text-slate-600 group-hover:text-theme-primary group-hover:translate-x-0.5'
-            } transition-all shrink-0 ml-2"></i>
-          </button>
-        `;
+        html += this.createCardHtml(item, isSelected, false);
       });
 
       this.cardsGrid.innerHTML = html;
 
-      // Bind Card Clicks
-      this.cardsGrid.querySelectorAll('.loc-card').forEach(card => {
+      // Bind Card Clicks for all cards (both top row and grid)
+      const allCards = [
+        ...(this.allOptionContainer ? this.allOptionContainer.querySelectorAll('.loc-card') : []),
+        ...this.cardsGrid.querySelectorAll('.loc-card')
+      ];
+
+      allCards.forEach(card => {
         card.addEventListener('click', (e) => {
           const id = card.getAttribute('data-id');
           const name = card.getAttribute('data-name');
@@ -877,24 +1018,124 @@
       $('.selected-location-label').text(label);
     }
 
-    filterItems(query) {
+    handleSearch(query) {
+      query = (query || '').trim().toLowerCase();
+
       if (!query) {
         if (this.clearSearchBtn) this.clearSearchBtn.classList.add('hidden');
-        this.renderCards(this.currentItems);
+        if (this.searchView) this.searchView.classList.add('hidden');
         return;
       }
 
       if (this.clearSearchBtn) this.clearSearchBtn.classList.remove('hidden');
 
-      const filtered = this.currentItems.filter(item => 
-        item.name.toLowerCase().includes(query)
+      const matches = ALL_LOCATIONS_FLAT.filter(loc =>
+        loc.name.toLowerCase().includes(query) || loc.pathString.toLowerCase().includes(query)
       );
 
-      this.renderCards(filtered);
+      if (matches.length === 0) {
+        if (this.searchView) this.searchView.classList.remove('hidden');
+        if (this.searchList) this.searchList.classList.add('hidden');
+        if (this.searchEmptyState) this.searchEmptyState.classList.remove('hidden');
+        return;
+      }
+
+      if (this.searchView && this.searchList) {
+        if (this.searchEmptyState) this.searchEmptyState.classList.add('hidden');
+        this.searchList.classList.remove('hidden');
+        this.searchList.innerHTML = '';
+        this.searchView.classList.remove('hidden');
+
+        matches.slice(0, 30).forEach(match => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'p-2.5 bg-slate-50/70 dark:bg-slate-800/70 hover:bg-theme-primary/10 dark:hover:bg-theme-primary/15 rounded-xl border border-slate-200/80 dark:border-slate-700/60 hover:border-theme-primary/40 cursor-pointer flex items-center justify-between transition-all duration-150';
+
+          const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(`(${escapedQuery})`, 'gi');
+          const highlightedName = match.name.replace(regex, '<span class="text-theme-primary font-bold underline">$1</span>');
+          const highlightedPath = match.pathString.replace(regex, '<span class="text-theme-primary font-semibold">$1</span>');
+
+          itemEl.innerHTML = `
+            <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                <i class="${match.icon} text-[11px]"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${highlightedName}</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-medium">${match.typeLabel}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 truncate mt-0.5">${highlightedPath}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[9px] px-2 py-0.5 rounded-md bg-theme-primary/10 text-theme-primary font-semibold">Select</span>
+            </div>
+          `;
+
+          itemEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.hydrateFromSearchResult(match);
+            this.searchInput.value = '';
+            this.handleSearch('');
+          });
+
+          this.searchList.appendChild(itemEl);
+        });
+      }
+    }
+
+    hydrateFromSearchResult(match) {
+      if (this.searchView) this.searchView.classList.add('hidden');
+
+      if (match.type === 'area') {
+        this.state.country = match.countryObj;
+        this.state.division = match.divisionObj;
+        this.state.district = match.districtObj;
+        this.state.area = match.areaObj;
+        this.currentLevel = 3;
+      } else if (match.type === 'district') {
+        this.state.country = match.countryObj;
+        this.state.division = match.divisionObj;
+        this.state.district = match.districtObj;
+        this.state.area = null;
+        this.currentLevel = 3;
+      } else if (match.type === 'division') {
+        this.state.country = match.countryObj;
+        this.state.division = match.divisionObj;
+        this.state.district = null;
+        this.state.area = null;
+        this.currentLevel = 2;
+      } else if (match.type === 'country') {
+        this.state.country = match.countryObj;
+        this.state.division = null;
+        this.state.district = null;
+        this.state.area = null;
+        this.currentLevel = 1;
+      }
+
+      this.render();
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    window.locationModalManager = new LocationModalManager();
-  });
+  let instance = null;
+  function initLocationModal() {
+    if (!instance) {
+      instance = new LocationModalManager();
+      window.locationModalManager = instance;
+      window.LocationModal = {
+        open: () => instance.open(),
+        close: () => instance.close(),
+        reset: () => instance.resetSelection(),
+        getData: () => LOCATION_DATA,
+        getState: () => instance.state
+      };
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLocationModal);
+  } else {
+    initLocationModal();
+  }
 })();
