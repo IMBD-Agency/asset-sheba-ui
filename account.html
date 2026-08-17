@@ -387,22 +387,69 @@
                 </div>
             </div>
 
-            <!-- Section 3: Quick Info / Preferences (Styled cleanly to match theme) -->
-            <div class="p-3.5 bg-slate-50 settings-info-card rounded-2xl space-y-3">
-                <div class="flex items-center justify-between text-xs text-slate-600">
-                    <span class="flex items-center gap-2">
-                        <i class="fa-regular fa-bell text-theme-primary text-xs"></i> Notifications
-                    </span>
-                    <span
-                        class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">Enabled</span>
+            <!-- Section 3: Country / Region Switcher (Auto-detected & Switchable) -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-earth-americas text-theme-primary text-xs"></i> Country / Region
+                    </label>
+                    <span id="settings-country-mode-badge"
+                        class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">Auto Detected</span>
                 </div>
-                <div class="flex items-center justify-between text-xs text-slate-600">
+
+                <!-- Active Country Preview & Toggle Button -->
+                <div class="relative">
+                    <button type="button" id="settings-country-toggle-btn"
+                        class="w-full flex items-center justify-between p-2.5 rounded-2xl bg-slate-100/90 dark:bg-[#070e22] hover:bg-slate-200/70 dark:hover:bg-[#0c1736] border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 transition-all text-left cursor-pointer group shadow-2xs">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#1e293b] flex items-center justify-center text-lg leading-none shrink-0 shadow-2xs border border-slate-100 dark:border-white/5">
+                                <span id="settings-active-flag" class="select-none">🇧🇩</span>
+                            </div>
+                            <div class="min-w-0 flex flex-col justify-center">
+                                <div class="flex items-center gap-1.5 leading-none">
+                                    <span id="settings-active-name" class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">Bangladesh</span>
+                                    <span id="settings-active-code" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-[#1e293b] text-slate-600 dark:text-slate-300 font-semibold shrink-0">BD</span>
+                                </div>
+                                <p id="settings-active-currency" class="text-[10px] text-slate-400 dark:text-slate-400 truncate mt-1 leading-none">Currency: BDT (৳)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0 text-theme-primary dark:text-indigo-400 group-hover:opacity-80 transition-opacity">
+                            <span class="text-[10px] font-semibold">Change</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="settings-country-chevron"></i>
+                        </div>
+                    </button>
+
+                    <!-- Searchable Country Dropdown Panel -->
+                    <div id="settings-country-panel"
+                        class="hidden mt-2 p-2.5 bg-white dark:bg-[#0b1329] border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-xl space-y-2 z-20">
+                        <!-- Search input inside dropdown -->
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 dark:text-slate-500 text-[11px] absolute left-3 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="settings-country-search" placeholder="Search country or code..."
+                                class="w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary dark:focus:border-indigo-400 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-normal">
+                        </div>
+                        <!-- Country List (Scrollable) -->
+                        <div id="settings-country-list" class="max-h-48 overflow-y-auto space-y-1 scrollbar-thin">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Quick Info / Preferences (Styled cleanly to match theme) -->
+            <div class="p-3.5 bg-slate-100/90 dark:bg-[#070e22] settings-info-card rounded-2xl space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
                     <span class="flex items-center gap-2">
-                        <i class="fa-solid fa-bangladeshi-taka-sign text-theme-primary text-xs"></i> Currency
+                        <i class="fa-regular fa-bell text-theme-primary dark:text-indigo-400 text-xs"></i> Notifications
                     </span>
                     <span
-                        class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">BDT
-                        (৳)</span>
+                        class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300">Enabled</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-coins text-theme-primary dark:text-indigo-400 text-xs"></i> Currency
+                    </span>
+                    <span id="settings-currency-display" class="font-bold text-slate-800 dark:text-indigo-300 text-xs">USD ($)</span>
                 </div>
             </div>
 
@@ -609,6 +656,12 @@
                                 class="auth-modal-trigger hidden lg:flex w-10 h-10 rounded-full border border-slate-100 items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 overflow-hidden">
                                 <i class="fa-regular fa-user text-[13px]"></i>
                             </a>
+
+                            <!-- User Country / Region Flag Button (Auto-detected & Switchable) -->
+                            <button id="header-country-btn" type="button" aria-label="Country / Region" title="Select Country / Region"
+                                class="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative cursor-pointer group">
+                                <span id="header-country-flag" class="text-base leading-none select-none transition-transform group-hover:scale-110">🇧🇩</span>
+                            </button>
 
                             <!-- Settings Toggle button (Theme & Language & Preferences) -->
                             <button id="settings-toggle-btn" aria-label="Settings & Theme" title="Settings"
@@ -2096,6 +2149,25 @@
         $(document).ready(function () {
             const THEME_KEY = 'sheba_theme';
             const LANG_KEY = 'sheba_lang';
+            const COUNTRY_KEY = 'sheba_country';
+
+            // Global Country Dataset
+            const COUNTRIES_LIST = [
+                { code: 'BD', name: 'Bangladesh', flag: '🇧🇩', currency: 'BDT (৳)', region: 'Asia' },
+                { code: 'US', name: 'United States', flag: '🇺🇸', currency: 'USD ($)', region: 'North America' },
+                { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', currency: 'GBP (£)', region: 'Europe' },
+                { code: 'CA', name: 'Canada', flag: '🇨🇦', currency: 'CAD ($)', region: 'North America' },
+                { code: 'AU', name: 'Australia', flag: '🇦🇺', currency: 'AUD ($)', region: 'Oceania' },
+                { code: 'IN', name: 'India', flag: '🇮🇳', currency: 'INR (₹)', region: 'Asia' },
+                { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪', currency: 'AED (د.إ)', region: 'Middle East' },
+                { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦', currency: 'SAR (﷼)', region: 'Middle East' },
+                { code: 'MY', name: 'Malaysia', flag: '🇲🇾', currency: 'MYR (RM)', region: 'Asia' },
+                { code: 'SG', name: 'Singapore', flag: '🇸🇬', currency: 'SGD ($)', region: 'Asia' },
+                { code: 'DE', name: 'Germany', flag: '🇩🇪', currency: 'EUR (€)', region: 'Europe' },
+                { code: 'JP', name: 'Japan', flag: '🇯🇵', currency: 'JPY (¥)', region: 'Asia' }
+            ];
+
+            let currentCountry = null;
 
             // ─── 1. Theme Manager ───────────────────────────────────────
             function applyTheme(theme) {
@@ -2125,14 +2197,130 @@
                 localStorage.setItem(LANG_KEY, lang);
             }
 
-            // ─── 3. Initial Synchronization ─────────────────────────────
+            // ─── 3. Country Manager (Auto Detect + Switcher) ────────────
+            function autoDetectCountry() {
+                try {
+                    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    if (timeZone.includes('Dhaka') || timeZone.includes('Asia/Dhaka')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'BD');
+                    } else if (timeZone.includes('New_York') || timeZone.includes('America') || timeZone.includes('Los_Angeles') || timeZone.includes('Chicago')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'US');
+                    } else if (timeZone.includes('London') || timeZone.includes('Europe/London')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'GB');
+                    } else if (timeZone.includes('Kolkata') || timeZone.includes('Asia/Kolkata') || timeZone.includes('Calcutta')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'IN');
+                    } else if (timeZone.includes('Dubai') || timeZone.includes('Asia/Dubai')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'AE');
+                    } else if (timeZone.includes('Riyadh') || timeZone.includes('Asia/Riyadh')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'SA');
+                    } else if (timeZone.includes('Kuala_Lumpur') || timeZone.includes('Asia/Kuala_Lumpur')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'MY');
+                    } else if (timeZone.includes('Singapore') || timeZone.includes('Asia/Singapore')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'SG');
+                    } else if (timeZone.includes('Berlin') || timeZone.includes('Europe/Berlin') || timeZone.includes('Paris')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'DE');
+                    } else if (timeZone.includes('Tokyo') || timeZone.includes('Asia/Tokyo')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'JP');
+                    } else if (timeZone.includes('Sydney') || timeZone.includes('Australia')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'AU');
+                    } else if (timeZone.includes('Toronto') || timeZone.includes('Vancouver')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'CA');
+                    }
+                } catch (e) {
+                    console.warn('Could not auto-detect timezone:', e);
+                }
+                return COUNTRIES_LIST[0]; // default Bangladesh
+            }
+
+            function applyCountry(countryObj, isManual = false) {
+                currentCountry = countryObj;
+                if (isManual) {
+                    localStorage.setItem(COUNTRY_KEY, countryObj.code);
+                    $('#settings-country-mode-badge')
+                        .text('Selected')
+                        .removeClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400')
+                        .addClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300');
+                } else {
+                    $('#settings-country-mode-badge')
+                        .text('Auto Detected')
+                        .removeClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300')
+                        .addClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400');
+                }
+
+                $('#header-country-flag').text(countryObj.flag);
+                $('#header-country-btn').attr('title', `Country: ${countryObj.name} (${countryObj.code})`);
+
+                $('#settings-active-flag').text(countryObj.flag);
+                $('#settings-active-name').text(countryObj.name);
+                $('#settings-active-code').text(countryObj.code);
+                $('#settings-active-currency').text(`Currency: ${countryObj.currency}`);
+                $('#settings-currency-display').text(countryObj.currency);
+
+                renderCountryList();
+
+                window.dispatchEvent(new CustomEvent('sheba:country-changed', { detail: { country: countryObj } }));
+            }
+
+            function renderCountryList(query = '') {
+                const listEl = $('#settings-country-list');
+                if (!listEl.length) return;
+
+                const filtered = COUNTRIES_LIST.filter(c =>
+                    c.name.toLowerCase().includes(query.toLowerCase()) ||
+                    c.code.toLowerCase().includes(query.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    listEl.html('<div class="py-4 text-center text-xs text-slate-400 dark:text-slate-500">No country found</div>');
+                    return;
+                }
+
+                let html = '';
+                filtered.forEach(c => {
+                    const isSelected = currentCountry && currentCountry.code === c.code;
+                    html += `
+                        <button type="button" data-country-code="${c.code}"
+                            class="country-item-btn w-full flex items-center justify-between p-2 rounded-xl text-left transition-all cursor-pointer ${
+                                isSelected
+                                    ? 'bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300 font-bold'
+                                    : 'hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200'
+                            }">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-6 h-6 flex items-center justify-center text-base leading-none select-none shrink-0">${c.flag}</span>
+                                <span class="text-xs truncate font-medium">${c.name}</span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 font-medium shrink-0">${c.code}</span>
+                            </div>
+                            <div class="shrink-0 flex items-center gap-1.5">
+                                <span class="text-[10px] text-slate-400 dark:text-slate-400 font-normal">${c.currency.split(' ')[0]}</span>
+                                ${isSelected ? '<i class="fa-solid fa-check text-xs text-theme-primary dark:text-indigo-400"></i>' : ''}
+                            </div>
+                        </button>
+                    `;
+                });
+
+                listEl.html(html);
+            }
+
+            // ─── 4. Initial Synchronization ─────────────────────────────
             const savedTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             applyTheme(savedTheme);
 
             const savedLang = localStorage.getItem(LANG_KEY) || 'EN';
             applyLanguage(savedLang);
 
-            // ─── 4. Settings Offcanvas Controller ───────────────────────
+            const savedCountryCode = localStorage.getItem(COUNTRY_KEY);
+            if (savedCountryCode) {
+                const found = COUNTRIES_LIST.find(c => c.code === savedCountryCode);
+                if (found) {
+                    applyCountry(found, true);
+                } else {
+                    applyCountry(autoDetectCountry(), false);
+                }
+            } else {
+                applyCountry(autoDetectCountry(), false);
+            }
+
+            // ─── 5. Settings Offcanvas Controller ───────────────────────
             const settingsOffcanvas = $('#settings-offcanvas');
 
             function openSettingsOffcanvas() {
@@ -2144,6 +2332,8 @@
 
             function closeSettingsOffcanvas() {
                 settingsOffcanvas.addClass('translate-x-full').removeClass('translate-x-0');
+                $('#settings-country-panel').addClass('hidden');
+                $('#settings-country-chevron').removeClass('rotate-180');
                 setTimeout(() => {
                     if (settingsOffcanvas.hasClass('translate-x-full')) {
                         settingsOffcanvas.addClass('invisible');
@@ -2154,11 +2344,22 @@
                 }
             }
 
-            // ─── 5. Event Handlers ──────────────────────────────────────
+            // ─── 6. Event Handlers ──────────────────────────────────────
             $(document).on('click', '#settings-toggle-btn', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 openSettingsOffcanvas();
+            });
+
+            $(document).on('click', '#header-country-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openSettingsOffcanvas();
+                setTimeout(() => {
+                    $('#settings-country-panel').removeClass('hidden');
+                    $('#settings-country-chevron').addClass('rotate-180');
+                    $('#settings-country-search').focus();
+                }, 350);
             });
 
             $(document).on('click', '#settings-close-btn', function (e) {
@@ -2177,6 +2378,42 @@
                 e.preventDefault();
                 const selectedLang = $(this).data('lang');
                 applyLanguage(selectedLang);
+            });
+
+            $(document).on('click', '#settings-country-toggle-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const panel = $('#settings-country-panel');
+                const chevron = $('#settings-country-chevron');
+                panel.toggleClass('hidden');
+                chevron.toggleClass('rotate-180');
+                if (!panel.hasClass('hidden')) {
+                    $('#settings-country-search').val('').focus();
+                    renderCountryList();
+                }
+            });
+
+            $(document).on('input', '#settings-country-search', function () {
+                const q = $(this).val();
+                renderCountryList(q);
+            });
+
+            $(document).on('click', '.country-item-btn', function (e) {
+                e.preventDefault();
+                const code = $(this).data('country-code');
+                const selected = COUNTRIES_LIST.find(c => c.code === code);
+                if (selected) {
+                    applyCountry(selected, true);
+                    $('#settings-country-panel').addClass('hidden');
+                    $('#settings-country-chevron').removeClass('rotate-180');
+                }
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#settings-country-panel, #settings-country-toggle-btn').length) {
+                    $('#settings-country-panel').addClass('hidden');
+                    $('#settings-country-chevron').removeClass('rotate-180');
+                }
             });
         });
     </script>

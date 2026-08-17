@@ -458,21 +458,79 @@
         </div>
       </div>
 
-      <!-- Section 3: Quick Info / Preferences (Styled cleanly to match theme) -->
-      <div class="p-3.5 bg-slate-50 settings-info-card rounded-2xl space-y-3">
-        <div class="flex items-center justify-between text-xs text-slate-600">
+      <!-- Section 3: Country / Region Switcher (Auto-detected & Switchable) -->
+      <div>
+        <div class="flex items-center justify-between mb-2.5">
+          <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-earth-americas text-theme-primary text-xs"></i> Country / Region
+          </label>
+          <span id="settings-country-mode-badge"
+            class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">Auto
+            Detected</span>
+        </div>
+
+        <!-- Active Country Preview & Toggle Button -->
+        <div class="relative">
+          <button type="button" id="settings-country-toggle-btn"
+            class="w-full flex items-center justify-between p-2.5 rounded-2xl bg-slate-100/90 dark:bg-[#070e22] hover:bg-slate-200/70 dark:hover:bg-[#0c1736] border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 transition-all text-left cursor-pointer group shadow-2xs">
+            <div class="flex items-center gap-3 min-w-0">
+              <div
+                class="w-8 h-8 rounded-xl bg-white dark:bg-[#1e293b] flex items-center justify-center text-lg leading-none shrink-0 shadow-2xs border border-slate-100 dark:border-white/5">
+                <span id="settings-active-flag" class="select-none">🇧🇩</span>
+              </div>
+              <div class="min-w-0 flex flex-col justify-center">
+                <div class="flex items-center gap-1.5 leading-none">
+                  <span id="settings-active-name"
+                    class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">Bangladesh</span>
+                  <span id="settings-active-code"
+                    class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-[#1e293b] text-slate-600 dark:text-slate-300 font-semibold shrink-0">BD</span>
+                </div>
+                <p id="settings-active-currency"
+                  class="text-[10px] text-slate-400 dark:text-slate-400 truncate mt-1 leading-none">Currency: BDT (৳)
+                </p>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-1.5 shrink-0 text-theme-primary dark:text-indigo-400 group-hover:opacity-80 transition-opacity">
+              <span class="text-[10px] font-semibold">Change</span>
+              <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"
+                id="settings-country-chevron"></i>
+            </div>
+          </button>
+
+          <!-- Searchable Country Dropdown Panel -->
+          <div id="settings-country-panel"
+            class="hidden mt-2 p-2.5 bg-white dark:bg-[#0b1329] border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-xl space-y-2 z-20">
+            <!-- Search input inside dropdown -->
+            <div class="relative">
+              <i
+                class="fa-solid fa-magnifying-glass text-slate-400 dark:text-slate-500 text-[11px] absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="settings-country-search" placeholder="Search country or code..."
+                class="w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary dark:focus:border-indigo-400 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-normal">
+            </div>
+            <!-- Country List (Scrollable) -->
+            <div id="settings-country-list" class="max-h-48 overflow-y-auto space-y-1 scrollbar-thin">
+              <!-- Injected dynamically via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Quick Info / Preferences (Styled cleanly to match theme) -->
+      <div class="p-3.5 bg-slate-100/90 dark:bg-[#070e22] settings-info-card rounded-2xl space-y-3">
+        <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
           <span class="flex items-center gap-2">
-            <i class="fa-regular fa-bell text-theme-primary text-xs"></i> Notifications
+            <i class="fa-regular fa-bell text-theme-primary dark:text-indigo-400 text-xs"></i> Notifications
           </span>
           <span
-            class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">Enabled</span>
+            class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300">Enabled</span>
         </div>
-        <div class="flex items-center justify-between text-xs text-slate-600">
+        <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
           <span class="flex items-center gap-2">
-            <i class="fa-solid fa-bangladeshi-taka-sign text-theme-primary text-xs"></i> Currency
+            <i class="fa-solid fa-coins text-theme-primary dark:text-indigo-400 text-xs"></i> Currency
           </span>
-          <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 text-theme-primary">BDT
-            (৳)</span>
+          <span id="settings-currency-display" class="font-bold text-slate-800 dark:text-indigo-300 text-xs">USD
+            ($)</span>
         </div>
       </div>
 
@@ -649,6 +707,14 @@
             <!-- Right (col-span-3 to align with products view) -->
             <div class="flex items-center gap-3 shrink-0 lg:col-span-3 h-full lg:justify-end">
 
+              <!-- User Country / Region Flag Button (Auto-detected & Switchable) -->
+              <button id="header-country-btn" type="button" aria-label="Country / Region"
+                title="Select Country / Region"
+                class="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative cursor-pointer group">
+                <span id="header-country-flag"
+                  class="text-base leading-none select-none transition-transform group-hover:scale-110">🇧🇩</span>
+              </button>
+
               <!-- Compare Icon Button with Badge -->
               <a href="#" aria-label="Compare"
                 class="w-10 h-10 rounded-full border border-slate-100  flex items-center justify-center text-slate-700 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative">
@@ -698,10 +764,23 @@
             <div
               class="relative w-full rounded-3xl overflow-hidden border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 lg:px-12 lg:py-10 shadow-sm flex items-center min-h-[220px]">
 
-              <!-- Background Image -->
-              <img src="frontend/assets/images/banner/banner.png" alt="Asset Sheba Promotion"
-                class="absolute inset-0 w-full h-full object-cover object-right select-none pointer-events-none"
-                draggable="false">
+              <!-- ================= LIGHT THEME BANNER (Desktop & Mobile) ================= -->
+              <picture class="dark:hidden absolute inset-0 w-full h-full pointer-events-none select-none">
+                <!-- Desktop / Tablet (min-width: 640px) -->
+                <source media="(min-width: 640px)" srcset="frontend/assets/images/banner/banner-light.png">
+                <!-- Mobile Phone (< 640px) -->
+                <img src="frontend/assets/images/banner/banner-mobile.png" alt="Asset Sheba Promotion"
+                  class="w-full h-full object-cover object-right sm:object-center" draggable="false">
+              </picture>
+
+              <!-- ================= DARK THEME BANNER (Desktop & Mobile) ================= -->
+              <picture class="hidden dark:block absolute inset-0 w-full h-full pointer-events-none select-none">
+                <!-- Desktop / Tablet (min-width: 640px) -->
+                <source media="(min-width: 640px)" srcset="frontend/assets/images/banner/banner-dark.png">
+                <!-- Mobile Phone (< 640px) -->
+                <img src="frontend/assets/images/banner/banner-dark.png" alt="Asset Sheba Promotion"
+                  class="w-full h-full object-cover object-right sm:object-center" draggable="false">
+              </picture>
 
               <!-- Left to right gradient overlay so text remains perfectly readable -->
               <div
@@ -851,16 +930,60 @@
                     </div>
                   </div>
 
-                  <!-- Categories (Accordion List) -->
-                  <div
-                    class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
-                    <h3
-                      class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
-                      Categories
-                    </h3>
-                    <div id="category-accordion-list" class="space-y-1.5">
-                      <!-- Populated dynamically via Script -->
+                  <!-- Categories (Dynamic Step-by-Step Drilldown via Unified CategoryWidget) -->
+                  <div id="sidebar-cat-widget"
+                    class="category-widget bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-4 sm:p-5 space-y-3.5 shadow-2xs">
+
+                    <!-- Header Row: Back button (shown when inside folder) + Dynamic Title + Level Badge -->
+                    <div
+                      class="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/5 pb-2.5">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <button id="sidebar-cat-back-btn" type="button"
+                          class="cat-back-btn hidden w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 dark:hover:bg-theme-primary/20 text-slate-600 dark:text-slate-300 hover:text-theme-primary dark:hover:text-theme-primary flex items-center justify-center transition-all cursor-pointer shrink-0 border border-slate-200/60 dark:border-slate-700/60"
+                          title="Previous level" aria-label="Go to previous step">
+                          <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                        </button>
+                        <h3 id="sidebar-cat-title"
+                          class="cat-title text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider truncate">
+                          Categories
+                        </h3>
+                      </div>
+                      <span id="sidebar-cat-badge"
+                        class="cat-badge text-[9px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shrink-0">Root</span>
                     </div>
+
+                    <!-- Search Input with Clear Button & Floating Results Dropdown -->
+                    <div class="relative w-full">
+                      <i
+                        class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3 top-1/2 -translate-y-1/2"></i>
+                      <input type="text" id="sidebar-cat-search" placeholder="Search category..."
+                        class="cat-search-input w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 pr-7 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary dark:focus:border-indigo-400 transition-all placeholder:text-slate-400 font-normal">
+                      <button id="sidebar-cat-clear-search" type="button"
+                        class="cat-clear-search hidden absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-[9px] flex items-center justify-center cursor-pointer border-none">
+                        <i class="fa-solid fa-xmark"></i>
+                      </button>
+
+                      <!-- Floating Search Results Dropdown -->
+                      <div id="sidebar-cat-search-view"
+                        class="cat-search-view hidden absolute left-0 right-0 top-full mt-1.5 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl max-h-[260px] overflow-y-auto p-2 scrollbar-thin space-y-1">
+                        <div id="sidebar-cat-search-list" class="cat-search-list space-y-1"></div>
+                        <div id="sidebar-cat-empty-state"
+                          class="cat-search-empty hidden py-4 text-center text-xs text-slate-400">
+                          No category found
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Breadcrumb Trail (Clickable path) -->
+                    <div id="sidebar-cat-breadcrumb"
+                      class="cat-breadcrumb text-[11px] text-slate-400 dark:text-slate-400 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap flex items-center gap-1 font-normal scroll-smooth">
+                    </div>
+
+                    <!-- Step Drilldown List Container (1 Column, natural auto height) -->
+                    <div id="sidebar-cat-list-container" class="cat-list space-y-1.5">
+                      <!-- Dynamically rendered via JS -->
+                    </div>
+
                   </div>
 
                   <!-- Price Range -->
@@ -868,32 +991,37 @@
                     class="bg-white dark:bg-[#0f172a] lg:dark:bg-[#1e293b] rounded-2xl border border-slate-100 dark:border-white/10 p-5 space-y-4 shadow-2xs">
                     <h3
                       class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-white/5 pb-2">
-                      Price
-                      Range
+                      Price Range
                     </h3>
                     <div class="space-y-4">
                       <div
                         class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
-                        <span>Price:</span>
+                        <span class="font-bold text-slate-800 dark:text-white">Price:</span>
                         <span class="text-theme-primary font-black"><span id="price-min-val">৳0</span> - <span
                             id="price-max-val">৳3,000</span></span>
                       </div>
 
-                      <!-- Dual Range Slider Widget -->
-                      <div class="relative w-full h-5 flex items-center select-none">
-                        <!-- Slider Track Background line -->
-                        <div class="absolute inset-x-0 h-1 bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
-                        <!-- Colored Selected Range highlights line -->
-                        <div id="price-slider-track-highlight" class="absolute h-1 bg-theme-primary rounded-lg"
+                      <!-- Pure Dual Range Slider Track -->
+                      <div id="price-slider"
+                        class="relative w-full h-6 flex items-center select-none cursor-pointer touch-none">
+                        <!-- Full Base Background Rail -->
+                        <div class="absolute inset-x-0 h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full"></div>
+
+                        <!-- Highlight Active Range Bar between Handles -->
+                        <div id="price-slider-bar" class="absolute h-1 bg-theme-primary rounded-full"
                           style="left: 0%; right: 0%;"></div>
 
-                        <!-- Range Handle Inputs stacked on top -->
-                        <input type="range" id="price-slider-min" min="0" max="3000" step="50" value="0"
-                          class="absolute w-full appearance-none pointer-events-none bg-transparent outline-none z-20 cursor-pointer accent-theme-primary"
-                          style="margin: 0;">
-                        <input type="range" id="price-slider-max" min="0" max="3000" step="50" value="3000"
-                          class="absolute w-full appearance-none pointer-events-none bg-transparent outline-none z-20 cursor-pointer accent-theme-primary"
-                          style="margin: 0;">
+                        <!-- Start (Min) Handle Knob -->
+                        <div id="price-handle-min"
+                          class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-theme-primary border-2 border-white dark:border-slate-900 shadow-md cursor-grab active:cursor-grabbing hover:scale-110 active:scale-125 transition-transform z-20 flex items-center justify-center"
+                          style="left: 0%;">
+                        </div>
+
+                        <!-- End (Max) Handle Knob -->
+                        <div id="price-handle-max"
+                          class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-theme-primary border-2 border-white dark:border-slate-900 shadow-md cursor-grab active:cursor-grabbing hover:scale-110 active:scale-125 transition-transform z-20 flex items-center justify-center"
+                          style="left: 100%;">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1851,6 +1979,16 @@
     </script>
   </div>
 
+  <!-- ============ SCRIPTS ============ -->
+  <!-- JQuery (Local Workspace Path) -->
+  <script src="Plugins-Framework/jquery/jquery-3.7.1.min.js"></script>
+
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <!-- Unified Category Widget Engine -->
+  <script src="frontend/js/category-modal.js"></script>
+
   <!-- ============ DEDICATED SCRIPT: THEME & SETTINGS CONTROLLER (LIGHT/DARK & LANGUAGE) ============ -->
   <script id="sheba-theme-settings-controller">
     $(document).ready(function () {
@@ -1885,14 +2023,133 @@
         localStorage.setItem(LANG_KEY, lang);
       }
 
-      // ─── 3. Initial Synchronization ─────────────────────────────
+      // ─── 3. Country / Region Manager (Auto-Detection & Switcher) ───
+      const COUNTRIES_LIST = [
+        { code: 'BD', name: 'Bangladesh', flag: '🇧🇩', currency: 'BDT (৳)', timezones: ['Asia/Dhaka'] },
+        { code: 'US', name: 'United States', flag: '🇺🇸', currency: 'USD ($)', timezones: ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Phoenix', 'America/Anchorage', 'Pacific/Honolulu'] },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', currency: 'GBP (£)', timezones: ['Europe/London'] },
+        { code: 'IN', name: 'India', flag: '🇮🇳', currency: 'INR (₹)', timezones: ['Asia/Kolkata', 'Asia/Calcutta'] },
+        { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪', currency: 'AED (د.إ)', timezones: ['Asia/Dubai'] },
+        { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦', currency: 'SAR (﷼)', timezones: ['Asia/Riyadh'] },
+        { code: 'CA', name: 'Canada', flag: '🇨🇦', currency: 'CAD ($)', timezones: ['America/Toronto', 'America/Vancouver', 'America/Edmonton', 'America/Winnipeg', 'America/Halifax'] },
+        { code: 'MY', name: 'Malaysia', flag: '🇲🇾', currency: 'MYR (RM)', timezones: ['Asia/Kuala_Lumpur'] },
+        { code: 'AU', name: 'Australia', flag: '🇦🇺', currency: 'AUD ($)', timezones: ['Australia/Sydney', 'Australia/Melbourne', 'Australia/Brisbane', 'Australia/Perth'] },
+        { code: 'SG', name: 'Singapore', flag: '🇸🇬', currency: 'SGD ($)', timezones: ['Asia/Singapore'] },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪', currency: 'EUR (€)', timezones: ['Europe/Berlin'] },
+        { code: 'FR', name: 'France', flag: '🇫🇷', currency: 'EUR (€)', timezones: ['Europe/Paris'] },
+        { code: 'IT', name: 'Italy', flag: '🇮🇹', currency: 'EUR (€)', timezones: ['Europe/Rome'] },
+        { code: 'JP', name: 'Japan', flag: '🇯🇵', currency: 'JPY (¥)', timezones: ['Asia/Tokyo'] }
+      ];
+
+      const COUNTRY_KEY = 'sheba_country_code';
+      let currentCountry = null;
+
+      function detectCountry() {
+        const savedCode = localStorage.getItem(COUNTRY_KEY);
+        if (savedCode) {
+          const match = COUNTRIES_LIST.find(c => c.code.toUpperCase() === savedCode.toUpperCase());
+          if (match) return { country: match, isAuto: false };
+        }
+
+        try {
+          const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          if (userTz) {
+            const match = COUNTRIES_LIST.find(c => c.timezones && c.timezones.some(tz => userTz.includes(tz) || tz.includes(userTz)));
+            if (match) return { country: match, isAuto: true };
+          }
+        } catch (e) { }
+
+        try {
+          const lang = navigator.language || (navigator.languages && navigator.languages[0]) || '';
+          if (lang.includes('-')) {
+            const region = lang.split('-')[1].toUpperCase();
+            const match = COUNTRIES_LIST.find(c => c.code.toUpperCase() === region);
+            if (match) return { country: match, isAuto: true };
+          }
+        } catch (e) { }
+
+        return { country: COUNTRIES_LIST[0], isAuto: true };
+      }
+
+      function applyCountry(countryObj, isManual = false) {
+        currentCountry = countryObj;
+        if (isManual) {
+          localStorage.setItem(COUNTRY_KEY, countryObj.code);
+          $('#settings-country-mode-badge')
+            .text('Selected')
+            .removeClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400')
+            .addClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300');
+        } else {
+          $('#settings-country-mode-badge')
+            .text('Auto Detected')
+            .removeClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300')
+            .addClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400');
+        }
+
+        $('#header-country-flag').text(countryObj.flag);
+        $('#header-country-btn').attr('title', `Country: ${countryObj.name} (${countryObj.code})`);
+
+        $('#settings-active-flag').text(countryObj.flag);
+        $('#settings-active-name').text(countryObj.name);
+        $('#settings-active-code').text(countryObj.code);
+        $('#settings-active-currency').text(`Currency: ${countryObj.currency}`);
+        $('#settings-currency-display').text(countryObj.currency);
+
+        renderCountryList();
+
+        window.dispatchEvent(new CustomEvent('sheba:country-changed', { detail: { country: countryObj } }));
+      }
+
+      function renderCountryList(query = '') {
+        const listEl = $('#settings-country-list');
+        if (!listEl.length) return;
+
+        const filtered = COUNTRIES_LIST.filter(c =>
+          c.name.toLowerCase().includes(query.toLowerCase()) ||
+          c.code.toLowerCase().includes(query.toLowerCase())
+        );
+
+        if (filtered.length === 0) {
+          listEl.html('<div class="py-4 text-center text-xs text-slate-400 dark:text-slate-500">No country found</div>');
+          return;
+        }
+
+        let html = '';
+        filtered.forEach(c => {
+          const isSelected = currentCountry && currentCountry.code === c.code;
+          html += `
+            <button type="button" data-country-code="${c.code}"
+              class="country-item-btn w-full flex items-center justify-between p-2 rounded-xl text-left transition-all cursor-pointer ${isSelected
+              ? 'bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300 font-bold'
+              : 'hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200'
+            }">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 flex items-center justify-center text-base leading-none select-none shrink-0">${c.flag}</span>
+                <span class="text-xs truncate font-medium">${c.name}</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 font-medium shrink-0">${c.code}</span>
+              </div>
+              <div class="shrink-0 flex items-center gap-1.5">
+                <span class="text-[10px] text-slate-400 dark:text-slate-400 font-normal">${c.currency.split(' ')[0]}</span>
+                ${isSelected ? '<i class="fa-solid fa-check text-xs text-theme-primary dark:text-indigo-400"></i>' : ''}
+              </div>
+            </button>
+          `;
+        });
+
+        listEl.html(html);
+      }
+
+      // ─── 4. Initial Synchronization ─────────────────────────────
       const savedTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       applyTheme(savedTheme);
 
       const savedLang = localStorage.getItem(LANG_KEY) || 'EN';
       applyLanguage(savedLang);
 
-      // ─── 4. Settings Offcanvas Controller ───────────────────────
+      const initialCountryState = detectCountry();
+      applyCountry(initialCountryState.country, !initialCountryState.isAuto);
+
+      // ─── 5. Settings Offcanvas Controller ───────────────────────
       const settingsOffcanvas = $('#settings-offcanvas');
 
       function openSettingsOffcanvas() {
@@ -1904,6 +2161,8 @@
 
       function closeSettingsOffcanvas() {
         settingsOffcanvas.addClass('translate-x-full').removeClass('translate-x-0');
+        $('#settings-country-panel').addClass('hidden');
+        $('#settings-country-chevron').removeClass('rotate-180');
         setTimeout(() => {
           if (settingsOffcanvas.hasClass('translate-x-full')) {
             settingsOffcanvas.addClass('invisible');
@@ -1914,11 +2173,49 @@
         }
       }
 
-      // ─── 5. Event Handlers ──────────────────────────────────────
+      // ─── 6. Event Handlers ──────────────────────────────────────
       $(document).on('click', '#settings-toggle-btn', function (e) {
         e.preventDefault();
         e.stopPropagation();
         openSettingsOffcanvas();
+      });
+
+      $(document).on('click', '#header-country-btn', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openSettingsOffcanvas();
+        $('#settings-country-panel').removeClass('hidden');
+        $('#settings-country-chevron').addClass('rotate-180');
+        setTimeout(() => $('#settings-country-search').focus(), 150);
+      });
+
+      $(document).on('click', '#settings-country-toggle-btn', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const panel = $('#settings-country-panel');
+        const chevron = $('#settings-country-chevron');
+        panel.toggleClass('hidden');
+        chevron.toggleClass('rotate-180');
+        if (!panel.hasClass('hidden')) {
+          $('#settings-country-search').focus();
+        }
+      });
+
+      $(document).on('input', '#settings-country-search', function () {
+        const query = $(this).val().trim();
+        renderCountryList(query);
+      });
+
+      $(document).on('click', '.country-item-btn', function (e) {
+        e.preventDefault();
+        const code = $(this).data('country-code');
+        const match = COUNTRIES_LIST.find(c => c.code === code);
+        if (match) {
+          applyCountry(match, true);
+          $('#settings-country-panel').addClass('hidden');
+          $('#settings-country-chevron').removeClass('rotate-180');
+          $('#settings-country-search').val('');
+        }
       });
 
       $(document).on('click', '#settings-close-btn', function (e) {
@@ -2536,206 +2833,14 @@
       let currentPage = 1;
       const itemsPerPage = 8;
 
-      // Category Tree Configuration
-      const CATEGORY_TREE = [
-        {
-          name: "Men's Clothing",
-          image: "frontend/assets/images/products/shirt (1).jpg",
-          children: [
-            { name: "Panjabi" },
-            { name: "Polo T-Shirt" },
-            { name: "Katua Shirt" },
-            { name: "Hoodie" },
-            { name: "Sweat Shirt" }
-          ]
-        },
-        {
-          name: "Real Estate",
-          image: "frontend/assets/images/products/shirt (2).jpg",
-          children: [
-            {
-              name: "Flat",
-              children: [
-                { name: "Flat rent" },
-                { name: "Flat sell" }
-              ]
-            },
-            { name: "Commercial" }
-          ]
-        },
-        {
-          name: "Electronics",
-          image: "frontend/assets/images/products/shirt (3).jpg",
-          children: [
-            { name: "Computers" },
-            { name: "Accessories" }
-          ]
-        }
-      ];
-
-      let categoryTraversalPath = [];
-
-      // Render Category Accordion List (Folder Traversal System)
-      function renderCategoryAccordion() {
-        const container = document.getElementById('category-accordion-list');
-        if (!container) return;
-        container.innerHTML = "";
-
-        // Determine current folder level
-        let currentLevelList = CATEGORY_TREE;
-        if (categoryTraversalPath.length > 0) {
-          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
-          currentLevelList = currentFolder.children || [];
-        }
-
-        // Render Breadcrumb if inside folders
-        if (categoryTraversalPath.length > 0) {
-          const breadcrumb = document.createElement('div');
-          breadcrumb.className = "flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 pb-3 border-b border-slate-100 dark:border-white/5 mb-3";
-
-          // Back button
-          const backBtn = document.createElement('button');
-          backBtn.type = "button";
-          backBtn.className = "w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 hover:text-theme-primary flex items-center justify-center border-none cursor-pointer";
-          backBtn.innerHTML = `<i class="fa-solid fa-arrow-left text-[10px]"></i>`;
-          backBtn.addEventListener('click', () => {
-            categoryTraversalPath.pop();
-            renderCategoryAccordion();
-          });
-          breadcrumb.appendChild(backBtn);
-
-          // Path link
-          const pathContainer = document.createElement('div');
-          pathContainer.className = "flex items-center gap-1.5 flex-wrap";
-
-          const rootSpan = document.createElement('span');
-          rootSpan.className = "text-slate-400 hover:text-theme-primary cursor-pointer";
-          rootSpan.textContent = "Categories";
-          rootSpan.addEventListener('click', () => {
-            categoryTraversalPath = [];
-            renderCategoryAccordion();
-          });
-          pathContainer.appendChild(rootSpan);
-
-          categoryTraversalPath.forEach((folder, idx) => {
-            const separator = document.createElement('span');
-            separator.className = "text-slate-300 dark:text-white/10";
-            separator.textContent = "/";
-            pathContainer.appendChild(separator);
-
-            const folderSpan = document.createElement('span');
-            const isLast = idx === categoryTraversalPath.length - 1;
-            folderSpan.className = isLast ? "text-slate-800 dark:text-white font-extrabold" : "text-slate-400 hover:text-theme-primary cursor-pointer";
-            folderSpan.textContent = folder.name;
-            if (!isLast) {
-              folderSpan.addEventListener('click', () => {
-                categoryTraversalPath = categoryTraversalPath.slice(0, idx + 1);
-                renderCategoryAccordion();
-              });
-            }
-            pathContainer.appendChild(folderSpan);
-          });
-
-          breadcrumb.appendChild(pathContainer);
-          container.appendChild(breadcrumb);
-
-          // "All in Current Folder" option
-          const allBtn = document.createElement('div');
-          const currentFolder = categoryTraversalPath[categoryTraversalPath.length - 1];
-          const getLeafCategories = (item) => {
-            if (!item.children) return [item.name];
-            return item.children.flatMap(getLeafCategories);
-          };
-          const allChildrenNames = getLeafCategories(currentFolder);
-          const isAllSelected = allChildrenNames.every(name => filterCategory.includes(name)) && filterCategory.length === allChildrenNames.length;
-
-          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${isAllSelected ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
-          allBtn.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-tags text-[11px]"></i>
-              </div>
-              <span>All in ${currentFolder.name}</span>
-            </div>
-            ${isAllSelected ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
-          `;
-          allBtn.addEventListener('click', () => {
-            filterCategory = [...allChildrenNames];
-            renderCategoryAccordion();
-            currentPage = 1;
-            renderCatalog();
-          });
-          container.appendChild(allBtn);
-        } else {
-          // At the Root Level: render "All Categories" option
-          const allBtn = document.createElement('div');
-          allBtn.className = `flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${filterCategory.length === 0 ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
-          allBtn.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-tags text-[11px]"></i>
-              </div>
-              <span>All Categories</span>
-            </div>
-            ${filterCategory.length === 0 ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : ''}
-          `;
-          allBtn.addEventListener('click', () => {
-            filterCategory = [];
-            renderCategoryAccordion();
-            currentPage = 1;
-            renderCatalog();
-          });
-          container.appendChild(allBtn);
-        }
-
-        // Render current list of items at this folder level
-        currentLevelList.forEach(item => {
-          const isFolder = !!item.children;
-          const getLeafCategories = (node) => {
-            if (!node.children) return [node.name];
-            return node.children.flatMap(getLeafCategories);
-          };
-          const leafNames = getLeafCategories(item);
-          const itemCount = PRODUCTS.filter(p => leafNames.includes(p.category)).length;
-          const isSelected = !isFolder && filterCategory.includes(item.name) && filterCategory.length === 1;
-
-          const row = document.createElement('div');
-          row.className = `flex items-center justify-between p-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${isSelected ? "bg-theme-primary/10 text-theme-primary" : "text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-800"}`;
-
-          const iconMarkup = isFolder
-            ? `<div class="w-7 h-7 rounded-lg overflow-hidden shrink-0 bg-slate-100 dark:bg-slate-850">
-                 ${item.image ? `<img src="${item.image}" class="w-full h-full object-cover" alt="">` : `<i class="fa-solid fa-folder text-amber-500 text-[11px]"></i>`}
-               </div>`
-            : `<div class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-850 flex items-center justify-center shrink-0">
-                 <i class="fa-solid fa-bullhorn text-[11px] text-slate-500 dark:text-slate-400"></i>
-               </div>`;
-
-          row.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              ${iconMarkup}
-              <span class="truncate max-w-[150px]">${item.name}</span>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <span class="text-[9px] text-slate-400 font-medium">${itemCount} listings</span>
-              ${isFolder ? `<i class="fa-solid fa-chevron-right text-[8px] text-slate-400"></i>` : (isSelected ? '<i class="fa-solid fa-check text-[10px] text-theme-primary"></i>' : '')}
-            </div>
-          `;
-
-          row.addEventListener('click', () => {
-            if (isFolder) {
-              categoryTraversalPath.push(item);
-              renderCategoryAccordion();
-            } else {
-              filterCategory = [item.name];
-              renderCategoryAccordion();
-              currentPage = 1;
-              renderCatalog();
-            }
-          });
-
-          container.appendChild(row);
-        });
-      }
+      // =========================================================================
+      // Unified CategoryWidget Event Listener & URL Param Sync
+      // =========================================================================
+      $(document).on('category:change', function (e, data) {
+        filterCategory = data && data.descendants && data.descendants.length > 0 ? data.descendants : [];
+        currentPage = 1;
+        renderCatalog();
+      });
 
       // URL parameters processing
       function parseUrlParams() {
@@ -2743,6 +2848,12 @@
         const cat = params.get('category');
         if (cat) {
           filterCategory = [cat];
+          const allCats = (window.CategoryWidget && window.CategoryWidget.ALL_CATEGORIES_FLAT) ? window.CategoryWidget.ALL_CATEGORIES_FLAT : [];
+          const foundMatch = allCats.find(c => c.name.toLowerCase() === cat.toLowerCase());
+          if (foundMatch) {
+            const inst = window.CategoryWidget?.getInstance('#sidebar-cat-widget') || window.CategoryWidget?.instances?.[0];
+            if (inst) inst.hydrateFromSearchResult(foundMatch.id);
+          }
         }
         const deal = params.get('deal');
         if (deal) {
@@ -2764,7 +2875,13 @@
           list = list.filter(p => p.department === filterDepartment);
         }
         if (filterCategory.length > 0) {
-          list = list.filter(p => filterCategory.includes(p.category));
+          list = list.filter(p => {
+            return filterCategory.some(catName =>
+              (p.category && p.category.toLowerCase().includes(catName.toLowerCase())) ||
+              catName.toLowerCase().includes((p.category || '').toLowerCase()) ||
+              (p.name && p.name.toLowerCase().includes(catName.toLowerCase()))
+            );
+          });
         }
         list = list.filter(p => p.price >= filterMinPrice && p.price <= filterMaxPrice);
         if (filterDeals.length > 0) {
@@ -3131,64 +3248,137 @@
           });
         });
 
-        function setupDualPriceSlider(container) {
-          const sliderMin = container.querySelector('#price-slider-min');
-          const sliderMax = container.querySelector('#price-slider-max');
-          const valMinEl = container.querySelector('#price-min-val') || document.getElementById('price-min-val');
-          const valMaxEl = container.querySelector('#price-max-val') || document.getElementById('price-max-val');
-          const trackHighlight = container.querySelector('#price-slider-track-highlight') || document.getElementById('price-slider-track-highlight');
+        function setupDualPriceSlider() {
+          const sliderEl = document.getElementById('price-slider');
+          const barEl = document.getElementById('price-slider-bar');
+          const handleMin = document.getElementById('price-handle-min');
+          const handleMax = document.getElementById('price-handle-max');
+          const valMinEl = document.getElementById('price-min-val');
+          const valMaxEl = document.getElementById('price-max-val');
 
-          if (!sliderMin || !sliderMax) return;
+          if (!sliderEl || !barEl || !handleMin || !handleMax) return;
 
+          const minLimit = 0;
           const maxLimit = 3000;
+          const step = 25;
+          const minGap = 50;
 
-          function updateSliderTrack() {
-            let minVal = parseInt(sliderMin.value);
-            let maxVal = parseInt(sliderMax.value);
+          let currentMin = filterMinPrice || 0;
+          let currentMax = filterMaxPrice || 3000;
+          let activeDrag = null; // 'min' | 'max'
 
-            if (maxVal - minVal < 100) {
-              if (this === sliderMin) {
-                sliderMin.value = maxVal - 100;
-                minVal = maxVal - 100;
-              } else {
-                sliderMax.value = minVal + 100;
-                maxVal = minVal + 100;
-              }
-            }
+          function updateVisuals() {
+            const pctMin = ((currentMin - minLimit) / (maxLimit - minLimit)) * 100;
+            const pctMax = ((currentMax - minLimit) / (maxLimit - minLimit)) * 100;
 
-            if (valMinEl) valMinEl.textContent = '৳' + minVal.toLocaleString('en-IN');
-            if (valMaxEl) valMaxEl.textContent = '৳' + maxVal.toLocaleString('en-IN');
+            handleMin.style.left = pctMin + '%';
+            handleMax.style.left = pctMax + '%';
 
-            const pctMin = (minVal / maxLimit) * 100;
-            const pctMax = (maxVal / maxLimit) * 100;
-            if (trackHighlight) {
-              trackHighlight.style.left = pctMin + "%";
-              trackHighlight.style.right = (100 - pctMax) + "%";
-            }
+            barEl.style.left = pctMin + '%';
+            barEl.style.right = (100 - pctMax) + '%';
+
+            if (valMinEl) valMinEl.textContent = '৳' + Math.round(currentMin).toLocaleString('en-IN');
+            if (valMaxEl) valMaxEl.textContent = '৳' + Math.round(currentMax).toLocaleString('en-IN');
           }
 
-          sliderMin.addEventListener('input', updateSliderTrack);
-          sliderMax.addEventListener('input', updateSliderTrack);
+          function setValueFromCoord(clientX, handleType) {
+            const rect = sliderEl.getBoundingClientRect();
+            if (rect.width <= 0) return;
+            const posRatio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+            let rawVal = minLimit + posRatio * (maxLimit - minLimit);
+            rawVal = Math.round(rawVal / step) * step;
 
-          updateSliderTrack.call(sliderMin);
+            if (handleType === 'min') {
+              currentMin = Math.min(rawVal, currentMax - minGap);
+              currentMin = Math.max(minLimit, currentMin);
+            } else if (handleType === 'max') {
+              currentMax = Math.max(rawVal, currentMin + minGap);
+              currentMax = Math.min(maxLimit, currentMax);
+            }
+
+            updateVisuals();
+
+            filterMinPrice = currentMin;
+            filterMaxPrice = currentMax;
+            currentPage = 1;
+            renderCatalog();
+          }
+
+          function onPointerDown(e, type) {
+            e.preventDefault();
+            e.stopPropagation();
+            activeDrag = type;
+
+            if (type === 'min') {
+              handleMin.style.zIndex = '35';
+              handleMax.style.zIndex = '20';
+            } else {
+              handleMax.style.zIndex = '35';
+              handleMin.style.zIndex = '20';
+            }
+
+            const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+            setValueFromCoord(clientX, type);
+
+            function onPointerMove(moveEvent) {
+              if (!activeDrag) return;
+              const moveX = moveEvent.clientX || (moveEvent.touches && moveEvent.touches[0] ? moveEvent.touches[0].clientX : 0);
+              setValueFromCoord(moveX, activeDrag);
+            }
+
+            function onPointerUp() {
+              activeDrag = null;
+              window.removeEventListener('mousemove', onPointerMove);
+              window.removeEventListener('mouseup', onPointerUp);
+              window.removeEventListener('touchmove', onPointerMove);
+              window.removeEventListener('touchend', onPointerUp);
+            }
+
+            window.addEventListener('mousemove', onPointerMove, { passive: false });
+            window.addEventListener('mouseup', onPointerUp);
+            window.addEventListener('touchmove', onPointerMove, { passive: false });
+            window.addEventListener('touchend', onPointerUp);
+          }
+
+          handleMin.addEventListener('mousedown', (e) => onPointerDown(e, 'min'));
+          handleMin.addEventListener('touchstart', (e) => onPointerDown(e, 'min'), { passive: false });
+
+          handleMax.addEventListener('mousedown', (e) => onPointerDown(e, 'max'));
+          handleMax.addEventListener('touchstart', (e) => onPointerDown(e, 'max'), { passive: false });
+
+          sliderEl.addEventListener('click', (e) => {
+            if (e.target === handleMin || e.target === handleMax) return;
+            const rect = sliderEl.getBoundingClientRect();
+            if (rect.width <= 0) return;
+            const clickRatio = (e.clientX - rect.left) / rect.width;
+            const clickVal = minLimit + clickRatio * (maxLimit - minLimit);
+
+            const distToMin = Math.abs(clickVal - currentMin);
+            const distToMax = Math.abs(clickVal - currentMax);
+
+            if (distToMin < distToMax) {
+              setValueFromCoord(e.clientX, 'min');
+            } else {
+              setValueFromCoord(e.clientX, 'max');
+            }
+          });
+
+          window.resetPriceSlider = function () {
+            currentMin = 0;
+            currentMax = 3000;
+            filterMinPrice = 0;
+            filterMaxPrice = 3000;
+            updateVisuals();
+          };
+
+          updateVisuals();
         }
 
-        const desktopSidebar = document.querySelector('aside');
-        if (desktopSidebar) {
-          setupDualPriceSlider(desktopSidebar);
-        }
+        setupDualPriceSlider();
 
         const applyBtn = document.getElementById('apply-filters-btn');
         if (applyBtn) {
           applyBtn.addEventListener('click', () => {
-            const sliderMin = document.getElementById('price-slider-min');
-            const sliderMax = document.getElementById('price-slider-max');
-
-            if (sliderMin && sliderMax) {
-              filterMinPrice = parseFloat(sliderMin.value);
-              filterMaxPrice = parseFloat(sliderMax.value);
-            }
-
             handleFiltersChange();
             currentPage = 1;
             renderCatalog();
@@ -3212,26 +3402,14 @@
             filterDepartment = "";
             sortOption = "featured";
 
+            if (window.CategoryWidget) {
+              window.CategoryWidget.reset('#sidebar-cat-widget');
+            }
             filterCategory = [];
-            renderCategoryAccordion();
-            filterMinPrice = 0;
-            filterMaxPrice = 3000;
             filterDeals = [];
 
-            const sliderMin = document.getElementById('price-slider-min');
-            const sliderMax = document.getElementById('price-slider-max');
-            if (sliderMin) sliderMin.value = 0;
-            if (sliderMax) sliderMax.value = 3000;
-
-            const valMinEl = document.getElementById('price-min-val');
-            const valMaxEl = document.getElementById('price-max-val');
-            if (valMinEl) valMinEl.textContent = "৳0";
-            if (valMaxEl) valMaxEl.textContent = "৳3,000";
-
-            const trackHighlight = document.getElementById('price-slider-track-highlight');
-            if (trackHighlight) {
-              trackHighlight.style.left = "0%";
-              trackHighlight.style.right = "0%";
+            if (window.resetPriceSlider) {
+              window.resetPriceSlider();
             }
 
             document.querySelectorAll('input[name="category"], input[name="filter-deal"]').forEach(i => i.checked = false);
@@ -3330,7 +3508,6 @@
       // Initialize
       parseUrlParams();
       initFilterControls();
-      renderCategoryAccordion();
       renderCatalog();
 
       // Product Size Selection Pill & Wishlist Toggle System
@@ -3366,11 +3543,6 @@
       });
     });
   </script>
-
-  <!-- jQuery (required for Select2) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Select2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <!-- Floating Create Listing Button (Desktop/Tablet Only) -->
   <a href="#"

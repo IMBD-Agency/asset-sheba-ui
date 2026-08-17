@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>Ataur Rahman — Seller Profile | Asset Sheba</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            primary: "rgb(var(--ColorThemePrimaryRGB))",
+                            secondary: "rgb(var(--ColorThemeSecondaryRGB))",
+                        },
+                        light: {
+                            primary: "rgb(var(--ColorLightPrimaryRGB))",
+                            secondary: "rgb(var(--ColorLightSecondaryRGB))",
+                        },
+                        dark: {
+                            primary: "rgb(var(--ColorDarkPrimaryRGB))",
+                            secondary: "rgb(var(--ColorDarkSecondaryRGB))",
+                        },
+                    },
+                    fontFamily: {
+                        sans: ["var(--FontPrimary)", "Poppins", "sans-serif"],
+                        bengali: ["'Noto Sans Bengali'", "sans-serif"],
+                    },
+                    boxShadow: {
+                        card: "var(--BoxShadow)",
+                        "card-hover": "var(--BoxShadowHover)",
+                        "2xs": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+                    },
+                    screens: {
+                        "xs": "480px",
+                        "sm": "576px",
+                        "md": "768px",
+                        "lg": "992px",
+                        "xl": "1200px",
+                        "2xl": "1600px",
+                    },
+                },
+                container: {
+                    center: true,
+                    padding: "0.75rem",
+                    screens: {
+                        "xs": "480px",
+                        "sm": "576px",
+                        "md": "768px",
+                        "lg": "992px",
+                        "xl": "1200px",
+                        "2xl": "1600px",
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Theme Anti-Flash Initializer Script -->
+    <script id="sheba-theme-initializer">
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('sheba_theme');
+                if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) { }
+        })();
+    </script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/fonts.css">
+
+    <!-- Common CSS (Variables and Basic settings) -->
+    <link rel="stylesheet" href="frontend/assets/css/common.css">
+
+    <!-- Tailwind Output -->
+    <link rel="stylesheet" href="frontend/assets/css/tailwind-built.css">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+</head>
+
+<body class="text-ink antialiased bg-slate-50/50 dark:bg-[#070e22] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- ============ UNIFIED PRELOADER SYSTEM ============ -->
+    <script>
+        const shebaLoader = {
+            _activeLoaders: new Map(),
+            show: function (target = 'body', message = '') {
+                const parent = typeof target === 'string' ? document.querySelector(target) : target;
+                if (!parent) return;
+                if (this._activeLoaders.has(parent)) return;
+
+                const isFullscreen = target === 'body';
+                if (!isFullscreen) {
+                    parent.style.setProperty('position', 'relative', 'important');
+                }
+
+                const loader = document.createElement('div');
+                if (isFullscreen) {
+                    loader.id = 'preloader';
+                    loader.className = 'fixed inset-0 w-screen h-screen z-[99999] flex flex-col items-center justify-center bg-slate-950 transition-all duration-700 ease-out';
+                    loader.innerHTML = `
+                        <div class="relative flex flex-col items-center space-y-6">
+                            <div class="w-20 h-20 flex items-center justify-center relative">
+                                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba Logo" class="w-16 h-16 object-contain">
+                            </div>
+                            <div class="w-32 h-[3px] bg-slate-800 rounded-full overflow-hidden relative">
+                                <div class="absolute top-0 bottom-0 left-0 bg-theme-primary rounded-full w-14 animate-infinite-dash"></div>
+                            </div>
+                            <div class="text-center space-y-1">
+                                <h2 class="text-white text-sm font-semibold tracking-[0.25em] uppercase">Asset Sheba</h2>
+                                <p class="text-[9px] text-slate-500 tracking-[0.3em] font-medium uppercase">${message || 'Seller Profile'}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    loader.className = 'absolute inset-0 w-full h-full z-50 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-950/95 transition-all duration-300';
+                    loader.innerHTML = `
+                        <div class="relative flex flex-col items-center space-y-3">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center">
+                                <span class="text-theme-primary font-bold text-xs">A</span>
+                            </div>
+                            <div class="w-16 h-[2px] bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden relative">
+                                <div class="absolute top-0 bottom-0 left-0 bg-theme-primary rounded-full w-8 animate-infinite-dash"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                parent.appendChild(loader);
+                this._activeLoaders.set(parent, loader);
+            },
+            hide: function (target = 'body') {
+                const parent = typeof target === 'string' ? document.querySelector(target) : target;
+                if (!parent) return;
+                const loader = this._activeLoaders.get(parent);
+                if (loader) {
+                    loader.classList.add('loaded');
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.remove();
+                        this._activeLoaders.delete(parent);
+                    }, 800);
+                }
+            }
+        };
+
+        shebaLoader.show('body');
+        window.addEventListener('load', () => setTimeout(() => shebaLoader.hide('body'), 300));
+        setTimeout(() => shebaLoader.hide('body'), 2500);
+    </script>
+
+    <!-- ============ COMMON OFFCANVAS BACKDROP ============ -->
+    <div id="common-offcanvas-backdrop"
+        class="fixed inset-0 bg-[#0f172a]/60 backdrop-blur-[2px] z-[990] hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
+    </div>
+
+    <!-- ============ SETTINGS OFFCANVAS ============ -->
+    <div id="settings-offcanvas" data-canvas-index="999" data-backdrop-index="990"
+        class="fixed top-0 right-0 h-full w-[310px] sm:w-[350px] z-[999] bg-white dark:bg-[#0b1329] shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 invisible border-l border-slate-100 dark:border-white/10">
+
+        <!-- Drawer Header -->
+        <div class="flex items-center justify-between px-4 h-[72px] border-b border-slate-100/80 dark:border-white/10 shrink-0 bg-white dark:bg-[#0b1329]">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 leading-tight">Settings</h3>
+                    <p class="text-[11px] text-slate-400">Preferences & Theme</p>
+                </div>
+            </div>
+            <button id="settings-close-btn"
+                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-theme-primary hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer border-none"
+                aria-label="Close settings">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Body -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-6 scrollbar-thin">
+
+            <!-- Section 1: Appearance Mode -->
+            <div>
+                <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-palette text-theme-primary text-xs"></i> Appearance Mode
+                </label>
+                <div class="grid grid-cols-2 gap-2 settings-toggle-track" id="theme-mode-toggle-group">
+                    <button type="button" data-theme="light" id="theme-btn-light"
+                        class="theme-toggle-btn settings-pill-btn is-active">
+                        <i class="fa-regular fa-sun text-amber-500 text-sm"></i> Light
+                    </button>
+                    <button type="button" data-theme="dark" id="theme-btn-dark"
+                        class="theme-toggle-btn settings-pill-btn">
+                        <i class="fa-solid fa-moon text-indigo-400 text-sm"></i> Dark
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 2: Display Language -->
+            <div>
+                <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-theme-primary text-xs"></i> Display Language
+                </label>
+                <div class="grid grid-cols-2 gap-2 settings-toggle-track" id="lang-toggle-group">
+                    <button type="button" data-lang="EN" id="lang-btn-en"
+                        class="lang-select-btn settings-pill-btn is-active">
+                        <span class="text-xs">🇬🇧</span> English
+                    </button>
+                    <button type="button" data-lang="BN" id="lang-btn-bn" class="lang-select-btn settings-pill-btn">
+                        <span class="text-xs">🇧🇩</span> বাংলা
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 3: Country / Region Switcher -->
+            <div>
+                <div class="flex items-center justify-between mb-2.5">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-earth-americas text-theme-primary text-xs"></i> Country / Region
+                    </label>
+                    <span id="settings-country-mode-badge"
+                        class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">Auto Detected</span>
+                </div>
+
+                <!-- Active Country Preview & Toggle Button -->
+                <div class="relative">
+                    <button type="button" id="settings-country-toggle-btn"
+                        class="w-full flex items-center justify-between p-2.5 rounded-2xl bg-slate-100/90 dark:bg-[#070e22] hover:bg-slate-200/70 dark:hover:bg-[#0c1736] border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 transition-all text-left cursor-pointer group shadow-2xs">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#1e293b] flex items-center justify-center text-lg leading-none shrink-0 shadow-2xs border border-slate-100 dark:border-white/5">
+                                <span id="settings-active-flag" class="select-none">🇧🇩</span>
+                            </div>
+                            <div class="min-w-0 flex flex-col justify-center">
+                                <div class="flex items-center gap-1.5 leading-none">
+                                    <span id="settings-active-name" class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">Bangladesh</span>
+                                    <span id="settings-active-code" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-[#1e293b] text-slate-600 dark:text-slate-300 font-semibold shrink-0">BD</span>
+                                </div>
+                                <p id="settings-active-currency" class="text-[10px] text-slate-400 dark:text-slate-400 truncate mt-1 leading-none">Currency: BDT (৳)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0 text-theme-primary dark:text-indigo-400 group-hover:opacity-80 transition-opacity">
+                            <span class="text-[10px] font-semibold">Change</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="settings-country-chevron"></i>
+                        </div>
+                    </button>
+
+                    <!-- Searchable Country Dropdown Panel -->
+                    <div id="settings-country-panel"
+                        class="hidden mt-2 p-2.5 bg-white dark:bg-[#0b1329] border border-slate-200/90 dark:border-white/10 rounded-2xl shadow-xl space-y-2 z-20">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 dark:text-slate-500 text-[11px] absolute left-3 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="settings-country-search" placeholder="Search country or code..."
+                                class="w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary dark:focus:border-indigo-400 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-normal">
+                        </div>
+                        <div id="settings-country-list" class="max-h-48 overflow-y-auto space-y-1 scrollbar-thin"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Quick Info / Preferences -->
+            <div class="p-3.5 bg-slate-100/90 dark:bg-[#070e22] settings-info-card rounded-2xl space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-regular fa-bell text-theme-primary dark:text-indigo-400 text-xs"></i> Notifications
+                    </span>
+                    <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300">Enabled</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-coins text-theme-primary dark:text-indigo-400 text-xs"></i> Currency
+                    </span>
+                    <span id="settings-currency-display" class="font-bold text-slate-800 dark:text-indigo-300 text-xs">BDT (৳)</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-[#070e22] text-center shrink-0">
+            <p class="text-[11px] text-slate-400">Asset Sheba Platform</p>
+        </div>
+    </div>
+
+    <!-- ============ MOBILE NAV OFFCANVAS ============ -->
+    <div id="nav-offcanvas" data-canvas-index="999" data-backdrop-index="990"
+        class="fixed top-0 left-0 h-full w-[310px] sm:w-[350px] z-[999] bg-white dark:bg-[#0b1329] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 invisible lg:hidden border-r border-slate-100 dark:border-white/10">
+
+        <div class="nav-drawer-header flex items-center justify-between px-4 h-[72px] border-b border-slate-100/80 dark:border-white/10 shrink-0 bg-white dark:bg-[#0b1329]">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba" class="h-8 w-auto object-contain">
+                <span class="text-sm font-black tracking-wide text-gray-900 dark:text-white uppercase">Asset Sheba</span>
+            </a>
+            <button id="nav-close-btn"
+                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-theme-primary hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer border-none"
+                aria-label="Close navigation">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <nav class="nav-drawer-body flex-1 overflow-y-auto p-5 space-y-1" aria-label="Mobile Navigation">
+            <a href="index.html" class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Home</a>
+            <a href="products.html" class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Services</a>
+            <a href="products.html?deal=Sale" class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Assets</a>
+            <a href="products.html?deal=New" class="nav-link-item flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Asset Sheba Store</a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-[#070e22] text-center shrink-0">
+            <p class="text-[11px] text-slate-400">Asset Sheba Platform</p>
+        </div>
+    </div>
+
+    <!-- ============ MAIN CONTAINER ============ -->
+    <div class="body flex-1 flex flex-col justify-between">
+
+        <!-- ============ MAIN HEADER ============ -->
+        <header id="main-header" class="sticky top-0 z-[40] bg-transparent transition-all duration-300">
+            <div id="header-card"
+                class="w-full bg-white dark:bg-[#0b1329] py-3.5 border-b border-slate-100/80 dark:border-white/10 shadow-[0_2px_15px_rgba(0,0,0,0.01)] transition-all duration-300 relative z-[9]">
+
+                <div class="container relative z-[9]">
+                    <div id="header-top-row" class="flex lg:grid lg:grid-cols-12 items-stretch justify-between gap-3 sm:gap-4 lg:gap-5 h-11">
+
+                        <!-- Left / Logo -->
+                        <div class="flex items-center gap-2 shrink-0 lg:col-span-3 h-full lg:justify-start">
+                            <button id="mobile-menu-btn"
+                                class="lg:hidden w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer"
+                                aria-label="Toggle Navigation Menu">
+                                <i class="fa-solid fa-bars text-sm"></i>
+                            </button>
+
+                            <a href="index.html" class="flex items-center gap-2.5 shrink-0 hover:opacity-90 transition-opacity">
+                                <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba" class="h-9 w-auto object-contain">
+                                <div class="flex flex-col logo-text max-[576px]:hidden">
+                                    <span class="text-base font-black tracking-[0.05em] text-slate-800 dark:text-white leading-tight uppercase">ASSET SHEBA</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Center / Nav -->
+                        <div id="desktop-nav-placeholder" class="hidden lg:col-span-6 lg:flex lg:items-center lg:justify-center lg:h-full lg:overflow-visible">
+                            <nav id="desktop-nav-container" class="flex items-center justify-center gap-6 h-full" aria-label="Desktop Navigation">
+                                <a href="index.html" class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Home</a>
+                                <a href="products.html" class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Services</a>
+                                <a href="products.html?deal=Sale" class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Assets</a>
+                                <a href="products.html?deal=New" class="nav-link-item flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-theme-primary transition-all duration-300 whitespace-nowrap">Asset Sheba Store</a>
+                            </nav>
+                        </div>
+
+                        <!-- Right / Utility Actions -->
+                        <div class="flex items-center gap-3 shrink-0 lg:col-span-3 h-full lg:justify-end">
+                            <!-- Country Flag Button -->
+                            <button id="header-country-btn" type="button" aria-label="Country / Region" title="Select Country / Region"
+                                class="w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 relative cursor-pointer group">
+                                <span id="header-country-flag" class="text-base leading-none select-none transition-transform group-hover:scale-110">🇧🇩</span>
+                            </button>
+
+                            <!-- User Account / Profile Icon Button -->
+                            <a href="account.html" aria-label="Account"
+                                class="hidden lg:flex w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 items-center justify-center text-slate-700 dark:text-slate-300 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 overflow-hidden">
+                                <i class="fa-regular fa-user text-[13px]"></i>
+                            </a>
+
+                            <!-- Settings Toggle button -->
+                            <button id="settings-toggle-btn" aria-label="Settings & Theme" title="Settings"
+                                class="w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:border-theme-primary/30 hover:bg-theme-primary/5 hover:text-theme-primary transition-all duration-300 cursor-pointer">
+                                <i class="fa-solid fa-gear text-[14px]"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============ MAIN CONTENT AREA ============ -->
+        <main class="flex-1 pb-12">
+            <div class="container py-6">
+
+                <!-- 1. SELLER COVER BANNER & PROFILE CARD HEADER -->
+                <div class="relative w-full mb-6">
+                    <!-- Cover Banner Area -->
+                    <div class="relative w-full h-44 sm:h-56 lg:h-64 rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-900/40 via-slate-800/30 to-theme-primary/20 dark:from-[#0b1329] dark:via-[#111c3a] dark:to-[#070e22] border border-slate-200/80 dark:border-white/10 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-slate-900/20 backdrop-blur-[1px]"></div>
+                        <!-- Placeholder Store Illustration Icon or Cover Asset -->
+                        <div class="relative z-10 flex flex-col items-center justify-center text-slate-400/40 dark:text-white/10 select-none pointer-events-none">
+                            <i class="fa-solid fa-store text-6xl sm:text-7xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Elevated Seller Profile Info Card (Overlapping Cover) -->
+                    <div class="relative -mt-16 sm:-mt-20 mx-3 sm:mx-6 lg:mx-8 bg-white dark:bg-[#0b1329] rounded-3xl p-5 sm:p-7 border border-slate-200/80 dark:border-white/10 shadow-sm z-10">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-6 border-b border-slate-100 dark:border-white/10">
+                            
+                            <!-- Left: Avatar + Details -->
+                            <div class="flex items-center gap-4 sm:gap-5 min-w-0">
+                                <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-4 border-white dark:border-[#0b1329] shadow-md shrink-0 bg-slate-100 dark:bg-slate-800">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
+                                        alt="Ataur Rahman" class="w-full h-full object-cover object-center">
+                                </div>
+                                <div class="min-w-0 space-y-1.5">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <h1 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white truncate">Ataur Rahman</h1>
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold">
+                                            <i class="fa-solid fa-circle-check text-[10px]"></i> Verified
+                                        </span>
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-[11px] font-bold">
+                                            Active
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+                                        <span class="flex items-center gap-1.5 font-medium">
+                                            <i class="fa-solid fa-store text-theme-primary"></i> Marketplace Seller
+                                        </span>
+                                        <span>•</span>
+                                        <span class="font-medium text-slate-600 dark:text-slate-300">@ataurbdc</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-xs text-amber-500">
+                                        <div class="flex items-center gap-0.5">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star-half-stroke"></i>
+                                        </div>
+                                        <span class="font-bold text-slate-700 dark:text-slate-200">4.7</span>
+                                        <span class="text-slate-400 dark:text-slate-500">(24 Average Reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Actions -->
+                            <div class="flex items-center gap-2.5 shrink-0 self-start md:self-center">
+                                <button type="button" id="seller-follow-btn"
+                                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 hover:border-theme-primary hover:text-theme-primary text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span>Follow</span>
+                                </button>
+                                <button type="button"
+                                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-theme-primary hover:bg-theme-primary/90 text-xs font-bold text-white transition-all shadow-sm cursor-pointer border-none">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <span>Chat</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <!-- Bottom Stats Bar -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-white/5">
+                            <div class="pt-2 sm:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Listings</p>
+                                <p class="text-lg font-black text-slate-800 dark:text-slate-100 mt-0.5">4</p>
+                            </div>
+                            <div class="pt-2 sm:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Views</p>
+                                <p class="text-lg font-black text-slate-800 dark:text-slate-100 mt-0.5">32</p>
+                            </div>
+                            <div class="pt-2 sm:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Member Since</p>
+                                <p class="text-sm font-bold text-slate-800 dark:text-slate-100 mt-1">Sep 2025</p>
+                            </div>
+                            <div class="pt-2 sm:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Response Time</p>
+                                <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1">~2 hours</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 2. SELLER PROFILE TAB NAVIGATION -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 bg-white dark:bg-[#0b1329] p-1.5 rounded-2xl border border-slate-200/80 dark:border-white/10 w-fit shadow-2xs">
+                        <button type="button" id="tab-btn-home" data-tab="home"
+                            class="profile-nav-tab inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-none bg-theme-primary text-white shadow-xs">
+                            <i class="fa-solid fa-house text-xs"></i>
+                            <span>Home</span>
+                        </button>
+                        <button type="button" id="tab-btn-about" data-tab="about"
+                            class="profile-nav-tab inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-none text-slate-600 dark:text-slate-300 hover:text-theme-primary dark:hover:text-white bg-transparent">
+                            <i class="fa-solid fa-circle-info text-xs"></i>
+                            <span>About</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. TAB CONTENT 1: HOME (Sidebar Filter + Catalog Grid) -->
+                <div id="profile-tab-home-content" class="tab-pane">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                        <!-- Left Sidebar Filter (col-span-3) -->
+                        <aside id="unified-sidebar-filter"
+                            class="fixed top-0 left-0 h-full w-[310px] sm:w-[350px] max-w-[90%] bg-white dark:bg-[#0b1329] z-[10001] overflow-hidden transition-transform duration-300 -translate-x-full flex flex-col lg:flex lg:flex-col lg:col-span-3 lg:w-auto lg:max-w-none lg:bg-white dark:lg:bg-[#0b1329] lg:rounded-3xl lg:border lg:border-slate-200/80 dark:lg:border-white/10 lg:shadow-sm lg:z-0 lg:translate-x-0 lg:sticky lg:top-24">
+
+                            <!-- Sidebar Header -->
+                            <div class="flex items-center justify-between px-5 h-[68px] border-b border-slate-100 dark:border-white/10 shrink-0 bg-white dark:bg-[#0b1329]">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center">
+                                        <i class="fa-solid fa-sliders text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Filters</h3>
+                                        <p class="text-[10px] text-slate-400">Refine listings</p>
+                                    </div>
+                                </div>
+                                <button id="filter-close-btn" type="button"
+                                    class="w-7 h-7 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-theme-primary hover:text-white text-slate-600 dark:text-slate-300 flex items-center justify-center transition-all cursor-pointer lg:hidden border-none">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
+                                </button>
+                            </div>
+
+                            <!-- Filter Controls -->
+                            <div class="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-thin">
+                                <!-- Functionality -->
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">Functionality</label>
+                                    <select id="seller-functionality-select" class="w-full bg-slate-50 dark:bg-[#070e22] border border-slate-200 dark:border-white/10 text-xs text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2.5 outline-none focus:border-theme-primary font-medium">
+                                        <option value="">All Functionalities</option>
+                                        <option value="Buy">Buy</option>
+                                        <option value="Rent">Rent</option>
+                                        <option value="Hire">Hire</option>
+                                        <option value="Book">Book</option>
+                                    </select>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="space-y-2">
+                                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">Department</label>
+                                    <select id="seller-department-select" class="w-full bg-slate-50 dark:bg-[#070e22] border border-slate-200 dark:border-white/10 text-xs text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2.5 outline-none focus:border-theme-primary font-medium">
+                                        <option value="">All Departments</option>
+                                        <option value="Services">Services</option>
+                                        <option value="Assets">Assets</option>
+                                        <option value="Store">AssetSheba Store</option>
+                                    </select>
+                                </div>
+
+                                <!-- Category Drilldown Widget (Dynamic CategoryWidget Engine) -->
+                                <div id="seller-cat-widget" data-category-widget="sidebar" class="category-widget space-y-3 pt-2">
+                                    <!-- Header Row: Back button + Dynamic Title + Level Badge -->
+                                    <div class="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/5 pb-2">
+                                        <div class="flex items-center gap-2 min-w-0">
+                                            <button id="sidebar-cat-back-btn" type="button"
+                                                class="hidden w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-theme-primary/10 text-slate-600 dark:text-slate-300 hover:text-theme-primary flex items-center justify-center transition-all cursor-pointer shrink-0 border border-slate-200/60 dark:border-slate-700/60"
+                                                title="Previous level">
+                                                <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                                            </button>
+                                            <h3 id="sidebar-cat-title"
+                                                class="text-[11px] font-bold text-slate-500 uppercase tracking-wider truncate">
+                                                Category
+                                            </h3>
+                                        </div>
+                                        <span id="sidebar-cat-badge"
+                                            class="text-[9px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shrink-0">Root</span>
+                                    </div>
+
+                                    <!-- Search Input with Clear Button & Floating Results Dropdown -->
+                                    <div class="relative w-full">
+                                        <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3 top-1/2 -translate-y-1/2"></i>
+                                        <input type="text" id="sidebar-cat-search" placeholder="Search category..."
+                                            class="w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 pr-7 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary font-normal">
+                                        <button id="sidebar-cat-clear-search" type="button"
+                                            class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-[9px] flex items-center justify-center cursor-pointer border-none">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+
+                                        <!-- Floating Search Results Dropdown -->
+                                        <div id="sidebar-cat-search-view"
+                                            class="hidden absolute left-0 right-0 top-full mt-1.5 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl max-h-[260px] overflow-y-auto p-2 scrollbar-thin space-y-1">
+                                            <div id="sidebar-cat-search-list" class="space-y-1"></div>
+                                            <div id="sidebar-cat-empty-state" class="hidden py-4 text-center text-xs text-slate-400">
+                                                No category found
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Breadcrumbs Trail -->
+                                    <div id="sidebar-cat-breadcrumb"
+                                        class="text-[11px] text-slate-400 dark:text-slate-400 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap flex items-center gap-1 font-normal scroll-smooth">
+                                    </div>
+
+                                    <!-- Step Drilldown List Container -->
+                                    <div id="sidebar-cat-list-container" class="space-y-1.5">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar Action Buttons -->
+                            <div class="p-4 border-t border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-[#070e22] grid grid-cols-2 gap-2">
+                                <button type="button" id="seller-filter-clear-btn"
+                                    class="py-2.5 px-3 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 text-center transition-all cursor-pointer">
+                                    <i class="fa-solid fa-rotate-left mr-1"></i> Clear
+                                </button>
+                                <button type="button" id="seller-filter-apply-btn"
+                                    class="py-2.5 px-3 rounded-xl bg-theme-primary text-white text-xs font-bold hover:bg-theme-primary/90 text-center transition-all shadow-xs cursor-pointer border-none">
+                                    <i class="fa-solid fa-filter mr-1"></i> Filter
+                                </button>
+                            </div>
+                        </aside>
+
+                        <!-- Right Listings Grid (col-span-9) -->
+                        <div class="col-span-12 lg:col-span-9 space-y-5">
+
+                            <!-- Top Bar: Result Count + Search inside seller listings + Layout Toggle -->
+                            <div class="bg-white dark:bg-[#0b1329] p-3.5 sm:p-4 rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+                                
+                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                    <!-- Mobile Filter Open Button -->
+                                    <button type="button" id="mobile-filter-open-btn"
+                                        class="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 text-xs font-bold cursor-pointer border-none">
+                                        <i class="fa-solid fa-sliders text-xs"></i>
+                                        <span>Filters</span>
+                                    </button>
+
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <h2 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100">
+                                            <span class="font-extrabold text-theme-primary">4</span> results found for <span class="font-extrabold text-slate-900 dark:text-white">Ataur Rahman</span>
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                                    <!-- Search Input -->
+                                    <div class="relative flex-1 sm:w-60">
+                                        <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3 top-1/2 -translate-y-1/2"></i>
+                                        <input type="text" id="seller-listing-search" placeholder="Search in listings..."
+                                            class="w-full bg-slate-50 dark:bg-[#070e22] text-xs text-slate-800 dark:text-slate-100 px-3 py-2 pl-8 rounded-xl outline-none border border-slate-200 dark:border-white/10 focus:border-theme-primary font-medium">
+                                    </div>
+
+                                    <!-- Grid / List Switcher -->
+                                    <div class="flex items-center bg-slate-100 dark:bg-[#070e22] p-1 rounded-xl border border-slate-200/60 dark:border-white/5">
+                                        <button type="button" id="seller-grid-layout-btn"
+                                            class="w-8 h-7 rounded-lg flex items-center justify-center text-theme-primary bg-white dark:bg-[#1e293b] shadow-2xs cursor-pointer border-none transition-all">
+                                            <i class="fa-solid fa-grid-2 text-xs"></i>
+                                        </button>
+                                        <button type="button" id="seller-list-layout-btn"
+                                            class="w-8 h-7 rounded-lg flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-700 cursor-pointer border-none bg-transparent transition-all">
+                                            <i class="fa-solid fa-list text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Products / Listings Grid -->
+                            <div id="seller-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                                <!-- Card 1 -->
+                                <div class="product-card group bg-white dark:bg-[#0b1329] rounded-3xl p-3 border border-slate-200/80 dark:border-white/10 hover:border-theme-primary/60 dark:hover:border-indigo-400/60 transition-all duration-300 shadow-sm flex flex-col justify-between">
+                                    <div class="space-y-3">
+                                        <!-- Image Box -->
+                                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#070e22]">
+                                            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80"
+                                                alt="Testing Service" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                            <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-amber-500 text-white text-[10px] font-bold tracking-wider uppercase">সার্ভিস</span>
+                                            <button type="button" class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:text-rose-500 transition-colors shadow-2xs border-none cursor-pointer">
+                                                <i class="fa-regular fa-heart text-xs"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Meta & Title -->
+                                        <div class="space-y-1.5">
+                                            <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                                                <i class="fa-regular fa-folder text-theme-primary"></i> Testing BN
+                                            </div>
+                                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-theme-primary transition-colors line-clamp-1">
+                                                <a href="product-details.html">qwerferg — Reliable Engineering Service</a>
+                                            </h3>
+                                            <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-location-dot text-[11px] text-slate-400"></i> Bangladesh
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price & CTA -->
+                                    <div class="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium">Price Range</span>
+                                            <p class="text-sm font-extrabold text-theme-primary dark:text-indigo-400">৳১০০ - ১০০০</p>
+                                        </div>
+                                        <a href="product-details.html"
+                                            class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-theme-primary hover:text-white dark:hover:bg-theme-primary text-xs font-bold text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1">
+                                            <span>Details</span>
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="product-card group bg-white dark:bg-[#0b1329] rounded-3xl p-3 border border-slate-200/80 dark:border-white/10 hover:border-theme-primary/60 dark:hover:border-indigo-400/60 transition-all duration-300 shadow-sm flex flex-col justify-between">
+                                    <div class="space-y-3">
+                                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#070e22]">
+                                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop&q=80"
+                                                alt="Flutter Test Vehicle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                            <div class="absolute top-2.5 left-2.5 flex items-center gap-1">
+                                                <span class="px-2.5 py-0.5 rounded-md bg-emerald-500 text-white text-[10px] font-bold tracking-wider uppercase">বিজ্ঞাপন</span>
+                                                <span class="px-2 py-0.5 rounded-md bg-rose-500 text-white text-[10px] font-bold tracking-wider uppercase">11% OFF</span>
+                                            </div>
+                                            <button type="button" class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:text-rose-500 transition-colors shadow-2xs border-none cursor-pointer">
+                                                <i class="fa-regular fa-heart text-xs"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="space-y-1.5">
+                                            <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                                                <i class="fa-solid fa-car text-theme-primary"></i> Vehicles
+                                            </div>
+                                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-theme-primary transition-colors line-clamp-1">
+                                                <a href="product-details.html">Flutter Test — Luxury Private Sedan</a>
+                                            </h3>
+                                            <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-location-dot text-[11px] text-slate-400"></i> Companiganj, Sylhet, Bangladesh
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium line-through">৳ ১,১০০</span>
+                                            <p class="text-sm font-extrabold text-theme-primary dark:text-indigo-400">৳ ৮০</p>
+                                        </div>
+                                        <a href="product-details.html"
+                                            class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-theme-primary hover:text-white dark:hover:bg-theme-primary text-xs font-bold text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1">
+                                            <span>Details</span>
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="product-card group bg-white dark:bg-[#0b1329] rounded-3xl p-3 border border-slate-200/80 dark:border-white/10 hover:border-theme-primary/60 dark:hover:border-indigo-400/60 transition-all duration-300 shadow-sm flex flex-col justify-between">
+                                    <div class="space-y-3">
+                                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#070e22]">
+                                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop&q=80"
+                                                alt="Bashundhara Land" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                            <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-emerald-500 text-white text-[10px] font-bold tracking-wider uppercase">বিজ্ঞাপন</span>
+                                            <button type="button" class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:text-rose-500 transition-colors shadow-2xs border-none cursor-pointer">
+                                                <i class="fa-regular fa-heart text-xs"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="space-y-1.5">
+                                            <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                                                <i class="fa-solid fa-building text-theme-primary"></i> Home & Land
+                                            </div>
+                                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-theme-primary transition-colors line-clamp-1">
+                                                <a href="product-details.html">Bashundhara R/A 4 Katha South Facing Land</a>
+                                            </h3>
+                                            <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-location-dot text-[11px] text-slate-400"></i> Dhaka Sadar, Dhaka, Bangladesh
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium">Price</span>
+                                            <p class="text-sm font-extrabold text-theme-primary dark:text-indigo-400">৳ ১,১০,০০,০০০</p>
+                                        </div>
+                                        <a href="product-details.html"
+                                            class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-theme-primary hover:text-white dark:hover:bg-theme-primary text-xs font-bold text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1">
+                                            <span>Details</span>
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Card 4 -->
+                                <div class="product-card group bg-white dark:bg-[#0b1329] rounded-3xl p-3 border border-slate-200/80 dark:border-white/10 hover:border-theme-primary/60 dark:hover:border-indigo-400/60 transition-all duration-300 shadow-sm flex flex-col justify-between">
+                                    <div class="space-y-3">
+                                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#070e22]">
+                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=500&auto=format&fit=crop&q=80"
+                                                alt="Ready Flat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                            <div class="absolute top-2.5 left-2.5 flex items-center gap-1">
+                                                <span class="px-2.5 py-0.5 rounded-md bg-emerald-500 text-white text-[10px] font-bold tracking-wider uppercase">বিজ্ঞাপন</span>
+                                                <span class="px-2 py-0.5 rounded-md bg-rose-500 text-white text-[10px] font-bold tracking-wider uppercase">44% OFF</span>
+                                            </div>
+                                            <button type="button" class="wishlist-btn absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:text-rose-500 transition-colors shadow-2xs border-none cursor-pointer">
+                                                <i class="fa-regular fa-heart text-xs"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="space-y-1.5">
+                                            <div class="flex items-center gap-2 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                                                <i class="fa-solid fa-home text-theme-primary"></i> Flat
+                                            </div>
+                                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-theme-primary transition-colors line-clamp-1">
+                                                <a href="product-details.html">Ready For Living South Facing Luxury Apartment</a>
+                                            </h3>
+                                            <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <i class="fa-solid fa-location-dot text-[11px] text-slate-400"></i> Uttara, Dhaka, Bangladesh
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-3 mt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium line-through">BDT ৳১০০</span>
+                                            <p class="text-sm font-extrabold text-theme-primary dark:text-indigo-400">BDT ৳৭৯</p>
+                                        </div>
+                                        <a href="product-details.html"
+                                            class="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-theme-primary hover:text-white dark:hover:bg-theme-primary text-xs font-bold text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1">
+                                            <span>Details</span>
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 4. TAB CONTENT 2: ABOUT (Store & Seller Details) -->
+                <div id="profile-tab-about-content" class="tab-pane hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                        <!-- Left: Store / Seller Bio & Details (col-span-8) -->
+                        <div class="col-span-12 lg:col-span-8 space-y-6">
+                            
+                            <!-- About Bio Card -->
+                            <div class="bg-white dark:bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-4">
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <i class="fa-regular fa-address-card text-theme-primary"></i> About Ataur Rahman & Store
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Welcome to our official Asset Sheba store page. We offer verified property listings, professional consultancy, vehicles, and premium assets across Bangladesh. We are committed to authentic dealings, clear documentation, and prompt responses.
+                                </p>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Feel free to reach out via chat or phone call for inquiries regarding any of our active listings or special requirements.
+                                </p>
+                            </div>
+
+                            <!-- Verified Credentials & Badges -->
+                            <div class="bg-white dark:bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-4">
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-check text-theme-primary"></i> Verification & Security
+                                </h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#070e22] border border-slate-200/60 dark:border-white/5 space-y-1">
+                                        <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                                            <i class="fa-solid fa-circle-check"></i> Phone Verified
+                                        </div>
+                                        <p class="text-[11px] text-slate-400">Verified via OTP</p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#070e22] border border-slate-200/60 dark:border-white/5 space-y-1">
+                                        <div class="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                                            <i class="fa-solid fa-circle-check"></i> NID Verified
+                                        </div>
+                                        <p class="text-[11px] text-slate-400">Identity authenticated</p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#070e22] border border-slate-200/60 dark:border-white/5 space-y-1">
+                                        <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-xs">
+                                            <i class="fa-solid fa-award"></i> Top Rated
+                                        </div>
+                                        <p class="text-[11px] text-slate-400">Over 98% satisfaction</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Contact & Working Hours (col-span-4) -->
+                        <div class="col-span-12 lg:col-span-4 space-y-6">
+
+                            <!-- Contact Card -->
+                            <div class="bg-white dark:bg-[#0b1329] p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-4">
+                                <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Contact Information</h3>
+                                <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300">
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-phone text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-slate-400 font-medium">Phone</p>
+                                            <p class="font-bold text-slate-800 dark:text-slate-100">+880 1712-345678</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-envelope text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-slate-400 font-medium">Email</p>
+                                            <p class="font-bold text-slate-800 dark:text-slate-100">ataur.rahman@example.com</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-xl bg-theme-primary/10 text-theme-primary flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-location-dot text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-slate-400 font-medium">Location</p>
+                                            <p class="font-bold text-slate-800 dark:text-slate-100">Dhaka, Bangladesh</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Store Working Hours -->
+                            <div class="bg-white dark:bg-[#0b1329] p-6 rounded-3xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-4">
+                                <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Business Hours</h3>
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex justify-between text-slate-600 dark:text-slate-300">
+                                        <span>Sat – Thu:</span>
+                                        <span class="font-bold text-slate-800 dark:text-slate-100">09:00 AM – 09:00 PM</span>
+                                    </div>
+                                    <div class="flex justify-between text-slate-600 dark:text-slate-300">
+                                        <span>Friday:</span>
+                                        <span class="font-bold text-emerald-600 dark:text-emerald-400">Open (03:00 PM - 09:00 PM)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ============ ASSET SHEBA FOOTER ============ -->
+        <footer class="bg-[#0f172a] text-[#94a3b8] pt-14 pb-4 relative overflow-hidden">
+            <div class="container relative z-10">
+                <div class="grid grid-cols-12 gap-6 sm:gap-8 pb-12 border-b border-white/[0.08]">
+                    <!-- Brand Info -->
+                    <div class="col-span-12 lg:col-span-4 space-y-4">
+                        <a href="index.html" class="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+                            <img src="frontend/assets/images/logo/logo.png" alt="Asset Sheba" class="h-9 w-auto object-contain brightness-0 invert">
+                            <span class="text-lg font-black tracking-wider text-white leading-tight uppercase">ASSET SHEBA</span>
+                        </a>
+                        <p class="text-xs leading-relaxed text-slate-400 max-w-sm">
+                            ঠিকানা, মেম্বর, হোস্টিং, মেলা, প্রপার্টি, চাকরি, পণ্য — সবকিছুই এক প্ল্যাটফর্মে সহজ ও নিরাপদে কেনাবেচা করুন।
+                        </p>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                        <h4 class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">Quick Links</h4>
+                        <ul class="space-y-2.5 text-xs text-slate-400">
+                            <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                            <li><a href="products.html" class="hover:text-white transition-colors">Services</a></li>
+                            <li><a href="products.html?deal=Sale" class="hover:text-white transition-colors">Assets</a></li>
+                            <li><a href="products.html?deal=New" class="hover:text-white transition-colors">Store</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- For Users -->
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                        <h4 class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">For Users</h4>
+                        <ul class="space-y-2.5 text-xs text-slate-400">
+                            <li><a href="#" class="hover:text-white transition-colors">Post an Ad</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Saved Ads</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Safety Tips</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                        <h4 class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">Support</h4>
+                        <ul class="space-y-2.5 text-xs text-slate-400">
+                            <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">FAQ & Help</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2 space-y-3.5">
+                        <h4 class="text-xs font-black text-white uppercase tracking-[0.15em] border-l-2 border-theme-primary pl-2.5">Contact Us</h4>
+                        <ul class="space-y-3 text-xs text-slate-400">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-theme-primary text-xs shrink-0"></i>
+                                <a href="tel:+8801234567890" class="hover:text-white transition-colors">+880 1234-567890</a>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-envelope text-theme-primary text-xs shrink-0"></i>
+                                <a href="mailto:info@assetsheba.com" class="hover:text-white transition-colors">info@assetsheba.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="pt-6 pb-2 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="text-xs text-slate-500 font-medium">&copy; 2026 Asset Sheba. All rights reserved.</div>
+                    <div class="text-xs text-slate-500 font-medium">
+                        Designed & Developed by <a href="https://imbdagency.com" target="_blank" class="text-theme-primary font-semibold hover:underline">IMBD Agency Ltd.</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ============ MOBILE BOTTOM APP BAR ============ -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-[99] bg-white/95 dark:bg-[#0b1329]/95 backdrop-blur-md border-t border-slate-100/80 dark:border-white/10 shadow-[0_-8px_30px_rgba(0,0,0,0.03)] h-[64px] pb-safe flex items-center">
+        <div class="container mx-auto px-4 h-full flex items-center">
+            <div class="w-full grid grid-cols-5 items-stretch justify-items-center h-full relative">
+                <!-- Home -->
+                <a href="index.html" class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 dark:text-slate-400 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-house text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Home</span>
+                </a>
+
+                <!-- Explore -->
+                <a href="products.html" class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 dark:text-slate-400 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-compass text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Explore</span>
+                </a>
+
+                <!-- Create -->
+                <div class="flex flex-col items-center justify-end h-full pb-2 group cursor-pointer relative w-full text-center">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center justify-center">
+                        <a href="#" aria-label="Create Listing" class="flex items-center justify-center bg-gradient-to-tr from-theme-primary to-indigo-500 text-white w-12 h-12 rounded-full border-[5px] border-white dark:border-[#0b1329] transition-all duration-300">
+                            <i class="fa-solid fa-plus text-base transition-transform duration-500 ease-out group-hover:rotate-90"></i>
+                        </a>
+                    </div>
+                    <span class="text-[9px] font-bold tracking-wide text-slate-500 transition-colors duration-300 group-hover:text-theme-primary">Create</span>
+                </div>
+
+                <!-- Store -->
+                <a href="products.html?deal=New" class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 dark:text-slate-400 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-solid fa-store text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Store</span>
+                </a>
+
+                <!-- Account -->
+                <a href="account.html" class="flex flex-col items-center justify-end h-full pb-2 text-slate-500 dark:text-slate-400 hover:text-theme-primary transition-all w-full text-center relative">
+                    <i class="fa-regular fa-user text-lg mb-1"></i>
+                    <span class="text-[9px] font-bold tracking-wide">Account</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ SCRIPTS ============ -->
+    <!-- JQuery -->
+    <script src="Plugins-Framework/jquery/jquery-3.7.1.min.js"></script>
+
+    <!-- Unified Backdrop Controller -->
+    <script>
+        const shebaBackdrop = {
+            _element: null,
+            _activeOffcanvases: new Set(),
+            init: function () {
+                if (!this._element) {
+                    this._element = $('#common-offcanvas-backdrop');
+                }
+            },
+            show: function (offcanvasSelector, closeCallback) {
+                this.init();
+                this._activeOffcanvases.add(offcanvasSelector);
+                const canvas = $(offcanvasSelector);
+                const canvasIndex = canvas.data('canvas-index') || 999;
+                const backdropIndex = canvas.data('backdrop-index') || 990;
+                this._element.css('z-index', backdropIndex);
+                this._element.removeClass('hidden').addClass('block');
+                setTimeout(() => this._element.addClass('opacity-100'), 50);
+                $('body').css('overflow', 'hidden');
+                canvas.css('z-index', canvasIndex);
+                this._element.off('click').on('click', (e) => {
+                    e.stopPropagation();
+                    if (typeof closeCallback === 'function') closeCallback();
+                });
+            },
+            hide: function (offcanvasSelector) {
+                this.init();
+                this._activeOffcanvases.delete(offcanvasSelector);
+                const canvas = $(offcanvasSelector);
+                canvas.css('z-index', '');
+                if (this._activeOffcanvases.size === 0) {
+                    this._element.removeClass('opacity-100');
+                    setTimeout(() => {
+                        if (this._activeOffcanvases.size === 0) {
+                            this._element.removeClass('block').addClass('hidden');
+                            $('body').css('overflow', '');
+                        }
+                    }, 300);
+                }
+            }
+        };
+    </script>
+
+    <!-- Settings Controller (Theme, Language, Country) -->
+    <script id="sheba-theme-settings-controller">
+        $(document).ready(function () {
+            const THEME_KEY = 'sheba_theme';
+            const LANG_KEY = 'sheba_lang';
+            const COUNTRY_KEY = 'sheba_country';
+
+            const COUNTRIES_LIST = [
+                { code: 'BD', name: 'Bangladesh', flag: '🇧🇩', currency: 'BDT (৳)', region: 'Asia' },
+                { code: 'US', name: 'United States', flag: '🇺🇸', currency: 'USD ($)', region: 'North America' },
+                { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', currency: 'GBP (£)', region: 'Europe' },
+                { code: 'CA', name: 'Canada', flag: '🇨🇦', currency: 'CAD ($)', region: 'North America' },
+                { code: 'AU', name: 'Australia', flag: '🇦🇺', currency: 'AUD ($)', region: 'Oceania' },
+                { code: 'IN', name: 'India', flag: '🇮🇳', currency: 'INR (₹)', region: 'Asia' },
+                { code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪', currency: 'AED (د.إ)', region: 'Middle East' },
+                { code: 'SA', name: 'Saudi Arabia', flag: '🇸🇦', currency: 'SAR (﷼)', region: 'Middle East' },
+                { code: 'MY', name: 'Malaysia', flag: '🇲🇾', currency: 'MYR (RM)', region: 'Asia' },
+                { code: 'SG', name: 'Singapore', flag: '🇸🇬', currency: 'SGD ($)', region: 'Asia' },
+                { code: 'DE', name: 'Germany', flag: '🇩🇪', currency: 'EUR (€)', region: 'Europe' },
+                { code: 'JP', name: 'Japan', flag: '🇯🇵', currency: 'JPY (¥)', region: 'Asia' }
+            ];
+
+            let currentCountry = null;
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    $('html').addClass('dark');
+                    $('body').addClass('dark');
+                    $('#theme-btn-dark').addClass('is-active');
+                    $('#theme-btn-light').removeClass('is-active');
+                } else {
+                    $('html').removeClass('dark');
+                    $('body').removeClass('dark');
+                    $('#theme-btn-light').addClass('is-active');
+                    $('#theme-btn-dark').removeClass('is-active');
+                }
+                localStorage.setItem(THEME_KEY, theme);
+            }
+
+            function applyLanguage(lang) {
+                if (lang === 'BN') {
+                    $('#lang-btn-bn').addClass('is-active');
+                    $('#lang-btn-en').removeClass('is-active');
+                } else {
+                    $('#lang-btn-en').addClass('is-active');
+                    $('#lang-btn-bn').removeClass('is-active');
+                }
+                localStorage.setItem(LANG_KEY, lang);
+            }
+
+            function autoDetectCountry() {
+                try {
+                    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    if (timeZone.includes('Dhaka') || timeZone.includes('Asia/Dhaka')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'BD');
+                    } else if (timeZone.includes('New_York') || timeZone.includes('America') || timeZone.includes('Los_Angeles')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'US');
+                    } else if (timeZone.includes('London')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'GB');
+                    } else if (timeZone.includes('Kolkata') || timeZone.includes('Calcutta')) {
+                        return COUNTRIES_LIST.find(c => c.code === 'IN');
+                    }
+                } catch (e) {}
+                return COUNTRIES_LIST[0];
+            }
+
+            function applyCountry(countryObj, isManual = false) {
+                currentCountry = countryObj;
+                if (isManual) {
+                    localStorage.setItem(COUNTRY_KEY, countryObj.code);
+                    $('#settings-country-mode-badge').text('Selected').removeClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400').addClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300');
+                } else {
+                    $('#settings-country-mode-badge').text('Auto Detected').removeClass('bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300').addClass('bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400');
+                }
+                $('#header-country-flag').text(countryObj.flag);
+                $('#header-country-btn').attr('title', `Country: ${countryObj.name} (${countryObj.code})`);
+                $('#settings-active-flag').text(countryObj.flag);
+                $('#settings-active-name').text(countryObj.name);
+                $('#settings-active-code').text(countryObj.code);
+                $('#settings-active-currency').text(`Currency: ${countryObj.currency}`);
+                $('#settings-currency-display').text(countryObj.currency);
+                renderCountryList();
+            }
+
+            function renderCountryList(query = '') {
+                const listEl = $('#settings-country-list');
+                if (!listEl.length) return;
+                const filtered = COUNTRIES_LIST.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.code.toLowerCase().includes(query.toLowerCase()));
+                if (filtered.length === 0) {
+                    listEl.html('<div class="py-4 text-center text-xs text-slate-400">No country found</div>');
+                    return;
+                }
+                let html = '';
+                filtered.forEach(c => {
+                    const isSelected = currentCountry && currentCountry.code === c.code;
+                    html += `
+                        <button type="button" data-country-code="${c.code}"
+                            class="country-item-btn w-full flex items-center justify-between p-2 rounded-xl text-left transition-all cursor-pointer ${
+                                isSelected ? 'bg-theme-primary/10 dark:bg-indigo-500/20 text-theme-primary dark:text-indigo-300 font-bold' : 'hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200'
+                            }">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="w-6 h-6 flex items-center justify-center text-base leading-none shrink-0">${c.flag}</span>
+                                <span class="text-xs truncate font-medium">${c.name}</span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-[#1e293b] text-slate-500 dark:text-slate-400 font-medium shrink-0">${c.code}</span>
+                            </div>
+                            <div class="shrink-0 flex items-center gap-1.5">
+                                <span class="text-[10px] text-slate-400">${c.currency.split(' ')[0]}</span>
+                                ${isSelected ? '<i class="fa-solid fa-check text-xs text-theme-primary dark:text-indigo-400"></i>' : ''}
+                            </div>
+                        </button>
+                    `;
+                });
+                listEl.html(html);
+            }
+
+            const savedTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            const savedLang = localStorage.getItem(LANG_KEY) || 'EN';
+            applyLanguage(savedLang);
+
+            const savedCountryCode = localStorage.getItem(COUNTRY_KEY);
+            if (savedCountryCode) {
+                const found = COUNTRIES_LIST.find(c => c.code === savedCountryCode);
+                applyCountry(found || autoDetectCountry(), !!found);
+            } else {
+                applyCountry(autoDetectCountry(), false);
+            }
+
+            const settingsOffcanvas = $('#settings-offcanvas');
+            function openSettingsOffcanvas() {
+                settingsOffcanvas.removeClass('translate-x-full invisible').addClass('translate-x-0');
+                shebaBackdrop.show('#settings-offcanvas', closeSettingsOffcanvas);
+            }
+            function closeSettingsOffcanvas() {
+                settingsOffcanvas.addClass('translate-x-full').removeClass('translate-x-0');
+                $('#settings-country-panel').addClass('hidden');
+                $('#settings-country-chevron').removeClass('rotate-180');
+                setTimeout(() => {
+                    if (settingsOffcanvas.hasClass('translate-x-full')) settingsOffcanvas.addClass('invisible');
+                }, 300);
+                shebaBackdrop.hide('#settings-offcanvas');
+            }
+
+            $(document).on('click', '#settings-toggle-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openSettingsOffcanvas();
+            });
+            $(document).on('click', '#header-country-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openSettingsOffcanvas();
+                setTimeout(() => {
+                    $('#settings-country-panel').removeClass('hidden');
+                    $('#settings-country-chevron').addClass('rotate-180');
+                    $('#settings-country-search').focus();
+                }, 350);
+            });
+            $(document).on('click', '#settings-close-btn', function (e) {
+                e.preventDefault();
+                closeSettingsOffcanvas();
+            });
+            $(document).on('click', '.theme-toggle-btn', function (e) {
+                e.preventDefault();
+                applyTheme($(this).data('theme'));
+            });
+            $(document).on('click', '.lang-select-btn', function (e) {
+                e.preventDefault();
+                applyLanguage($(this).data('lang'));
+            });
+            $(document).on('click', '#settings-country-toggle-btn', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#settings-country-panel').toggleClass('hidden');
+                $('#settings-country-chevron').toggleClass('rotate-180');
+                if (!$('#settings-country-panel').hasClass('hidden')) {
+                    $('#settings-country-search').val('').focus();
+                    renderCountryList();
+                }
+            });
+            $(document).on('input', '#settings-country-search', function () {
+                renderCountryList($(this).val());
+            });
+            $(document).on('click', '.country-item-btn', function (e) {
+                e.preventDefault();
+                const code = $(this).data('country-code');
+                const selected = COUNTRIES_LIST.find(c => c.code === code);
+                if (selected) {
+                    applyCountry(selected, true);
+                    $('#settings-country-panel').addClass('hidden');
+                    $('#settings-country-chevron').removeClass('rotate-180');
+                }
+            });
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#settings-country-panel, #settings-country-toggle-btn').length) {
+                    $('#settings-country-panel').addClass('hidden');
+                    $('#settings-country-chevron').removeClass('rotate-180');
+                }
+            });
+        });
+    </script>
+
+    <!-- Mobile Nav Offcanvas Controller -->
+    <script>
+        $(document).ready(function () {
+            const navOffcanvas = $('#nav-offcanvas');
+            function openMobileNav() {
+                navOffcanvas.removeClass('-translate-x-full invisible').addClass('translate-x-0');
+                shebaBackdrop.show('#nav-offcanvas', closeMobileNav);
+            }
+            function closeMobileNav() {
+                navOffcanvas.addClass('-translate-x-full').removeClass('translate-x-0');
+                setTimeout(() => {
+                    if (navOffcanvas.hasClass('-translate-x-full')) navOffcanvas.addClass('invisible');
+                }, 300);
+                shebaBackdrop.hide('#nav-offcanvas');
+            }
+            $(document).on('click', '#mobile-menu-btn', function (e) {
+                e.preventDefault();
+                openMobileNav();
+            });
+            $(document).on('click', '#nav-close-btn', function (e) {
+                e.preventDefault();
+                closeMobileNav();
+            });
+        });
+    </script>
+
+    <!-- Profile Tab Switcher & Interactive Scripts -->
+    <script>
+        $(document).ready(function () {
+            // Profile Navigation Tabs (Home vs About)
+            $('.profile-nav-tab').on('click', function () {
+                const targetTab = $(this).data('tab');
+
+                // Active tab styling
+                $('.profile-nav-tab').removeClass('bg-theme-primary text-white shadow-xs').addClass('text-slate-600 dark:text-slate-300 hover:text-theme-primary dark:hover:text-white bg-transparent');
+                $(this).addClass('bg-theme-primary text-white shadow-xs').removeClass('text-slate-600 dark:text-slate-300 hover:text-theme-primary dark:hover:text-white bg-transparent');
+
+                // Toggle views
+                if (targetTab === 'home') {
+                    $('#profile-tab-home-content').removeClass('hidden');
+                    $('#profile-tab-about-content').addClass('hidden');
+                } else if (targetTab === 'about') {
+                    $('#profile-tab-about-content').removeClass('hidden');
+                    $('#profile-tab-home-content').addClass('hidden');
+                }
+            });
+
+            // Layout Toggle (Grid vs List)
+            $('#seller-grid-layout-btn').on('click', function () {
+                $(this).addClass('text-theme-primary bg-white dark:bg-[#1e293b] shadow-2xs').removeClass('text-slate-400 bg-transparent');
+                $('#seller-list-layout-btn').removeClass('text-theme-primary bg-white dark:bg-[#1e293b] shadow-2xs').addClass('text-slate-400 bg-transparent');
+                $('#seller-product-grid').removeClass('grid-cols-1').addClass('grid-cols-1 sm:grid-cols-2 lg:grid-cols-3');
+            });
+
+            $('#seller-list-layout-btn').on('click', function () {
+                $(this).addClass('text-theme-primary bg-white dark:bg-[#1e293b] shadow-2xs').removeClass('text-slate-400 bg-transparent');
+                $('#seller-grid-layout-btn').removeClass('text-theme-primary bg-white dark:bg-[#1e293b] shadow-2xs').addClass('text-slate-400 bg-transparent');
+                $('#seller-product-grid').removeClass('grid-cols-1 sm:grid-cols-2 lg:grid-cols-3').addClass('grid-cols-1');
+            });
+
+            // Mobile Filter Drawer Toggle
+            const unifiedSidebar = $('#unified-sidebar-filter');
+            function openFilterDrawer() {
+                unifiedSidebar.removeClass('-translate-x-full').addClass('translate-x-0');
+                shebaBackdrop.show('#unified-sidebar-filter', closeFilterDrawer);
+            }
+            function closeFilterDrawer() {
+                unifiedSidebar.addClass('-translate-x-full').removeClass('translate-x-0');
+                shebaBackdrop.hide('#unified-sidebar-filter');
+            }
+
+            $('#mobile-filter-open-btn').on('click', openFilterDrawer);
+            $('#filter-close-btn, #seller-filter-apply-btn').on('click', function () {
+                if (window.innerWidth < 1024) closeFilterDrawer();
+            });
+
+            // Category change listener & Clear filters
+            $(document).on('category:change', function (e, data) {
+                console.log('Selected Category in Seller Profile:', data);
+            });
+
+            $('#seller-filter-clear-btn').on('click', function () {
+                if (window.CategoryWidget) {
+                    window.CategoryWidget.reset('#seller-cat-widget');
+                }
+                $('#seller-department-select').val('');
+                $('#seller-func-select').val('');
+                $('#seller-price-min').val('');
+                $('#seller-price-max').val('');
+            });
+
+            // Wishlist button toggle
+            $(document).on('click', '.wishlist-btn', function (e) {
+                e.preventDefault();
+                const icon = $(this).find('i');
+                if (icon.hasClass('fa-regular')) {
+                    icon.removeClass('fa-regular').addClass('fa-solid text-rose-500');
+                } else {
+                    icon.removeClass('fa-solid text-rose-500').addClass('fa-regular');
+                }
+            });
+
+            // Follow button toggle
+            $('#seller-follow-btn').on('click', function () {
+                const icon = $(this).find('i');
+                const text = $(this).find('span');
+                if (text.text() === 'Follow') {
+                    text.text('Following');
+                    icon.removeClass('fa-regular').addClass('fa-solid text-rose-500');
+                    $(this).addClass('border-rose-500 text-rose-500');
+                } else {
+                    text.text('Follow');
+                    icon.removeClass('fa-solid text-rose-500').addClass('fa-regular');
+                    $(this).removeClass('border-rose-500 text-rose-500');
+                }
+            });
+
+            // Mobile bottom nav padding adjustment
+            function adjustMobileBottomPadding() {
+                const bottomNav = document.querySelector('.lg\\:hidden.fixed.bottom-0');
+                if (bottomNav && window.getComputedStyle(bottomNav).display !== 'none') {
+                    document.body.style.paddingBottom = bottomNav.offsetHeight + 'px';
+                } else {
+                    document.body.style.paddingBottom = '0px';
+                }
+            }
+            adjustMobileBottomPadding();
+            $(window).on('resize', adjustMobileBottomPadding);
+        });
+    </script>
+
+    <!-- Unified Category Widget Engine -->
+    <script src="frontend/js/category-modal.js"></script>
+</body>
+
+</html>
